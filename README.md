@@ -1,5 +1,7 @@
 # fix-cv-find-job-skill
 
+**English** · [Español](README.es.md)
+
 **Fixes your CV and finds you a job.** A Claude skill that audits your resume
 like a recruiter, rewrites it as a master template you can adapt to any opening,
 searches the job boards you actually use, applies for you, aligns your LinkedIn,
@@ -92,13 +94,72 @@ git clone https://github.com/atarico/fix-cv-find-job-skill.git
 ln -s "$PWD/fix-cv-find-job-skill/skills/fix-cv-find-job-skill" ~/.claude/skills/
 ```
 
-## Use it
+## How to use it
 
-You do not invoke it with a command. Just say what you want:
+### Before you start
 
-> review my CV · revisa mi CV · find me a job · buscame trabajo · check my email
+- Your CV in any format — PDF, Word, or pasted as plain text. If you do not have
+  one, a link to your professional profile works to begin with.
+- For the job search phases: be **logged in** on the job boards you want to
+  search, in the same browser. This skill never creates accounts and never
+  enters passwords.
 
-It answers in your language.
+### Starting
+
+There is no command to remember. Attach your CV and write what you want:
+
+> review my CV · find me a job · check my email for replies
+
+It replies in whatever language you write in.
+
+### What happens, step by step
+
+**1. It asks what it needs.** Your CV, and which Claude surface you are on — the
+answer decides whether the browser phases are available.
+
+**2. You get the audit.** Twenty roles you are the best candidate for split into
+direct, adjacent and stretch; the ATS keywords you should be carrying, marked as
+present, weak or missing; what a screener sees in the first ten seconds; and a
+score out of ten with a breakdown and the path to raising it.
+
+Then it stops and asks whether to rewrite.
+
+**3. You get the master CV.** Every bullet rebuilt on the XYZ formula — result,
+number, method — with vague and passive language stripped out, the keywords
+worked in, two pages, and several swappable summary variants so you can retarget
+it per opening. Delivered as `.docx` and `.pdf`.
+
+If you have no browser available, this is where it ends, and it hands you the
+files plus instructions for applying by hand. That is a complete outcome.
+
+**4. It surveys the market.** It asks which platforms you use, your salary
+expectation, your target seniority, and your hard disqualifiers — the
+requirements you genuinely cannot meet. Then it searches, scores every opening,
+and gives you a ranked table plus the list of what it discarded and why.
+
+Then it stops and asks whether to apply.
+
+**5. It applies.** A tailored CV and cover letter per opening, forms filled,
+everything recorded. It asks first whether you want to approve submissions in
+one batch at the end or one at a time.
+
+**6. LinkedIn and inbox, if you want them.** Profile aligned with the new CV;
+inbox sorted into real replies, new openings and automatic receipts.
+
+### Answer honestly when it asks
+
+The audit and the match scores are only as good as what you tell it. If you
+overstate your seniority or hide a disqualifier, it will send you to interviews
+you cannot pass. It never invents anything you did not give it — which also
+means it cannot fix what you misreport.
+
+### Triggering the inbox check on its own
+
+You do not have to run the whole workflow. At any point, in any conversation:
+
+> check my email
+
+It sorts replies, new openings and receipts, and reports back.
 
 ### Keeping your campaign between sessions
 

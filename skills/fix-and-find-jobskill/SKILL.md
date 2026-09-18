@@ -6,7 +6,7 @@ compatibility: Requires a browser-capable Claude surface (Claude in Chrome side 
 metadata:
   version: 0.1.0
   author: atarico
-  repository: https://github.com/atarico/fix-and-find-jobskill
+  repository: https://github.com/atarico/fixCV-and-findJob-skill
 ---
 
 # Fix and Find

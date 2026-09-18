@@ -1,0 +1,30 @@
+{
+  "name": "fix-and-find",
+  "owner": {
+    "name": "atarico",
+    "url": "https://github.com/atarico"
+  },
+  "metadata": {
+    "description": "CV repair and job hunting tools for Claude.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "fix-and-find-jobskill",
+      "source": "./",
+      "description": "Fixes your CV and finds you a job. Audits and rewrites your resume for ATS, searches openings, applies for you, aligns your LinkedIn, and triages your inbox. Any industry.",
+      "version": "0.1.0",
+      "author": {
+        "name": "atarico"
+      },
+      "license": "Apache-2.0",
+      "keywords": [
+        "cv",
+        "resume",
+        "ats",
+        "job-search",
+        "career"
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-# fix-and-find-jobskill
+# fix-cv-find-job-skill
 
 **Fixes your CV and finds you a job.** A Claude skill that audits your resume
 like a recruiter, rewrites it as a master template you can adapt to any opening,
@@ -68,8 +68,8 @@ a failure.
 The simplest path, and the one to use if you work in the Claude in Chrome side
 panel.
 
-1. Download `fix-and-find-jobskill.zip` from
-   [Releases](https://github.com/atarico/fixCV-and-findJob-skill/releases), or
+1. Download `fix-cv-find-job-skill.zip` from
+   [Releases](https://github.com/atarico/fix-cv-find-job-skill/releases), or
    build it yourself with `./scripts/package.sh`
 2. In Claude, go to **Settings → Skills → Upload skill**
 3. Select the zip. A security scan runs on save.
@@ -81,15 +81,15 @@ automatically.
 ### Install as a plugin
 
 ```
-/plugin marketplace add atarico/fixCV-and-findJob-skill
-/plugin install fix-and-find-jobskill@fix-and-find
+/plugin marketplace add atarico/fix-cv-find-job-skill
+/plugin install fix-cv-find-job-skill@fix-cv-find-job
 ```
 
 ### Claude Code
 
 ```bash
-git clone https://github.com/atarico/fixCV-and-findJob-skill.git
-ln -s "$PWD/fixCV-and-findJob-skill/skills/fix-and-find-jobskill" ~/.claude/skills/
+git clone https://github.com/atarico/fix-cv-find-job-skill.git
+ln -s "$PWD/fix-cv-find-job-skill/skills/fix-cv-find-job-skill" ~/.claude/skills/
 ```
 
 ## Use it

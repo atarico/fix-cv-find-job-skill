@@ -1,12 +1,12 @@
 ---
-name: fix-and-find-jobskill
+name: fix-cv-find-job-skill
 description: Fixes your CV and finds you a job. Use when the user wants a resume or CV reviewed, rewritten, scored, or optimized for ATS; wants to find or search job openings and vacancies; wants help applying to jobs, writing cover letters, or tracking applications; wants their LinkedIn profile improved to match their CV; or says things like "review my CV", "revisa mi CV", "find me a job", "buscame trabajo", "apply for me", "postulate por mi", "check my email for job replies" or "revisa mi mail". Works for any industry or profession, not only tech.
 license: Apache-2.0
 compatibility: Requires a browser-capable Claude surface (Claude in Chrome side panel, Claude Cowork on desktop, or Claude Code with --chrome) for the job search, auto-apply and inbox phases. The CV audit and CV rewrite phases run on any surface.
 metadata:
   version: 0.1.0
   author: atarico
-  repository: https://github.com/atarico/fixCV-and-findJob-skill
+  repository: https://github.com/atarico/fix-cv-find-job-skill
 ---
 
 # Fix and Find

@@ -5,7 +5,7 @@
 # `name` field in SKILL.md, so we zip the skill folder from inside skills/.
 set -euo pipefail
 
-SKILL_NAME="fix-and-find-jobskill"
+SKILL_NAME="fix-cv-find-job-skill"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$ROOT/skills/$SKILL_NAME"
 OUT="$ROOT/dist/$SKILL_NAME.zip"

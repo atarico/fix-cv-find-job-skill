@@ -4,7 +4,7 @@ description: Fixes your CV and finds you a job. Use when the user wants a resume
 license: Apache-2.0
 compatibility: Requires a browser-capable Claude surface (Claude in Chrome side panel, Claude Cowork on desktop, or Claude Code with --chrome) for the job search, auto-apply and inbox phases. The CV audit and CV rewrite phases run on any surface.
 metadata:
-  version: 0.1.0
+  version: 0.1.1
   author: atarico
   repository: https://github.com/atarico/fix-cv-find-job-skill
 ---

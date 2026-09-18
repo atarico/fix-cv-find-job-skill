@@ -101,17 +101,42 @@ Build the .docx with `python-docx` and the .pdf with `reportlab`, or generate
 the .docx and render the .pdf from it. Deliver both as downloads. There is no
 local working directory here; the user saves the files through the browser.
 
-**Claude Code** — convert locally:
+**Claude Code** — convert locally, and **always pass the reference document**:
 
 ```bash
-pandoc CV.md -o "CV_<Name>.docx" --reference-doc=reference.docx
-libreoffice --headless --convert-to pdf "CV_<Name>.docx" --outdir .
+pandoc CV.md -o "CV_<Name>_Master.docx" --reference-doc=assets/reference.docx
+libreoffice --headless --convert-to pdf "CV_<Name>_Master.docx" --outdir .
 ```
 
-Then verify the result rather than trusting it: confirm the page count is two
-or fewer, confirm the text is selectable in the PDF, and confirm no content was
-dropped in conversion. If it runs to three pages, cut — do not shrink the font
-below readable size or squeeze the margins to hide the overflow.
+`assets/reference.docx` ships with this skill. It matters: pandoc's stock
+styling is built for reports — one-inch margins, 12pt body, oversized headings —
+and renders the same CV across four pages. Without this flag you will cut good
+content to fix a problem that was never the content's.
+
+If the file is missing, regenerate it with `scripts/make-reference-docx.py` from
+the repository. Do not work around its absence by shrinking the font.
+
+### Verify, do not trust
+
+Check the output rather than assuming the conversion behaved:
+
+```bash
+pdfinfo "CV_<Name>_Master.pdf" | grep Pages     # must be 2 or fewer
+pdftotext "CV_<Name>_Master.pdf" - | wc -c      # must be non-trivial
+```
+
+A PDF that yields almost no characters is an image, and an image is invisible to
+every ATS. Then spot-check that the contact details, every employer, and the
+headline metrics all survived into the extracted text.
+
+A finished two-page CV lands around 3,000 characters per page. Substantially
+less means the layout is loose, not that the content is thin — fix the layout
+before cutting anything.
+
+If it still runs long, **cut content**: drop the weakest bullet from each role,
+keeping the ones carrying numbers, and fold any evidence worth saving into a
+surviving bullet. Never shrink the font below readable size and never squeeze
+the margins to hide the overflow. A cramped CV reads as desperate.
 
 Name the files `CV_<Name>_Master.docx` and `CV_<Name>_Master.pdf`.
 

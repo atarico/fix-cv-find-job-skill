@@ -65,29 +65,41 @@ a failure.
 
 ## Install
 
-### Upload as a skill
+### From the interface — no download, no terminal
 
-The simplest path, and the one to use if you work in the Claude in Chrome side
-panel.
+The easiest path, and the right one for most people.
+
+1. In Claude, open **Customize → Plugins**
+2. Click **+** → **Add marketplace** → **Add from a repository**
+3. Paste `atarico/fix-cv-find-job-skill` and confirm
+4. Install the plugin
+
+That is it. Installing the plugin activates the skill, and it works the same way
+an uploaded one does.
+
+Plugins are enabled per account, so doing this once from claude.ai also covers
+the Claude in Chrome side panel and Claude Cowork on desktop — there is no
+separate setup for each.
+
+### Upload the zip instead
+
+Plugins run in Cowork, in the Chrome side panel and in Claude Code, but **not in
+ordinary claude.ai chat**. If that is where you work, install it as a skill:
 
 1. Download `fix-cv-find-job-skill.zip` from
    [Releases](https://github.com/atarico/fix-cv-find-job-skill/releases), or
    build it yourself with `./scripts/package.sh`
-2. In Claude, go to **Settings → Skills → Upload skill**
+2. Go to **Settings → Skills → Upload skill**
 3. Select the zip. A security scan runs on save.
 
-Once enabled it is available across your account — including the Chrome side
-panel, which runs as a Cowork session and picks up your account skills
-automatically.
-
-### Install as a plugin
+### From the terminal
 
 ```
 /plugin marketplace add atarico/fix-cv-find-job-skill
 /plugin install fix-cv-find-job-skill@fix-cv-find-job
 ```
 
-### Claude Code
+Or in Claude Code, straight from a clone:
 
 ```bash
 git clone https://github.com/atarico/fix-cv-find-job-skill.git

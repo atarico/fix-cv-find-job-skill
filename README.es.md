@@ -65,29 +65,42 @@ no una falla.
 
 ## Instalación
 
-### Subirla como habilidad
+### Desde la interfaz — sin descargar nada, sin terminal
 
-El camino más simple, y el que conviene si trabajás en el panel lateral de
-Claude en Chrome.
+El camino más fácil, y el que corresponde para la mayoría.
+
+1. En Claude, abrí **Personalizar → Plugins**
+2. Tocá **+** → **Agregar marketplace** → **Agregar desde un repositorio**
+3. Pegá `atarico/fix-cv-find-job-skill` y confirmá
+4. Instalá el plugin
+
+Eso es todo. Instalar el plugin activa la skill, y funciona igual que una
+subida a mano.
+
+Los plugins se habilitan por cuenta, así que hacer esto una vez desde claude.ai
+también cubre el panel lateral de Claude en Chrome y Claude Cowork en
+escritorio — no hay que configurar cada uno por separado.
+
+### Subir el zip
+
+Los plugins corren en Cowork, en el panel lateral de Chrome y en Claude Code,
+pero **no en el chat común de claude.ai**. Si ahí es donde trabajás, instalala
+como habilidad:
 
 1. Descargá `fix-cv-find-job-skill.zip` desde
    [Releases](https://github.com/atarico/fix-cv-find-job-skill/releases), o
    generalo vos mismo con `./scripts/package.sh`
-2. En Claude, andá a **Configuración → Habilidades → Subir habilidad**
+2. Andá a **Configuración → Habilidades → Subir habilidad**
 3. Seleccioná el zip. Se ejecuta un análisis de seguridad al guardar.
 
-Una vez habilitada queda disponible en toda tu cuenta — incluido el panel
-lateral de Chrome, que corre como una sesión de Cowork y toma automáticamente
-las habilidades de tu cuenta.
-
-### Instalarla como plugin
+### Desde la terminal
 
 ```
 /plugin marketplace add atarico/fix-cv-find-job-skill
 /plugin install fix-cv-find-job-skill@fix-cv-find-job
 ```
 
-### Claude Code
+O en Claude Code, directo desde un clon:
 
 ```bash
 git clone https://github.com/atarico/fix-cv-find-job-skill.git

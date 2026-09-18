@@ -8,6 +8,30 @@ and triages your inbox for replies.
 Works for **any industry**. It derives your field from your own CV instead of
 assuming you work in tech.
 
+## Why this exists
+
+I got tired of doing this by hand.
+
+Tired of opening the same CV for the twentieth time to move three bullets
+around because this posting wanted something slightly different from the last
+one. Tired of keeping a spreadsheet of where I had applied so I would not apply
+twice to the same company. Tired of digging through an inbox full of automated
+receipts to find the one message that was an actual reply. Tired of reading a
+posting, reading my CV, and doing the keyword matching in my head — again.
+
+None of that is hard work. It is repetitive work, and it is the kind of
+repetitive work that quietly eats the hours you should be spending on the
+applications that actually matter. Doing it badly costs you interviews. Doing
+it well costs you your week.
+
+So I wrote down every rule I had learned the expensive way — the ones that came
+from rejections, from applications that vanished, from a posting I misread —
+and turned them into a skill. Now the repetitive part runs on rails and I spend
+my attention on the parts that need a human.
+
+I built it for my own job search. I am publishing it because nobody should have
+to relearn these rules one lost application at a time.
+
 ## What it does
 
 | Phase | What you get | Needs a browser |
@@ -45,7 +69,7 @@ The simplest path, and the one to use if you work in the Claude in Chrome side
 panel.
 
 1. Download `fix-and-find-jobskill.zip` from
-   [Releases](https://github.com/atarico/fix-and-find-jobskill/releases), or
+   [Releases](https://github.com/atarico/fixCV-and-findJob-skill/releases), or
    build it yourself with `./scripts/package.sh`
 2. In Claude, go to **Settings → Skills → Upload skill**
 3. Select the zip. A security scan runs on save.
@@ -57,15 +81,15 @@ automatically.
 ### Install as a plugin
 
 ```
-/plugin marketplace add atarico/fix-and-find-jobskill
+/plugin marketplace add atarico/fixCV-and-findJob-skill
 /plugin install fix-and-find-jobskill@fix-and-find
 ```
 
 ### Claude Code
 
 ```bash
-git clone https://github.com/atarico/fix-and-find-jobskill.git
-ln -s "$PWD/fix-and-find-jobskill/skills/fix-and-find-jobskill" ~/.claude/skills/
+git clone https://github.com/atarico/fixCV-and-findJob-skill.git
+ln -s "$PWD/fixCV-and-findJob-skill/skills/fix-and-find-jobskill" ~/.claude/skills/
 ```
 
 ## Use it

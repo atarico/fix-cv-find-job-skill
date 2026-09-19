@@ -6,35 +6,41 @@ retargets the whole document.
 
 ## Format — ask once, before rewriting, only if there is something to ask
 
-Look at the source CV before starting. If it is already plain — no photo, no
-colour — there is nothing to decide: skip this and go straight to the rewrite.
+Ask only when there is an original design to weigh against Harvard style,
+which requires actually seeing the source CV's formatting.
 
-If the source CV carries a photo or colour, ask once, before rewriting
-anything, in the applicant's own language:
+- **The CV arrived as a file you can open.** Look at it. If it is already
+  plain — no photo, no colour — skip the question and go straight to the
+  rewrite.
+- **The CV arrived as pasted text or a LinkedIn profile URL.** There is no
+  original layout to inspect, so there is nothing to ask: say so plainly and
+  go straight to the rewrite in the Harvard style below.
+
+If the source file carries a photo or colour, ask once, before rewriting
+anything, in the applicant's own language, naming what each option delivers:
 
 > This skill returns your CV in the Harvard style: black and white, no photo.
 > Do you want it that way, or do you want to keep the styles your CV already
-> has? (Harvard style works better for foreign markets.)
+> has? (Harvard style works better for foreign markets.) Harvard gives you a
+> finished .docx and .pdf. Keeping your styles gives you those same two files
+> from this skill's one fixed template, plus the rewritten CV as plain text
+> you can paste into your own designed file.
 
 Then branch:
 
 - **Harvard.** Proceed with the rest of this phase exactly as written below.
-- **Keep their styles.** Rewrite only the text: content, wording, ordering and
-  ATS keywords still change under every rule in this phase. By intent, the
-  visual format does not.
+- **Keep their styles.** Rewrite the text under every rule in this phase —
+  content, wording, ordering and ATS keywords all change. The .docx and .pdf
+  still come out of `assets/reference.docx`, the same fixed template used for
+  the Harvard branch: neither branch can carry over the source file's
+  original photo, colour or layout. What this branch adds is the deliverable
+  that makes the choice worth making: alongside the .docx and .pdf, also save
+  and deliver the same clean Markdown already produced for the conversion
+  step, named `CV_<Name>_Master_<Language>.md`, so the applicant can paste
+  the rewritten sections into their own designed file.
 
-  Tell the applicant this before producing files, so the choice is informed:
-  the production step below — `assets/reference.docx` on Claude Code, or the
-  equivalent `python-docx` build on Claude in Chrome and Cowork — builds the
-  `.docx` from clean Markdown into one fixed template, the same one used for
-  the Harvard branch. That pipeline has no way to carry over the source
-  file's original photo, colour or layout. So with "keep their styles," what
-  this skill can actually deliver is the rewritten text in that same plain,
-  one-column template, not a copy of the original design. Say so plainly
-  before delivering the files, rather than handing over a plain document
-  without warning. If the applicant wants their original layout back, they
-  will need to paste the rewritten sections into their own file themselves —
-  this skill's toolchain does not do that step for them today.
+Record the answer in the campaign brief's `CV format choice` field
+(Section 0) so a later session does not ask again.
 
 ## Language — every language the applicant works in, not the posting's
 
@@ -207,17 +213,24 @@ language: the commands above emit it unconditionally and the two-page gate
 checks for it, so an exception here would leave the gate looking for a file
 that was never written.
 
+On the "keep their styles" branch this is a trio, not a pair: also save the
+clean Markdown the conversion step already produced, as
+`CV_<Name>_Master_<Language>.md`, and hand it over with the other two. It is
+the whole reason that branch exists — without it the choice delivers nothing
+the Harvard branch does not.
+
 ## Close the phase
 
 Show the user the finished CV and point out what changed and why — they should
-be able to maintain this themselves afterwards. Then:
+be able to maintain this themselves afterwards. Then name every file actually
+produced — three of them on the "keep their styles" branch, two on Harvard:
 
 > The master CV is ready in .docx and .pdf.
 >
 > From here I can search openings and apply for you, but that needs a browser
 > Claude can drive: the Claude in Chrome side panel, Claude Cowork on desktop,
-> or Claude Code started with `--chrome`. Claude in Chrome needs a paid plan
-> and runs on Chrome on desktop only.
+> or Claude Code started with `--chrome`. Any of those needs a paid plan, and
+> Claude in Chrome runs on Chrome on desktop only.
 >
 > If you have it, tell me and we keep going. If you would rather not, we stop
 > here — you have the files and I will show you how to adapt them per opening.

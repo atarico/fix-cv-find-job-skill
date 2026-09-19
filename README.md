@@ -10,6 +10,27 @@ and triages your inbox for replies.
 Works for **any industry**. It derives your field from your own CV instead of
 assuming you work in tech.
 
+## Contents
+
+- [Why this exists](#why-this-exists)
+- [What it does](#what-it-does)
+- [Requirements](#requirements)
+- [Install](#install)
+  - [From the interface — no download, no terminal](#from-the-interface--no-download-no-terminal)
+  - [Upload the zip instead](#upload-the-zip-instead)
+  - [From the terminal](#from-the-terminal)
+- [How to use it](#how-to-use-it)
+  - [Before you start](#before-you-start)
+  - [Starting](#starting)
+  - [What happens, step by step](#what-happens-step-by-step)
+  - [Answer honestly when it asks](#answer-honestly-when-it-asks)
+  - [Triggering the inbox check on its own](#triggering-the-inbox-check-on-its-own)
+  - [Keeping your campaign between sessions](#keeping-your-campaign-between-sessions)
+- [What it will not do](#what-it-will-not-do)
+  - [Two things to know](#two-things-to-know)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Why this exists
 
 I got tired of doing this by hand.

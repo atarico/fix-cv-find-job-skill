@@ -10,6 +10,27 @@ por vos, alinea tu LinkedIn y clasifica tu correo buscando respuestas.
 Sirve para **cualquier rubro**. Deduce tu campo a partir de tu propio CV en
 lugar de asumir que trabajás en tecnología.
 
+## Índice
+
+- [Por qué existe](#por-qué-existe)
+- [Qué hace](#qué-hace)
+- [Requisitos](#requisitos)
+- [Instalación](#instalación)
+  - [Desde la interfaz — sin descargar nada, sin terminal](#desde-la-interfaz--sin-descargar-nada-sin-terminal)
+  - [Subir el zip](#subir-el-zip)
+  - [Desde la terminal](#desde-la-terminal)
+- [Cómo usarla](#cómo-usarla)
+  - [Antes de empezar](#antes-de-empezar)
+  - [Cómo se arranca](#cómo-se-arranca)
+  - [Qué pasa, paso a paso](#qué-pasa-paso-a-paso)
+  - [Respondé con honestidad cuando pregunte](#respondé-con-honestidad-cuando-pregunte)
+  - [Disparar la revisión de correo por separado](#disparar-la-revisión-de-correo-por-separado)
+  - [Mantener la campaña entre sesiones](#mantener-la-campaña-entre-sesiones)
+- [Lo que no va a hacer](#lo-que-no-va-a-hacer)
+  - [Dos cosas para saber](#dos-cosas-para-saber)
+- [Contribuir](#contribuir)
+- [Licencia](#licencia)
+
 ## Por qué existe
 
 Me cansé de hacer esto a mano.

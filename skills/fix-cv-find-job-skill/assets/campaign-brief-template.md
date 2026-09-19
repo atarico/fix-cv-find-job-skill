@@ -20,10 +20,10 @@ What has already run, so a new session does not repeat it.
 Code. Confirmed once; a new session reads it from here instead of asking
 again: <surface>.
 
-**CV format choice** — Harvard style, or keep the applicant's original
-styles (delivered as plain text for their own file). Confirmed once, only
-when phase 2 asked the question; a new session reads it from here instead of
-asking again: <format>.
+**CV format choice** — one of two fixed values, `harvard` or `keep-styles`
+(the applicant's original styles, delivered also as plain text for their own
+file). Confirmed once, only when phase 2 asked the question; a new session
+reads it from here instead of asking again: <format>.
 
 | Phase | Done | Last run |
 |---|---|---|

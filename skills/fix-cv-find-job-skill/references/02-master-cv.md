@@ -6,20 +6,31 @@ retargets the whole document.
 
 ## Format — ask once, before rewriting, only if there is something to ask
 
-Before anything else, check the campaign brief's `CV format choice` field. A
-field that still carries its angle-bracket placeholder, such as `<format>` or
-`<surface>`, counts as empty and never as a recorded answer — this holds for
-every placeholder field in the brief, not only this one. If the field already
-holds an answer, use it and skip straight to the branch below — do not ask
-again. Only run the rest of this gate when that field is empty.
+Before anything else, check the campaign brief's `CV format choice` field.
+What an angle-bracket token means depends on where it sits. A brief field that
+still carries its placeholder, such as `<format>` or `<surface>`, is
+legitimately unanswered and counts as empty, never as a recorded answer — this
+holds for every placeholder field in the brief, not only this one. Everywhere
+else they mark a value to fill in: a slot in a message written to the
+applicant, or a variable in a filename like `<Name>` and `<Language>`. Those
+must always be substituted, and no angle-bracket token may ever reach text the
+applicant actually reads or a file they receive — see the close-phase rule
+below for the check that enforces it. If the field already
+holds `harvard` or `keep-styles`, skip straight to that branch below — do not
+ask again. Only run the rest of this gate when that field is empty.
 
 Ask only when there is an original design to weigh against Harvard style — a
 photo, colour, multiple columns, or any deliberate typographic layout — which
 requires actually seeing the source CV's formatting.
 
-- **The CV arrived as a file you can open.** Look at it. If it is genuinely
-  plain — single column, no photo, no colour, no deliberate typographic
-  treatment — skip the question and go straight to the rewrite.
+- **The CV arrived as a file.** If you can open it and inspect its
+  formatting, look at it: if it is genuinely plain — single column, no
+  photo, no colour, no deliberate typographic treatment — skip the question
+  and go straight to the rewrite. If it cannot be inspected for formatting —
+  a scanned or image-only PDF, a password-protected or unsupported document,
+  an attachment that fails to render — there is nothing to weigh either: say
+  so plainly and go straight to the rewrite in the Harvard style below, the
+  same outcome as the pasted-text path, reached for a different reason.
 - **The CV arrived as pasted text or a LinkedIn profile URL.** There is no
   original layout to inspect, so there is nothing to ask: say so plainly and
   go straight to the rewrite in the Harvard style below.
@@ -54,10 +65,12 @@ Then branch:
   the rewritten sections into their own designed file.
 
 Record the answer in the campaign brief's `CV format choice` field (Section 0)
-only when this gate asked the question above and the applicant answered it.
-Every skip path — the plain CV, the pasted text or LinkedIn URL, and the
-resumed session with nothing left to inspect — leaves the field empty, so a
-later session with an actual CV to weigh can still ask.
+only when this gate asked the question above and the applicant answered it,
+writing exactly `harvard` or `keep-styles` — the only two values this field
+ever holds, so a resumed session reads a fixed token instead of
+re-interpreting prose. Every skip path — the plain CV, the pasted text or
+LinkedIn URL, and the resumed session with nothing left to inspect — leaves
+the field empty, so a later session with an actual CV to weigh can still ask.
 
 ## Language — every language the applicant works in, not the posting's
 
@@ -187,12 +200,22 @@ produced above to a file, named `CV_<Name>_Master_<Language>.md`. Deliver
 every file the naming rule below calls for as downloads. There is no local
 working directory here; the user saves the files through the browser.
 
+**That same setting, off.** It is off by default, so do not assume it is on.
+Without code execution there is no way to build a .docx or a .pdf on these
+surfaces: hand the applicant the clean Markdown already produced above,
+directly in the chat, as the deliverable. Say plainly why there are no
+files — code execution is off — and name the toggle: **Code execution and
+file creation**, under Settings > Capabilities. Let the applicant decide:
+turn it on and ask again for the finished files, or take the Markdown as is.
+This ends the phase here, before the close-phase file lines below — there
+are no files to name.
+
 **Claude Code** — convert locally, and **always pass the reference document**.
 Run this whole produce-and-verify block once per language, from a separate
 `CV_<Language>.md`, so one language's output never overwrites another's:
 
 ```bash
-pandoc CV_<Language>.md -o "CV_<Name>_Master_<Language>.docx" --reference-doc=assets/reference.docx
+pandoc "CV_<Language>.md" -o "CV_<Name>_Master_<Language>.docx" --reference-doc=assets/reference.docx
 libreoffice --headless --convert-to pdf "CV_<Name>_Master_<Language>.docx" --outdir .
 ```
 
@@ -202,7 +225,7 @@ disk. Copy it to `CV_<Name>_Master_<Language>.md` and hand that file over
 alongside the .docx and .pdf:
 
 ```bash
-cp CV_<Language>.md "CV_<Name>_Master_<Language>.md"
+cp "CV_<Language>.md" "CV_<Name>_Master_<Language>.md"
 ```
 
 `assets/reference.docx` ships with this skill. It matters: pandoc's stock
@@ -251,24 +274,28 @@ the whole reason that branch exists — without it the choice delivers nothing
 the Harvard branch does not. Verify it was actually written, once per
 language, the same way the two-page gate verifies the .docx and .pdf: on
 Claude Code, `test -s "CV_<Name>_Master_<Language>.md"` right after the `cp`
-above; on the browser branches, where there is no shell to check with,
-confirm before closing the phase that the file exists and was offered as a
-download alongside the .docx and .pdf.
+above; on the browser branches, where there is no shell to check with, the
+check is the close-phase message itself: the file counts as verified only if
+it is one of the files named in the closing line the applicant reads, so an
+`.md` that was not actually produced must never appear there.
 
 ## Close the phase
 
 Show the user the finished CV and point out what changed and why — they should
 be able to maintain this themselves afterwards. Then open with exactly one of
 the two lines below, never both, matching the branch just taken. Each line
-carries a `<files>` slot: replace it with the actual list of files this run
-produced, one entry per language — never a fixed count, since a bilingual or
-multilingual run produces one set per language:
+carries a `<files>` slot: on the Harvard branch, fill it with every `.docx`
+and `.pdf` produced this run, one pair per language processed; on the "keep
+their styles" branch, fill it with every `.docx`, `.pdf` and `.md` produced
+this run, one trio per language processed. Never a fixed count — a bilingual
+or multilingual run produces one set per language. Before sending, check
+both halves of the rule above: exactly one line went out, matching the
+branch taken, never both, and `<files>` was replaced in it — no
+angle-bracket token reaches the applicant.
 
-> **Harvard.** The master CV is ready: <files — every `.docx` and `.pdf`
-> produced this run, one pair per language processed>.
+> **Harvard.** The master CV is ready: <files>.
 
-> **Keep their styles.** The master CV is ready: <files — every `.docx`,
-> `.pdf` and `.md` produced this run, one trio per language processed>, so you
+> **Keep their styles.** The master CV is ready: <files>, so you
 > can paste the Markdown into your own design.
 
 > From here I can search openings and apply for you, but that needs a browser

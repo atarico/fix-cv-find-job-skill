@@ -127,8 +127,12 @@ Te responde en el idioma en el que le escribas.
 
 ### Qué pasa, paso a paso
 
-**1. Te pide lo que necesita.** Tu CV, y en qué superficie de Claude estás — la
-respuesta define si las fases con navegador están disponibles.
+**1. Te pide lo que necesita.** Tu CV, un brief de campaña si tenés uno de una
+sesión anterior, y en qué superficie de Claude estás — la respuesta define si
+las fases con navegador están disponibles. Si adjuntás un brief, retoma
+exactamente donde quedó esa sesión, sin repetir la auditoría ni la reescritura;
+si adjuntás un brief junto con un CV nuevo, te pregunta una sola vez si querés
+correr la auditoría y la reescritura sobre el nuevo.
 
 **2. Recibís la auditoría.** Veinte puestos para los que sos mejor candidato,
 divididos en directos, adyacentes y de salto; las palabras clave ATS que
@@ -140,23 +144,31 @@ Ahí se detiene y te pregunta si reescribe.
 
 **3. Recibís el CV maestro.** Cada viñeta reconstruida con la fórmula XYZ —
 resultado, número, método — sin lenguaje vago ni pasivo, con las palabras clave
-incorporadas, dos páginas, y varias variantes de resumen intercambiables para
-reorientarlo según la vacante. Entregado en `.docx` y `.pdf`.
+incorporadas, dos páginas, y varias variantes de resumen con nombre propio —
+una por especialización de la auditoría — para reorientarlo según la vacante
+eligiendo por nombre. Se construye en cada idioma en el que trabajás; el CV en
+sí nunca sigue el idioma de una vacante puntual, eso solo pasa con las copias a
+medida del paso 5. Entregado en `.docx` y `.pdf`, un par por idioma.
 
 Si no tenés navegador disponible, acá termina, y te entrega los archivos más las
 instrucciones para postular a mano. Eso es un resultado completo.
 
 **4. Releva el mercado.** Te pregunta qué plataformas usás, tus pretensiones
-salariales, a qué seniority apuntás y tus descalificadores duros — los
-requisitos que realmente no podés cumplir. Después busca, puntúa cada vacante y
-te da una tabla ordenada de mejor a peor, más la lista de lo que descartó y por
-qué.
+salariales como una tabla por seniority y mercado (si no tenés un número,
+busca un rango y lo confirma con vos), a qué seniority apuntás — y que no vas a
+postular por debajo de eso — y tus descalificadores duros, los requisitos que
+realmente no podés cumplir. Después busca, puntúa cada vacante y te da una
+tabla ordenada de mejor a peor, más la lista de lo que descartó y por qué, con
+la frase textual de cada aviso como evidencia de cada descalificador que se
+activó.
 
 Ahí se detiene y te pregunta si postula.
 
-**5. Postula.** CV y carta a medida por vacante, formularios completados, todo
-registrado. Primero te pregunta si querés aprobar los envíos todos juntos al
-final o de a uno.
+**5. Postula.** CV y carta a medida por vacante, en el idioma de cada aviso,
+formularios completados, todo registrado — incluido el puntaje de
+compatibilidad. Los duplicados se chequean con el método propio de cada
+plataforma antes de completar nada. Primero te pregunta si querés aprobar los
+envíos todos juntos al final o de a uno.
 
 **6. LinkedIn y correo, si los querés.** Perfil alineado con el CV nuevo;
 bandeja de entrada clasificada en respuestas reales, vacantes nuevas y acuses
@@ -183,7 +195,15 @@ Clasifica respuestas, vacantes nuevas y acuses, y te pasa el reporte.
 El panel lateral de Chrome no tiene disco persistente, así que nada se conserva
 por su cuenta. Al final de cada sesión la skill genera un **brief de campaña** —
 descargalo y adjuntalo la próxima vez. Restaura tu perfil, tus objetivos, todo a
-lo que postulaste y todo lo que quedó trabado.
+lo que postulaste y todo lo que quedó trabado — y retoma exactamente donde el
+brief dice que quedó la última sesión, así que la auditoría del CV y la
+reescritura del CV maestro nunca vuelven a correr una vez que el brief las
+marca como hechas.
+
+Si adjuntás un CV nuevo junto con un brief existente, te pregunta una sola vez
+si querés volver a correr la auditoría y la reescritura sobre ese CV; si le
+decís que no, conserva el CV maestro que ya tenías y va directo a buscar o
+postular.
 
 También evita la falla más común de una búsqueda larga: postular dos veces al
 mismo puesto.
@@ -195,7 +215,11 @@ Estos límites están incorporados y no son configurables.
 - Crear cuentas, ingresar contraseñas o autenticarse con SSO
 - Resolver CAPTCHAs
 - Inventar datos personales, fechas, credenciales o experiencia
+- Inventar una cifra de salario — solo usa lo que confirmaste vos o un rango de
+  mercado que aceptaste
 - Declarar habilidades o títulos que no estén en tu CV
+- Postular por debajo del piso de seniority que fijaste, aunque el aviso
+  puntúe bien por lo demás
 - Enviar correos en tu nombre — los redacta, vos los mandás
 - Aceptar una oferta, acordar condiciones o negociar
 - Borrar correo de forma definitiva — los acuses van a Papelera, recuperables

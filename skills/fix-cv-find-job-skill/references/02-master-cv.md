@@ -4,6 +4,16 @@ Rewrite the CV as a master template the user adapts to any opening. Not a
 finished CV for one job: a base where swapping a handful of marked lines
 retargets the whole document.
 
+## Language — every language the applicant works in, not the posting's
+
+No target posting exists yet at this phase, so nothing here follows one.
+Produce one complete master CV per language the applicant actually works in —
+ask which those are if it is not already obvious from the source CV. Build
+each language's master independently: translate the structure and the named
+summary variants (below), never machine-paraphrase one language from another
+in a way that drifts the claims apart. The posting's language only enters at
+phase 4, when a specific posting exists to tailor a copy toward.
+
 ## The XYZ formula
 
 Every bullet, without exception:
@@ -54,6 +64,16 @@ document. Current role in present tense, everything else past.
 
 ## Structure — two pages maximum
 
+This cap, and the machine-checked gate below that enforces it, serve the
+ordinary case this skill is built for: applicants hiring through job platforms,
+matched by recruiters and ATS software that expect a short, scannable
+document. Academic, research and government CVs — publications lists, clinical
+rotations, full grant histories, dossiers running well past two pages — follow
+longer conventions of their own field and are out of scope for this skill. That
+scope does not narrow the industry this skill serves: the overwhelming majority
+of professions hiring through platforms fit two pages; the exceptions above are
+named because they do not.
+
 1. **Header** — name, target job title, location and work arrangement (remote,
    hybrid, relocation), phone, professional email, and the links that matter in
    that field. Plain text, never inside an image or a header/footer element.
@@ -61,8 +81,14 @@ document. Current role in present tense, everything else past.
 2. **Flexible summary** — three to four lines. This is the block the user swaps
    per opening, so build it modular: seniority and years, core specialty, two or
    three proof points, and a closing line on the differentiator. Then supply
-   **three to five ready-made variants** aimed at the different role clusters
-   found in phase 1, clearly marked as swappable.
+   **three to five ready-made variants, each with its own name**, one per
+   specialisation found in phase 1's role clusters — derived from the
+   applicant's own CV, never assumed. Name each variant after what it targets
+   (for example, the specialisation itself, or "Direct" versus "Adjacent"
+   framing), so the applicant and phase 4 can pick one by name instead of by
+   guessing which block fits. Hold the same named set, translated, in every
+   language from the section above — a variant keeps its name and its target
+   across languages, only the text changes.
 
 3. **Skills** — grouped by category, front-loaded with the ATS keywords from
    phase 1 that the user can legitimately claim. Scannable, no rating bars, no
@@ -101,11 +127,13 @@ Build the .docx with `python-docx` and the .pdf with `reportlab`, or generate
 the .docx and render the .pdf from it. Deliver both as downloads. There is no
 local working directory here; the user saves the files through the browser.
 
-**Claude Code** — convert locally, and **always pass the reference document**:
+**Claude Code** — convert locally, and **always pass the reference document**.
+Run this whole produce-and-verify block once per language, from a separate
+`CV_<Language>.md`, so one language's output never overwrites another's:
 
 ```bash
-pandoc CV.md -o "CV_<Name>_Master.docx" --reference-doc=assets/reference.docx
-libreoffice --headless --convert-to pdf "CV_<Name>_Master.docx" --outdir .
+pandoc CV_<Language>.md -o "CV_<Name>_Master_<Language>.docx" --reference-doc=assets/reference.docx
+libreoffice --headless --convert-to pdf "CV_<Name>_Master_<Language>.docx" --outdir .
 ```
 
 `assets/reference.docx` ships with this skill. It matters: pandoc's stock
@@ -118,11 +146,13 @@ the repository. Do not work around its absence by shrinking the font.
 
 ### Verify, do not trust
 
-Check the output rather than assuming the conversion behaved:
+Check the output rather than assuming the conversion behaved. Run this gate
+separately for each language's file — every language must pass it on its own;
+one language passing never excuses another from the check:
 
 ```bash
-pdfinfo "CV_<Name>_Master.pdf" | grep Pages     # must be 2 or fewer
-pdftotext "CV_<Name>_Master.pdf" - | wc -c      # must be non-trivial
+pdfinfo "CV_<Name>_Master_<Language>.pdf" | grep Pages     # must be 2 or fewer
+pdftotext "CV_<Name>_Master_<Language>.pdf" - | wc -c      # must be non-trivial
 ```
 
 A PDF that yields almost no characters is an image, and an image is invisible to
@@ -138,7 +168,12 @@ keeping the ones carrying numbers, and fold any evidence worth saving into a
 surviving bullet. Never shrink the font below readable size and never squeeze
 the margins to hide the overflow. A cramped CV reads as desperate.
 
-Name the files `CV_<Name>_Master.docx` and `CV_<Name>_Master.pdf`.
+Produce this pair once per language from the language section above. Name the
+files `CV_<Name>_Master_<Language>.docx` and `CV_<Name>_Master_<Language>.pdf`.
+The suffix is never dropped, not even for an applicant who works in a single
+language: the commands above emit it unconditionally and the two-page gate
+checks for it, so an exception here would leave the gate looking for a file
+that was never written.
 
 ## Close the phase
 

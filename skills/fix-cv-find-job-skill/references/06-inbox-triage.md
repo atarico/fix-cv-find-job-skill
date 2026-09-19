@@ -3,6 +3,25 @@
 Also a standalone entry point. "Check my email", "revisa mi mail" or anything
 equivalent starts here directly, with no preceding phase.
 
+## What a standalone run needs
+
+Scoring new openings with phase 3's criteria, and updating the campaign brief,
+both draw on state that only exists once phase 3 has run at least once: the
+salary table, the target seniority, the hard disqualifiers, the discard rules.
+A standalone run restores that state from an attached campaign brief, the same
+way Entry does. When it is missing, say so plainly and degrade in one of two
+ways, depending on what is actually in hand:
+
+- **A CV but no phase 3 state.** Score new openings on fit to the CV, mark every
+  score as provisional, and skip the hard-disqualifier filter and salary
+  handling.
+- **Neither a CV nor a brief.** Score nothing. Classification still works —
+  replies, new openings and acknowledgements sort on their own evidence — so
+  list the openings found, plainly unranked, and say why they are unranked.
+
+Either way, offer to run phase 3's parameter collection, and phase 1 when there
+is no CV, so the next run can score in full.
+
 The user's inbox is the most private thing this skill touches. The rules below
 are not etiquette — they are the reason this phase is safe to run at all, and
 they must be stated to the user before a single message is opened.
@@ -58,8 +77,11 @@ interview invitations, requests for information, assessments, offers, profile
 views, anything with actual content. Extract: company, role, what they said,
 what is being asked, and the deadline if there is one.
 
-**2. New openings** — alerts, digests, direct approaches from recruiters. Score
-each one with the phase 3 criteria and apply the same hard disqualifiers.
+**2. New openings** — alerts, digests, direct approaches from recruiters. If
+phase 3 state was restored from a brief, score each one with the phase 3
+criteria and apply the same hard disqualifiers. If it was not, fall back exactly
+as "What a standalone run needs" above sets out — on fit to the CV when there is
+one, unranked when there is not. Never score against a CV you were never given.
 
 **3. Automatic acknowledgements** — receipts confirming a submission arrived and
 nothing more. These are the only ones that get moved.
@@ -116,3 +138,5 @@ download.
 > it next time and I will pick up exactly where we left off.
 >
 > Want me to apply to the new openings I found?
+
+Wait for the answer. If yes, go to `references/04-auto-apply.md`.

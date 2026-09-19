@@ -2,7 +2,7 @@
 name: fix-cv-find-job-skill
 description: Fixes your CV and finds you a job. Use when the user wants a resume or CV reviewed, rewritten, scored, or optimized for ATS; wants to find or search job openings and vacancies; wants help applying to jobs, writing cover letters, or tracking applications; wants their LinkedIn profile improved to match their CV; or says things like "review my CV", "revisa mi CV", "find me a job", "buscame trabajo", "apply for me", "postulate por mi", "check my email for job replies" or "revisa mi mail". Works for any industry or profession, not only tech.
 license: Apache-2.0
-compatibility: Requires a browser-capable Claude surface (Claude in Chrome side panel, Claude Cowork on desktop, or Claude Code with --chrome) for the job search, auto-apply, LinkedIn and inbox phases. The CV audit and CV rewrite phases run on any surface.
+compatibility: Plan and surface are independent. Free Claude runs the CV audit and CV rewrite phases in web chat, with code execution enabled in Settings > Capabilities. The job search, auto-apply, LinkedIn and inbox phases need a browser-capable surface, which requires a paid plan: Claude in Chrome (any paid plan, Chrome on desktop only), Claude Cowork on desktop, or Claude Code with --chrome.
 metadata:
   version: 0.2.0
   author: atarico
@@ -53,7 +53,8 @@ they do not mistake a guardrail for a malfunction.
 - **No local disk in the Chrome side panel.** Files are delivered as downloads.
   Campaign state persists through a downloadable brief the user re-uploads next
   session — see `assets/campaign-brief-template.md`.
-- **Chrome and Edge on desktop only.**
+- **Chrome on desktop only.** Claude in Chrome is not supported on other
+  Chromium-based browsers or on mobile devices.
 
 ## Phases
 

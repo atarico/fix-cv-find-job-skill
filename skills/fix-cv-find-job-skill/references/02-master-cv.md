@@ -4,6 +4,38 @@ Rewrite the CV as a master template the user adapts to any opening. Not a
 finished CV for one job: a base where swapping a handful of marked lines
 retargets the whole document.
 
+## Format — ask once, before rewriting, only if there is something to ask
+
+Look at the source CV before starting. If it is already plain — no photo, no
+colour — there is nothing to decide: skip this and go straight to the rewrite.
+
+If the source CV carries a photo or colour, ask once, before rewriting
+anything, in the applicant's own language:
+
+> This skill returns your CV in the Harvard style: black and white, no photo.
+> Do you want it that way, or do you want to keep the styles your CV already
+> has? (Harvard style works better for foreign markets.)
+
+Then branch:
+
+- **Harvard.** Proceed with the rest of this phase exactly as written below.
+- **Keep their styles.** Rewrite only the text: content, wording, ordering and
+  ATS keywords still change under every rule in this phase. By intent, the
+  visual format does not.
+
+  Tell the applicant this before producing files, so the choice is informed:
+  the production step below — `assets/reference.docx` on Claude Code, or the
+  equivalent `python-docx` build on Claude in Chrome and Cowork — builds the
+  `.docx` from clean Markdown into one fixed template, the same one used for
+  the Harvard branch. That pipeline has no way to carry over the source
+  file's original photo, colour or layout. So with "keep their styles," what
+  this skill can actually deliver is the rewritten text in that same plain,
+  one-column template, not a copy of the original design. Say so plainly
+  before delivering the files, rather than handing over a plain document
+  without warning. If the applicant wants their original layout back, they
+  will need to paste the rewritten sections into their own file themselves —
+  this skill's toolchain does not do that step for them today.
+
 ## Language — every language the applicant works in, not the posting's
 
 No target posting exists yet at this phase, so nothing here follows one.
@@ -184,8 +216,8 @@ be able to maintain this themselves afterwards. Then:
 >
 > From here I can search openings and apply for you, but that needs a browser
 > Claude can drive: the Claude in Chrome side panel, Claude Cowork on desktop,
-> or Claude Code started with `--chrome`. Claude in Chrome is a paid feature and
-> runs on Chrome or Edge on desktop only.
+> or Claude Code started with `--chrome`. Claude in Chrome needs a paid plan
+> and runs on Chrome on desktop only.
 >
 > If you have it, tell me and we keep going. If you would rather not, we stop
 > here — you have the files and I will show you how to adapt them per opening.

@@ -68,6 +68,7 @@ SCORE   6/10 — ATS compatibility and quantification are dragging the average
   - [Mantener la campaña entre sesiones](#mantener-la-campaña-entre-sesiones)
 - [Lo que no va a hacer](#lo-que-no-va-a-hacer)
   - [Dos cosas para saber](#dos-cosas-para-saber)
+- [Ajustá tus expectativas](#ajustá-tus-expectativas)
 - [Contribuir](#contribuir)
 - [Licencia](#licencia)
 
@@ -111,18 +112,25 @@ su cuenta, y nada se envía sin que lo veas antes.
 
 ## Requisitos
 
-Las fases 1 y 2 corren en cualquier lugar donde corran las skills de Claude.
+Dos cosas independientes deciden qué podés correr: tu **plan** y la
+**superficie** en la que estás.
 
-Las fases 3 a 6 manejan un navegador real usando tus sesiones ya iniciadas, así
-que necesitan alguna de estas:
+**Plan.** Las fases 1 y 2 — la auditoría del CV y la reescritura del CV
+maestro — corren con el plan gratuito, en el chat común. Solo tenés que activar
+**Code execution and file creation** primero, en **Configuración →
+Capacidades**. Las fases 3 a 6 necesitan una superficie con navegador, y cada
+una de esas superficies necesita un plan pago.
 
-- **Claude en Chrome** (panel lateral) — plan pago, solo Chrome o Edge de escritorio
+**Superficie**, para las fases 3 a 6, necesita alguna de estas:
+
+- **Claude en Chrome** (panel lateral) — cualquier plan pago, solo Chrome de
+  escritorio
 - **Claude Cowork** en la aplicación de escritorio
 - **Claude Code** iniciado con `claude --chrome`
 
-Si no tenés ninguna, la skill se detiene después de la fase 2 y te entrega los
-archivos con instrucciones para postular a mano. **Eso es un resultado
-completo, no una falla.**
+Si no tenés ninguna — incluido si estás en el plan gratuito — la skill se
+detiene después de la fase 2 y te entrega los archivos con instrucciones para
+postular a mano. **Eso es un resultado completo, no una falla.**
 
 ## Instalación
 
@@ -151,7 +159,9 @@ como habilidad:
 1. Descargá `fix-cv-find-job-skill.zip` desde
    [Releases](https://github.com/atarico/fix-cv-find-job-skill/releases), o
    generalo vos mismo con `./scripts/package.sh`
-2. Andá a **Configuración → Habilidades → Subir habilidad**
+2. Andá a **Personalizar → Habilidades** (*Customize → Skills*), tocá **+** y
+   después **Crear habilidad → Subir una habilidad**. La ruta es la misma en
+   todos los planes, incluido el gratuito.
 3. Seleccioná el zip. Se ejecuta un análisis de seguridad al guardar.
 
 ### Desde la terminal
@@ -307,6 +317,27 @@ cualquier herramienta que te prometa lo contrario te está engañando.
 **La revisión de correo es una primera pasada.** La skill decide qué abrir según
 el remitente y el asunto, así que se le van a escapar mensajes redactados de
 forma inusual. Revisá tu bandeja igual.
+
+## Ajustá tus expectativas
+
+Esta skill te ayuda a pasar filtros y a poner tu atención donde importa. No te
+garantiza un trabajo, y no puede garantizarte que sea pronto. No es infalible
+y no te va a dar cien entrevistas en dos semanas — ninguna herramienta hace
+eso, y cualquiera que lo prometa no te está diciendo la verdad.
+
+Está pensada para correrse de manera repetida, no una sola vez: los puntos de
+entrada independientes para el correo y para la búsqueda existen porque las
+vacantes y las respuestas cambian todo el tiempo, y la detección de
+duplicados existe justamente porque se espera que vuelvas a correrla, no
+porque sea una excepción. Corré esta skill al menos una vez por día si querés
+que cubra lo que cambió desde ayer.
+
+Y respaldá lo que escribe. Nunca inventa nada que no le hayas dado, así que
+cada afirmación del CV maestro sale de algo que vos dijiste — pero el nombre
+que va en la hoja es el tuyo. Leé el CV maestro antes de que salga a
+cualquier lado y confirmá que refleja tu situación real. Si una línea no
+aguanta una entrevista, sacala antes de que un reclutador se dé cuenta por
+vos.
 
 ## Contribuir
 

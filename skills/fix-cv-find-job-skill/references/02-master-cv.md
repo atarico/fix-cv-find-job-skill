@@ -20,6 +20,11 @@ requires actually seeing the source CV's formatting.
 - **The CV arrived as pasted text or a LinkedIn profile URL.** There is no
   original layout to inspect, so there is nothing to ask: say so plainly and
   go straight to the rewrite in the Harvard style below.
+- **This is a resumed session and the source CV is gone.** The field is empty
+  and there is no file, pasted text or URL left in this session to look at.
+  There is nothing to inspect, so there is nothing to weigh: proceed in the
+  Harvard style and tell the applicant plainly that a resumed session with no
+  source CV defaults to Harvard style.
 
 If the source file carries any of that — a photo, colour, multiple columns, or
 a deliberate typographic layout — ask once, before rewriting anything, in the
@@ -45,8 +50,11 @@ Then branch:
   step, named `CV_<Name>_Master_<Language>.md`, so the applicant can paste
   the rewritten sections into their own designed file.
 
-Record the answer in the campaign brief's `CV format choice` field
-(Section 0) so a later session does not ask again.
+Record the answer in the campaign brief's `CV format choice` field (Section 0)
+only when this gate asked the question above and the applicant answered it.
+Every skip path — the plain CV, the pasted text or LinkedIn URL, and the
+resumed session with nothing left to inspect — leaves the field empty, so a
+later session with an actual CV to weigh can still ask.
 
 ## Language — every language the applicant works in, not the posting's
 
@@ -181,6 +189,15 @@ pandoc CV_<Language>.md -o "CV_<Name>_Master_<Language>.docx" --reference-doc=as
 libreoffice --headless --convert-to pdf "CV_<Name>_Master_<Language>.docx" --outdir .
 ```
 
+On the "keep their styles" branch, the third deliverable needs no extra
+conversion: `CV_<Language>.md` above is already the pandoc input, sitting on
+disk. Copy it to `CV_<Name>_Master_<Language>.md` and hand that file over
+alongside the .docx and .pdf:
+
+```bash
+cp CV_<Language>.md "CV_<Name>_Master_<Language>.md"
+```
+
 `assets/reference.docx` ships with this skill. It matters: pandoc's stock
 styling is built for reports — one-inch margins, 12pt body, oversized headings —
 and renders the same CV across four pages. Without this flag you will cut good
@@ -229,8 +246,9 @@ the Harvard branch does not.
 ## Close the phase
 
 Show the user the finished CV and point out what changed and why — they should
-be able to maintain this themselves afterwards. Then open with the line for
-the branch just taken, naming every file actually produced:
+be able to maintain this themselves afterwards. Then open with exactly one of
+the two lines below, never both, matching the branch just taken and naming
+every file actually produced:
 
 > **Harvard.** The master CV is ready in .docx and .pdf.
 

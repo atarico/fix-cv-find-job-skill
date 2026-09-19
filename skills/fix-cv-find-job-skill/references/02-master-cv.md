@@ -6,9 +6,12 @@ retargets the whole document.
 
 ## Format — ask once, before rewriting, only if there is something to ask
 
-Before anything else, check the campaign brief's `CV format choice` field. If
-it already holds an answer, use it and skip straight to the branch below — do
-not ask again. Only run the rest of this gate when that field is empty.
+Before anything else, check the campaign brief's `CV format choice` field. A
+field that still carries its angle-bracket placeholder, such as `<format>` or
+`<surface>`, counts as empty and never as a recorded answer — this holds for
+every placeholder field in the brief, not only this one. If the field already
+holds an answer, use it and skip straight to the branch below — do not ask
+again. Only run the rest of this gate when that field is empty.
 
 Ask only when there is an original design to weigh against Harvard style — a
 photo, colour, multiple columns, or any deliberate typographic layout — which
@@ -174,11 +177,15 @@ Mark every swappable block with a comment the user can find and replace.
 Write the CV as clean Markdown first and show it to the user in chat before
 converting. Then convert with whatever the current surface has:
 
-**Claude in Chrome side panel or Cowork** — use the file creation capability.
-Build the .docx with `python-docx` and the .pdf with `reportlab`, or generate
-the .docx and render the .pdf from it. Deliver them as downloads — every file
-the naming rule below calls for. There is no local working directory here; the
-user saves the files through the browser.
+**Any surface with code execution enabled in Settings > Capabilities** — the
+Claude in Chrome side panel, Cowork, and ordinary web chat, including the free
+plan, all qualify once that setting is on; this is the same capability
+`SKILL.md`'s compatibility line promises. Build the .docx with `python-docx`
+and the .pdf with `reportlab`, or generate the .docx and render the .pdf from
+it. On the "keep their styles" branch, also write the clean Markdown already
+produced above to a file, named `CV_<Name>_Master_<Language>.md`. Deliver
+every file the naming rule below calls for as downloads. There is no local
+working directory here; the user saves the files through the browser.
 
 **Claude Code** — convert locally, and **always pass the reference document**.
 Run this whole produce-and-verify block once per language, from a separate
@@ -241,19 +248,28 @@ On the "keep their styles" branch this is a trio, not a pair: also save the
 clean Markdown the conversion step already produced, as
 `CV_<Name>_Master_<Language>.md`, and hand it over with the other two. It is
 the whole reason that branch exists — without it the choice delivers nothing
-the Harvard branch does not.
+the Harvard branch does not. Verify it was actually written, once per
+language, the same way the two-page gate verifies the .docx and .pdf: on
+Claude Code, `test -s "CV_<Name>_Master_<Language>.md"` right after the `cp`
+above; on the browser branches, where there is no shell to check with,
+confirm before closing the phase that the file exists and was offered as a
+download alongside the .docx and .pdf.
 
 ## Close the phase
 
 Show the user the finished CV and point out what changed and why — they should
 be able to maintain this themselves afterwards. Then open with exactly one of
-the two lines below, never both, matching the branch just taken and naming
-every file actually produced:
+the two lines below, never both, matching the branch just taken. Each line
+carries a `<files>` slot: replace it with the actual list of files this run
+produced, one entry per language — never a fixed count, since a bilingual or
+multilingual run produces one set per language:
 
-> **Harvard.** The master CV is ready in .docx and .pdf.
+> **Harvard.** The master CV is ready: <files — every `.docx` and `.pdf`
+> produced this run, one pair per language processed>.
 
-> **Keep their styles.** The master CV is ready in .docx and .pdf, plus the
-> same content as plain Markdown you can paste into your own design.
+> **Keep their styles.** The master CV is ready: <files — every `.docx`,
+> `.pdf` and `.md` produced this run, one trio per language processed>, so you
+> can paste the Markdown into your own design.
 
 > From here I can search openings and apply for you, but that needs a browser
 > Claude can drive: the Claude in Chrome side panel, Claude Cowork on desktop,

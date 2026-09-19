@@ -126,8 +126,12 @@ It replies in whatever language you write in.
 
 ### What happens, step by step
 
-**1. It asks what it needs.** Your CV, and which Claude surface you are on — the
-answer decides whether the browser phases are available.
+**1. It asks what it needs.** Your CV, a campaign brief if you have one from a
+previous session, and which Claude surface you are on — the answer decides
+whether the browser phases are available. Attach a brief and it resumes exactly
+where that session stopped, without repeating the audit or the rewrite; attach
+a brief alongside a new CV and it asks once whether to run the audit and
+rewrite on the new one.
 
 **2. You get the audit.** Twenty roles you are the best candidate for split into
 direct, adjacent and stretch; the ATS keywords you should be carrying, marked as
@@ -138,22 +142,31 @@ Then it stops and asks whether to rewrite.
 
 **3. You get the master CV.** Every bullet rebuilt on the XYZ formula — result,
 number, method — with vague and passive language stripped out, the keywords
-worked in, two pages, and several swappable summary variants so you can retarget
-it per opening. Delivered as `.docx` and `.pdf`.
+worked in, two pages, and several named, swappable summary variants — one per
+specialisation from the audit — so you can retarget it per opening by name. It
+is built in every language you work in; the CV itself never targets one job
+posting's language, only the tailored copies in step 5 do. Delivered as `.docx`
+and `.pdf`, one pair per language.
 
 If you have no browser available, this is where it ends, and it hands you the
 files plus instructions for applying by hand. That is a complete outcome.
 
 **4. It surveys the market.** It asks which platforms you use, your salary
-expectation, your target seniority, and your hard disqualifiers — the
+expectations as a table by seniority and market (it searches for a range and
+gets your sign-off if you do not have a number), your target seniority — and
+that you will not apply below it — and your hard disqualifiers, the
 requirements you genuinely cannot meet. Then it searches, scores every opening,
-and gives you a ranked table plus the list of what it discarded and why.
+and gives you a ranked table plus the list of what it discarded and why, with
+the posting's own wording kept as evidence for every hard disqualifier that
+fired.
 
 Then it stops and asks whether to apply.
 
-**5. It applies.** A tailored CV and cover letter per opening, forms filled,
-everything recorded. It asks first whether you want to approve submissions in
-one batch at the end or one at a time.
+**5. It applies.** A tailored CV and cover letter per opening, matched to that
+posting's language, forms filled, everything recorded — including a match
+score. Duplicates are checked with each platform's own verification method
+before anything is filled in. It asks first whether you want to approve
+submissions in one batch at the end or one at a time.
 
 **6. LinkedIn and inbox, if you want them.** Profile aligned with the new CV;
 inbox sorted into real replies, new openings and automatic receipts.
@@ -178,7 +191,13 @@ It sorts replies, new openings and receipts, and reports back.
 The Chrome side panel has no persistent disk, so nothing carries over on its
 own. At the end of a session the skill produces a **campaign brief** — download
 it, and attach it next time. It restores your profile, your targets, everything
-you have applied to, and everything still blocked.
+you have applied to, and everything still blocked — and it resumes exactly
+where the brief says the last session stopped, so the CV audit and the master
+CV rewrite never run again once the brief shows them done.
+
+Attach a new CV alongside an existing brief and it asks once whether to rerun
+the audit and rewrite on it; say no and it keeps the CV already on file and
+goes straight to searching or applying.
 
 It also prevents the most common failure of a long search: applying twice to the
 same job.
@@ -190,7 +209,11 @@ These limits are built in and not configurable.
 - Create accounts, enter passwords, or sign in via SSO
 - Solve CAPTCHAs
 - Invent personal data, dates, credentials or experience
+- Invent a salary figure — it only uses what you confirmed or a market range you
+  accepted
 - Claim any skill or qualification absent from your CV
+- Apply below the seniority floor you set, even to a posting that otherwise
+  scores well
 - Send email in your name — it drafts, you send
 - Accept an offer, agree to terms, or negotiate
 - Delete email permanently — acknowledgements go to Trash, recoverable

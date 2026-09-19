@@ -2,7 +2,7 @@
 name: fix-cv-find-job-skill
 description: Fixes your CV and finds you a job. Use when the user wants a resume or CV reviewed, rewritten, scored, or optimized for ATS; wants to find or search job openings and vacancies; wants help applying to jobs, writing cover letters, or tracking applications; wants their LinkedIn profile improved to match their CV; or says things like "review my CV", "revisa mi CV", "find me a job", "buscame trabajo", "apply for me", "postulate por mi", "check my email for job replies" or "revisa mi mail". Works for any industry or profession, not only tech.
 license: Apache-2.0
-compatibility: Requires a browser-capable Claude surface (Claude in Chrome side panel, Claude Cowork on desktop, or Claude Code with --chrome) for the job search, auto-apply and inbox phases. The CV audit and CV rewrite phases run on any surface.
+compatibility: Requires a browser-capable Claude surface (Claude in Chrome side panel, Claude Cowork on desktop, or Claude Code with --chrome) for the job search, auto-apply, LinkedIn and inbox phases. The CV audit and CV rewrite phases run on any surface.
 metadata:
   version: 0.1.1
   author: atarico
@@ -17,9 +17,15 @@ tech, and it derives every judgement from the user's own CV and target market.
 
 ## Prime directives
 
-1. **Answer in the user's language.** Detect it from how they write and stay there.
-   Every artifact this skill produces — CV, cover letter, reports — follows the
-   language of the target job posting instead, not the conversation.
+1. **Language follows the artifact, not one rule for all of them.** Detect the
+   user's language from how they write and answer in it — that never changes.
+   - **Conversation and every report** follow the applicant's own language,
+     always.
+   - **The master CV** is built in every language the applicant works in. It
+     follows no posting — phase 2 runs before any posting exists.
+   - **The tailored CV and cover letter** follow the target job posting's
+     language. That choice is made per posting, in phase 4, once a posting is
+     in hand.
 2. **Never invent credentials.** No degree, job, date, tool, metric or employer
    that is not in the user's source CV or explicitly confirmed by them. Rewriting
    is reframing, never fabrication. If a bullet needs a number the user never
@@ -68,13 +74,45 @@ email" or "revisa mi mail", go straight to `references/06-inbox-triage.md`.
 
 ## Entry
 
-Ask for the CV. Accept a file, a pasted block of text, or a LinkedIn profile
-URL. If the user has a campaign brief from a previous session, ask them to
-attach it too and restore the state from it before doing anything else.
+Ask for the CV and for a campaign brief from a previous session, if there is
+one. Accept the CV as a file, a pasted block of text, or a LinkedIn profile
+URL. Accept a standalone request with neither, such as "check my email" or
+"find me openings."
 
-Then confirm the surface: ask whether they are in the Claude in Chrome side
-panel, Claude Cowork on desktop, or Claude Code. Phases 3 to 6 need one of
-those with browser access. If they have none, run phases 1 and 2, deliver the
+**Branch on what is attached, before doing anything else:**
+
+- **No brief, a CV supplied.** First run. Confirm the surface (below), then go
+  to `references/01-cv-audit.md`. Phases 1 and 2 run once, in order, and never
+  run again on their own after this.
+- **A brief attached, no new CV.** Restore every field from it. Do not re-run
+  the CV audit or the master CV rewrite — the brief's own status record shows
+  they already happened. Resume exactly where the brief says the last session
+  stopped: the next unswept platform, the next queued application, a blocked
+  item, or whatever its status and "next step" fields name.
+- **A brief attached and a new CV supplied.** Restore the brief, then ask once,
+  before anything else: "You attached a new CV — want the audit and rewrite run
+  on it, or keep the master CV already on file?" Yes routes to
+  `references/01-cv-audit.md`. No keeps the existing master CV untouched and
+  routes straight to whichever browser phase the brief's status calls for.
+- **A standalone request, no CV.** "Check my email", "find me openings," or an
+  equivalent — the two do not need the same things to start.
+  - **Inbox triage** ("check my email", "revisa mi mail") always proceeds:
+    go straight to `references/06-inbox-triage.md`. Reading and classifying
+    an inbox needs no CV, no brief and no parameters. With brief state on
+    file it scores new openings in full; without it, it still runs, degraded,
+    exactly as that reference file describes.
+  - **Job search** ("find me openings", "buscame trabajo") does need
+    parameters. If an attached brief supplies the state that phase needs
+    (profile, targets, salary table, disqualifiers, platforms), go straight
+    to `references/03-job-search.md`. Without a brief, or without that
+    state, say so and ask for the CV, or offer to run phase 3's parameter
+    collection first — there is nothing to search from otherwise.
+
+Phases 1 and 2 never re-run on an existing brief unless the user attaches a new
+CV and explicitly says yes to rerunning them.
+
+Then confirm the surface, when it is not already known from the brief: ask
+whether they are in the Claude in Chrome side panel, Claude Cowork on desktop,
+or Claude Code. Phases 3 to 6 need one of those with browser access. If they
+have none, run phases 1 and 2 (or resume where the brief left off), deliver the
 files, and explain how to apply by hand.
-
-Once the CV is in hand, go to `references/01-cv-audit.md`.

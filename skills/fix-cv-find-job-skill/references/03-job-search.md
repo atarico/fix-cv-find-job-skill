@@ -9,33 +9,60 @@ Ask in one grouped block, not one question at a time:
 
 1. **Which platforms.** Name the ones they use. General boards, industry-specific
    boards, company career pages, professional networks, recruitment agencies,
-   public sector portals. Whatever their field actually uses.
+   public sector portals. Whatever their field actually uses. For each one, ask
+   how to check whether they already applied there — an "applied jobs" list, a
+   search filter, an application history page. Record it per platform; phase 4
+   uses it for the duplicate check before every application.
 2. **They must already be logged in** on every platform named. Say this plainly:
    this skill never creates accounts and never enters passwords. Ask them to log
    in now, in this browser, before continuing.
-3. **Salary expectation.** Get three things: the number they want, the floor they
-   will accept, and the currency. Explain the rules below and confirm them.
-4. **Target seniority.** Which level they are aiming at, which they will accept.
+3. **Salary — a table, not one figure.** What the applicant wants to earn
+   depends on seniority and on market, so collect it as a table: one row per
+   seniority level × market combination they might realistically apply under. A
+   "market" is whatever actually changes the number for them — a country, a
+   region, a remote-versus-local split.
+
+   | Seniority | Market | Target | Floor | Currency |
+   |---|---|---|---|---|
+
+   If they do not know a figure for a row, search for the going range for that
+   seniority and market, present it with where it came from, and only fill the
+   row in once they accept it or adjust it. Never fill a row from a search
+   result without their sign-off.
+
+   Also ask, once, for the **range anchor**: when a posting publishes a range
+   instead of asking for a figure, do they want it read as the bottom, the
+   middle, or the top? Record that decision now — it applies every time a
+   posting has a range, not decided fresh each time.
+4. **Target seniority.** Which level they are aiming at, which they will accept,
+   and confirm: they will not apply below this floor even when a lower-level
+   posting otherwise scores well. A posting's own stated seniority still governs
+   which salary row and screening answers apply to it — see below — but it
+   never lowers the floor on which postings are worth applying to at all.
 5. **Location and arrangement.** Remote, hybrid, on-site, willing to relocate,
    commuting radius, time zones they can work.
 6. **Hard disqualifiers.** The requirements they genuinely cannot meet. Language
    level, a licence they do not hold, a clearance, night shifts, travel, a
    physical requirement, a visa status. These become automatic discard filters.
+   When one of these fires against a real posting, record the posting's own
+   wording for the requirement as evidence next to the discard — not a
+   paraphrase — so the discard is checkable later.
 7. **Exclusions.** Companies they will not work for, or have already applied to.
 
 ## The salary rules
 
 - Free-text field → write the equivalent of "negotiable" in the posting's
   language, unless the user told you to always state a number.
-- Field that forces a value → use the user's stated number for the **seniority
-  in the posting**, not the user's own seniority. A junior posting gets the
-  junior number.
-- If the posting gives a range → the user decides in advance whether to anchor
-  low to stay in the pile or high to filter. Default to the lower end unless
-  they said otherwise.
+- Field that forces a value → look up the row in the salary table for the
+  **seniority stated in the posting** (not the applicant's own) and the market
+  that posting belongs to, and use that figure. A junior posting gets the
+  junior row's number, in that market.
+- If the posting gives a range → use the range-anchor decision recorded during
+  parameter collection — bottom, middle or top. Never decide it per posting and
+  never fall back to a default that was not explicitly chosen.
 - **Currency conversion is mandatory.** A numeric field is read in the posting's
-  local currency. Writing a USD figure into a field denominated in another
-  currency reads as an error and gets discarded. Convert before writing.
+  local currency. Writing a figure in the wrong currency reads as an error to
+  the employer and gets the application discarded. Convert before writing.
 - Try free text first. Only fall back to a number when the validator rejects it.
 
 ## Searching
@@ -64,9 +91,13 @@ requirements the CV can evidence directly.
 they lack; a specialisation outside their history; a stale posting; an
 arrangement that does not suit; pay below their floor.
 
-**Discard outright, and record why:** any hard disqualifier from the parameters;
-postings that are closed, filled or expired; duplicates of something already
-applied to; anything requiring account creation or a paid service to apply.
+**Discard outright, and record why:** any hard disqualifier from the parameters
+— with the posting's own wording kept as evidence next to the reason; postings
+below the applicant's own stated seniority floor, even when otherwise a strong
+fit; postings that are closed, filled or expired; duplicates of something
+already applied to, checked with that platform's own duplicate-verification
+path from the parameters; anything requiring account creation or a paid
+service to apply.
 
 The discard list goes in the report. A user who sees *eleven openings discarded
 for requiring a licence you do not hold* learns more about their market than one

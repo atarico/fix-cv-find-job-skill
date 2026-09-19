@@ -1,25 +1,64 @@
+> 🇪🇸 **[DOC en español](README.es.md)**
+
+<div align="center">
+
 # fix-cv-find-job-skill
 
-**English** · [Español](README.es.md)
+**Fixes your CV and finds you a job.**
 
-**Fixes your CV and finds you a job.** A Claude skill that audits your resume
-like a recruiter, rewrites it as a master template you can adapt to any opening,
-searches the job boards you actually use, applies for you, aligns your LinkedIn,
-and triages your inbox for replies.
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-0.1.1-blue.svg)](.claude-plugin/plugin.json)
+[![Phases](https://img.shields.io/badge/phases-6-blue.svg)](#six-phases-none-of-them-automatic)
+[![Industry](https://img.shields.io/badge/industry-any-blue.svg)](skills/fix-cv-find-job-skill/SKILL.md)
+[![No browser needed](https://img.shields.io/badge/no%20browser%20needed-2%2F6-blue.svg)](#requirements)
 
-Works for **any industry**. It derives your field from your own CV instead of
+</div>
+
+---
+
+A **Claude skill** that audits your CV like a recruiter, rewrites it as a
+**master template**, searches the job boards you actually use, applies for
+you, aligns your **LinkedIn**, and triages your inbox for replies. It works
+for **any industry** — it derives your field from your own CV instead of
 assuming you work in tech.
+
+It drafts, searches, and applies on your behalf. It never sends, accepts, or
+decides anything without you seeing it first.
+
+A phase 1 run reads like this (trimmed to the shape, not the full 20-role list):
+
+```
+Reading this as: mid-level logistics coordinator, targeting supply chain roles.
+Correct me if that's the wrong market.
+
+ROLES (20, ranked)
+  DIRECT    Supply Chain Coordinator
+  ADJACENT  Procurement Analyst
+  STRETCH   Logistics Operations Manager
+
+ATS KEYWORDS
+  present   WMS (Warehouse Management System)
+  weak      vendor negotiation — implied, never stated
+  missing   Six Sigma — experience is there, the CV never names it
+
+SCREENER (10-second read)
+  "results-oriented professional" opens the summary — a phrase 40% of this
+  pile also uses. It buys you nothing and costs you your best line.
+
+SCORE   6/10 — ATS compatibility and quantification are dragging the average
+  down. Ceiling without a certification you don't have yet: 8/10.
+```
 
 ## Contents
 
 - [Why this exists](#why-this-exists)
-- [What it does](#what-it-does)
+- [Six phases, none of them automatic](#six-phases-none-of-them-automatic)
 - [Requirements](#requirements)
 - [Install](#install)
   - [From the interface — no download, no terminal](#from-the-interface--no-download-no-terminal)
   - [Upload the zip instead](#upload-the-zip-instead)
   - [From the terminal](#from-the-terminal)
-- [How to use it](#how-to-use-it)
+- [How you actually use it](#how-you-actually-use-it)
   - [Before you start](#before-you-start)
   - [Starting](#starting)
   - [What happens, step by step](#what-happens-step-by-step)
@@ -55,7 +94,7 @@ my attention on the parts that need a human.
 I built it for my own job search. I am publishing it because nobody should have
 to relearn these rules one lost application at a time.
 
-## What it does
+## Six phases, none of them automatic
 
 | Phase | What you get | Needs a browser |
 |---|---|---|
@@ -81,8 +120,8 @@ of:
 - **Claude Code** started with `claude --chrome`
 
 If you have none of those, the skill stops after phase 2 and hands you the
-files with instructions for applying by hand. That is a complete outcome, not
-a failure.
+files with instructions for applying by hand. **That is a complete outcome,
+not a failure.**
 
 ## Install
 
@@ -116,18 +155,18 @@ ordinary claude.ai chat**. If that is where you work, install it as a skill:
 ### From the terminal
 
 ```
-/plugin marketplace add atarico/fix-cv-find-job-skill
-/plugin install fix-cv-find-job-skill@fix-cv-find-job
+/plugin marketplace add atarico/fix-cv-find-job-skill   # register this repo as a plugin source
+/plugin install fix-cv-find-job-skill@fix-cv-find-job   # install the skill from it
 ```
 
 Or in Claude Code, straight from a clone:
 
 ```bash
 git clone https://github.com/atarico/fix-cv-find-job-skill.git
-ln -s "$PWD/fix-cv-find-job-skill/skills/fix-cv-find-job-skill" ~/.claude/skills/
+ln -s "$PWD/fix-cv-find-job-skill/skills/fix-cv-find-job-skill" ~/.claude/skills/   # symlink so ~/.claude/skills picks it up
 ```
 
-## How to use it
+## How you actually use it
 
 ### Before you start
 
@@ -194,10 +233,11 @@ inbox sorted into real replies, new openings and automatic receipts.
 
 ### Answer honestly when it asks
 
-The audit and the match scores are only as good as what you tell it. If you
-overstate your seniority or hide a disqualifier, it will send you to interviews
-you cannot pass. It never invents anything you did not give it — which also
-means it cannot fix what you misreport.
+**The audit is a mirror, not an oracle.** The audit and the match scores are
+only as good as what you tell it. If you overstate your seniority or hide a
+disqualifier, it will send you to interviews you cannot pass. It never invents
+anything you did not give it — which also means it cannot fix what you
+misreport.
 
 ### Triggering the inbox check on its own
 
@@ -245,11 +285,12 @@ hands them to you.
 
 ### Two things to know
 
-**Every form submission pauses for your approval.** Claude always asks before
-submitting a form or sharing personal data. This is a platform rule and cannot
-be switched off. The skill asks at the start whether you want to approve in one
-batch at the end or one at a time — but a fully unattended run is not possible,
-and any tool promising you one is misleading you.
+**Wondering whether a run can go fully unattended? It can't, and here's why.**
+Claude always asks before submitting a form or sharing personal data. This is a
+platform rule and cannot be switched off. The skill asks at the start whether
+you want to approve in one batch at the end or one at a time — but a fully
+unattended run is not possible, and any tool promising you one is misleading
+you.
 
 **The inbox pass is a first pass.** The skill decides what to open from sender
 and subject, so it will miss things that are worded unusually. Check your inbox
@@ -261,9 +302,12 @@ The rules in `references/` are the substance of this skill — most of them were
 paid for with lost applications. If your field works differently, or you learned
 something the hard way, open an issue or a PR.
 
+> **A new rule needs a real cost behind it — a rejection, a lost application, a
+> misread posting — not a guess about what might work.**
+
 Particularly welcome: field-specific screening conventions, regional CV norms,
 platform quirks, and rules that saved you from a mistake.
 
 ## License
 
-Apache-2.0
+Apache-2.0. See [`LICENSE`](LICENSE).

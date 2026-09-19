@@ -1,25 +1,65 @@
+> 🇬🇧 **[Documentation in English](README.md)**
+
+<div align="center">
+
 # fix-cv-find-job-skill
 
-[English](README.md) · **Español**
+**Arregla tu CV y te encuentra trabajo.**
 
-**Arregla tu CV y te encuentra trabajo.** Una skill de Claude que audita tu
-currículum como lo haría un reclutador, lo reescribe como plantilla maestra
-adaptable a cualquier vacante, busca vacantes en los portales que usás, postula
-por vos, alinea tu LinkedIn y clasifica tu correo buscando respuestas.
+[![Licencia](https://img.shields.io/badge/licencia-Apache--2.0-blue.svg)](LICENSE)
+[![Versión](https://img.shields.io/badge/versi%C3%B3n-0.1.1-blue.svg)](.claude-plugin/plugin.json)
+[![Fases](https://img.shields.io/badge/fases-6-blue.svg)](#seis-fases-ninguna-corre-sola)
+[![Rubro](https://img.shields.io/badge/rubro-cualquiera-blue.svg)](skills/fix-cv-find-job-skill/SKILL.md)
+[![Sin navegador](https://img.shields.io/badge/fases%20sin%20navegador-2%2F6-blue.svg)](#requisitos)
 
-Sirve para **cualquier rubro**. Deduce tu campo a partir de tu propio CV en
-lugar de asumir que trabajás en tecnología.
+</div>
+
+---
+
+Una **skill de Claude** que audita tu CV como lo haría un reclutador, lo
+reescribe como **plantilla maestra**, busca vacantes en los portales que usás,
+postula por vos, alinea tu **LinkedIn** y clasifica tu correo buscando
+respuestas. Sirve para **cualquier rubro** — deduce tu campo a partir de tu
+propio CV en lugar de asumir que trabajás en tecnología.
+
+Redacta, busca y postula por vos. Nunca envía, acepta ni decide nada sin que
+lo veas antes.
+
+Una corrida de la fase 1 se ve así (recortada a la forma, no a la lista
+completa de 20 puestos):
+
+```
+Reading this as: mid-level logistics coordinator, targeting supply chain roles.
+Correct me if that's the wrong market.
+
+ROLES (20, ranked)
+  DIRECT    Supply Chain Coordinator
+  ADJACENT  Procurement Analyst
+  STRETCH   Logistics Operations Manager
+
+ATS KEYWORDS
+  present   WMS (Warehouse Management System)
+  weak      vendor negotiation — implied, never stated
+  missing   Six Sigma — experience is there, the CV never names it
+
+SCREENER (10-second read)
+  "results-oriented professional" opens the summary — a phrase 40% of this
+  pile also uses. It buys you nothing and costs you your best line.
+
+SCORE   6/10 — ATS compatibility and quantification are dragging the average
+  down. Ceiling without a certification you don't have yet: 8/10.
+```
 
 ## Índice
 
 - [Por qué existe](#por-qué-existe)
-- [Qué hace](#qué-hace)
+- [Seis fases, ninguna corre sola](#seis-fases-ninguna-corre-sola)
 - [Requisitos](#requisitos)
 - [Instalación](#instalación)
   - [Desde la interfaz — sin descargar nada, sin terminal](#desde-la-interfaz--sin-descargar-nada-sin-terminal)
   - [Subir el zip](#subir-el-zip)
   - [Desde la terminal](#desde-la-terminal)
-- [Cómo usarla](#cómo-usarla)
+- [Cómo se usa realmente](#cómo-se-usa-realmente)
   - [Antes de empezar](#antes-de-empezar)
   - [Cómo se arranca](#cómo-se-arranca)
   - [Qué pasa, paso a paso](#qué-pasa-paso-a-paso)
@@ -55,7 +95,7 @@ pongo la atención donde hace falta una persona.
 La construí para mi propia búsqueda. La publico porque nadie debería tener que
 reaprender estas reglas de a una postulación perdida por vez.
 
-## Qué hace
+## Seis fases, ninguna corre sola
 
 | Fase | Qué obtenés | Necesita navegador |
 |---|---|---|
@@ -81,8 +121,8 @@ que necesitan alguna de estas:
 - **Claude Code** iniciado con `claude --chrome`
 
 Si no tenés ninguna, la skill se detiene después de la fase 2 y te entrega los
-archivos con instrucciones para postular a mano. Eso es un resultado completo,
-no una falla.
+archivos con instrucciones para postular a mano. **Eso es un resultado
+completo, no una falla.**
 
 ## Instalación
 
@@ -117,18 +157,18 @@ como habilidad:
 ### Desde la terminal
 
 ```
-/plugin marketplace add atarico/fix-cv-find-job-skill
-/plugin install fix-cv-find-job-skill@fix-cv-find-job
+/plugin marketplace add atarico/fix-cv-find-job-skill   # registra este repo como fuente de plugins
+/plugin install fix-cv-find-job-skill@fix-cv-find-job   # instala la skill desde ahí
 ```
 
 O en Claude Code, directo desde un clon:
 
 ```bash
 git clone https://github.com/atarico/fix-cv-find-job-skill.git
-ln -s "$PWD/fix-cv-find-job-skill/skills/fix-cv-find-job-skill" ~/.claude/skills/
+ln -s "$PWD/fix-cv-find-job-skill/skills/fix-cv-find-job-skill" ~/.claude/skills/   # symlink para que ~/.claude/skills la detecte
 ```
 
-## Cómo usarla
+## Cómo se usa realmente
 
 ### Antes de empezar
 
@@ -197,10 +237,11 @@ automáticos.
 
 ### Respondé con honestidad cuando pregunte
 
-La auditoría y los puntajes de compatibilidad valen lo que vale lo que le
-cuentes. Si exagerás tu seniority o escondés un descalificador, te va a mandar a
-entrevistas que no podés pasar. Nunca inventa nada que no le hayas dado — lo que
-también significa que no puede arreglar lo que vos informes mal.
+**La auditoría es un espejo, no un oráculo.** La auditoría y los puntajes de
+compatibilidad valen lo que vale lo que le cuentes. Si exagerás tu seniority o
+escondés un descalificador, te va a mandar a entrevistas que no podés pasar.
+Nunca inventa nada que no le hayas dado — lo que también significa que no
+puede arreglar lo que vos informes mal.
 
 ### Disparar la revisión de correo por separado
 
@@ -251,12 +292,12 @@ marca y te los deja a vos.
 
 ### Dos cosas para saber
 
-**Cada envío de formulario se detiene a pedir tu aprobación.** Claude siempre
-pregunta antes de enviar un formulario o compartir datos personales. Es una
-regla de la plataforma y no se puede desactivar. La skill te pregunta al
-principio si querés aprobar todo junto al final o de a uno — pero una corrida
-completamente desatendida no es posible, y cualquier herramienta que te prometa
-lo contrario te está engañando.
+**¿Te preguntás si una corrida puede ir completamente desatendida? No puede, y
+acá está el porqué.** Claude siempre pregunta antes de enviar un formulario o
+compartir datos personales. Es una regla de la plataforma y no se puede
+desactivar. La skill te pregunta al principio si querés aprobar todo junto al
+final o de a uno — pero una corrida completamente desatendida no es posible, y
+cualquier herramienta que te prometa lo contrario te está engañando.
 
 **La revisión de correo es una primera pasada.** La skill decide qué abrir según
 el remitente y el asunto, así que se le van a escapar mensajes redactados de
@@ -268,10 +309,14 @@ Las reglas que están en `references/` son la sustancia de esta skill — la
 mayoría se pagaron con postulaciones perdidas. Si tu rubro funciona distinto, o
 aprendiste algo de la manera cara, abrí un issue o un PR.
 
+> **Una regla nueva necesita un costo real detrás — un rechazo, una
+> postulación perdida, un aviso mal leído — no una suposición sobre lo que
+> podría funcionar.**
+
 Especialmente bienvenidos: convenciones de selección propias de cada rubro,
 normas regionales de CV, particularidades de cada plataforma, y reglas que te
 salvaron de un error.
 
 ## Licencia
 
-Apache-2.0
+Apache-2.0. Ver [`LICENSE`](LICENSE).

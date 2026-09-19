@@ -247,9 +247,9 @@ inbox sorted into real replies, new openings and automatic receipts.
 
 **The audit is a mirror, not an oracle.** The audit and the match scores are
 only as good as what you tell it. If you overstate your seniority or hide a
-disqualifier, it will send you to interviews you cannot pass. It never invents
-anything you did not give it — which also means it cannot fix what you
-misreport.
+disqualifier, it will send you to interviews you cannot pass. It cannot invent
+a degree, job, date, tool, metric or employer you did not give it — which also
+means it cannot fix what you misreport.
 
 ### Triggering the inbox check on its own
 
@@ -322,11 +322,13 @@ duplicate detection exists because re-running is the expected pattern, not an
 edge case. Run it at least once a day if you want it covering what changed
 since yesterday.
 
-And back up what it writes. It never invents anything you did not give it, so
-every claim on the master CV traces back to something you said — but it is
-still your name on the page. Read the master CV before it goes anywhere, and
-confirm it reflects your real situation. If a line would not hold up in an
-interview, cut it before a recruiter finds that out for you.
+And back up what it writes. This skill's rules forbid adding a degree, job,
+date, tool, metric or employer you did not supply — every claim on the master
+CV traces back to something you said. That does not make it infallible: it can
+still reframe or emphasise something wrongly, and it is your name on the page.
+Read the master CV before it goes anywhere, and confirm it reflects your real
+situation. If a line would not hold up in an interview, cut it before a
+recruiter finds that out for you.
 
 ## Contributing
 

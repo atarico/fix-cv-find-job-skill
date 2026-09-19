@@ -255,7 +255,8 @@ automáticos.
 **La auditoría es un espejo, no un oráculo.** La auditoría y los puntajes de
 compatibilidad valen lo que vale lo que le cuentes. Si exagerás tu seniority o
 escondés un descalificador, te va a mandar a entrevistas que no podés pasar.
-Nunca inventa nada que no le hayas dado — lo que también significa que no
+No puede inventar un título, un puesto, una fecha, una herramienta, una
+métrica ni un empleador que no le hayas dado — lo que también significa que no
 puede arreglar lo que vos informes mal.
 
 ### Disparar la revisión de correo por separado
@@ -332,12 +333,14 @@ duplicados existe justamente porque se espera que vuelvas a correrla, no
 porque sea una excepción. Corré esta skill al menos una vez por día si querés
 que cubra lo que cambió desde ayer.
 
-Y respaldá lo que escribe. Nunca inventa nada que no le hayas dado, así que
-cada afirmación del CV maestro sale de algo que vos dijiste — pero el nombre
-que va en la hoja es el tuyo. Leé el CV maestro antes de que salga a
-cualquier lado y confirmá que refleja tu situación real. Si una línea no
-aguanta una entrevista, sacala antes de que un reclutador se dé cuenta por
-vos.
+Y respaldá lo que escribe. Las reglas de esta skill prohíben agregar un
+título, un puesto, una fecha, una herramienta, una métrica o un empleador que
+vos no hayas dado — cada afirmación del CV maestro sale de algo que dijiste.
+Eso no la hace infalible: puede igual reformular o poner el énfasis donde no
+corresponde, y el nombre que va en la hoja es el tuyo. Leé el CV maestro antes
+de que salga a cualquier lado y confirmá que refleja tu situación real. Si una
+línea no aguanta una entrevista, sacala antes de que un reclutador se dé
+cuenta por vos.
 
 ## Contribuir
 

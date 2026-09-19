@@ -6,18 +6,24 @@ retargets the whole document.
 
 ## Format — ask once, before rewriting, only if there is something to ask
 
-Ask only when there is an original design to weigh against Harvard style,
-which requires actually seeing the source CV's formatting.
+Before anything else, check the campaign brief's `CV format choice` field. If
+it already holds an answer, use it and skip straight to the branch below — do
+not ask again. Only run the rest of this gate when that field is empty.
 
-- **The CV arrived as a file you can open.** Look at it. If it is already
-  plain — no photo, no colour — skip the question and go straight to the
-  rewrite.
+Ask only when there is an original design to weigh against Harvard style — a
+photo, colour, multiple columns, or any deliberate typographic layout — which
+requires actually seeing the source CV's formatting.
+
+- **The CV arrived as a file you can open.** Look at it. If it is genuinely
+  plain — single column, no photo, no colour, no deliberate typographic
+  treatment — skip the question and go straight to the rewrite.
 - **The CV arrived as pasted text or a LinkedIn profile URL.** There is no
   original layout to inspect, so there is nothing to ask: say so plainly and
   go straight to the rewrite in the Harvard style below.
 
-If the source file carries a photo or colour, ask once, before rewriting
-anything, in the applicant's own language, naming what each option delivers:
+If the source file carries any of that — a photo, colour, multiple columns, or
+a deliberate typographic layout — ask once, before rewriting anything, in the
+applicant's own language, naming what each option delivers:
 
 > This skill returns your CV in the Harvard style: black and white, no photo.
 > Do you want it that way, or do you want to keep the styles your CV already
@@ -162,8 +168,9 @@ converting. Then convert with whatever the current surface has:
 
 **Claude in Chrome side panel or Cowork** — use the file creation capability.
 Build the .docx with `python-docx` and the .pdf with `reportlab`, or generate
-the .docx and render the .pdf from it. Deliver both as downloads. There is no
-local working directory here; the user saves the files through the browser.
+the .docx and render the .pdf from it. Deliver them as downloads — every file
+the naming rule below calls for. There is no local working directory here; the
+user saves the files through the browser.
 
 **Claude Code** — convert locally, and **always pass the reference document**.
 Run this whole produce-and-verify block once per language, from a separate
@@ -222,11 +229,14 @@ the Harvard branch does not.
 ## Close the phase
 
 Show the user the finished CV and point out what changed and why — they should
-be able to maintain this themselves afterwards. Then name every file actually
-produced — three of them on the "keep their styles" branch, two on Harvard:
+be able to maintain this themselves afterwards. Then open with the line for
+the branch just taken, naming every file actually produced:
 
-> The master CV is ready in .docx and .pdf.
->
+> **Harvard.** The master CV is ready in .docx and .pdf.
+
+> **Keep their styles.** The master CV is ready in .docx and .pdf, plus the
+> same content as plain Markdown you can paste into your own design.
+
 > From here I can search openings and apply for you, but that needs a browser
 > Claude can drive: the Claude in Chrome side panel, Claude Cowork on desktop,
 > or Claude Code started with `--chrome`. Any of those needs a paid plan, and

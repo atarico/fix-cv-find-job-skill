@@ -1,2 +1,5 @@
 dist/
 .atl/
+odd/
+node_modules/
+.astro/

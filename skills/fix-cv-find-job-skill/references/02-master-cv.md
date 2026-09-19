@@ -7,6 +7,8 @@ retargets the whole document.
 ## Format — ask once, before rewriting, only if there is something to ask
 
 Before anything else, check the campaign brief's `CV format choice` field.
+No brief at all — the state of every first run — counts exactly like an
+empty field, never as a recorded answer, same as a placeholder below.
 What an angle-bracket token means depends on where it sits. A brief field that
 still carries its placeholder, such as `<format>` or `<surface>`, is
 legitimately unanswered and counts as empty, never as a recorded answer — this
@@ -17,7 +19,8 @@ must always be substituted, and no angle-bracket token may ever reach text the
 applicant actually reads or a file they receive — see the close-phase rule
 below for the check that enforces it. If the field already
 holds `harvard` or `keep-styles`, skip straight to that branch below — do not
-ask again. Only run the rest of this gate when that field is empty.
+ask again. Only run the rest of this gate when that field is empty or there
+is no brief at all.
 
 Ask only when there is an original design to weigh against Harvard style — a
 photo, colour, multiple columns, or any deliberate typographic layout — which
@@ -207,8 +210,8 @@ directly in the chat, as the deliverable. Say plainly why there are no
 files — code execution is off — and name the toggle: **Code execution and
 file creation**, under Settings > Capabilities. Let the applicant decide:
 turn it on and ask again for the finished files, or take the Markdown as is.
-This ends the phase here, before the close-phase file lines below — there
-are no files to name.
+Close the phase with the third opener below — the file-naming rules that
+follow this section do not apply to this branch.
 
 **Claude Code** — convert locally, and **always pass the reference document**.
 Run this whole produce-and-verify block once per language, from a separate
@@ -272,31 +275,48 @@ clean Markdown the conversion step already produced, as
 `CV_<Name>_Master_<Language>.md`, and hand it over with the other two. It is
 the whole reason that branch exists — without it the choice delivers nothing
 the Harvard branch does not. Verify it was actually written, once per
-language, the same way the two-page gate verifies the .docx and .pdf: on
-Claude Code, `test -s "CV_<Name>_Master_<Language>.md"` right after the `cp`
-above; on the browser branches, where there is no shell to check with, the
-check is the close-phase message itself: the file counts as verified only if
-it is one of the files named in the closing line the applicant reads, so an
-`.md` that was not actually produced must never appear there.
+language, before it is ever named to the applicant: on Claude Code, run
+`test -s "CV_<Name>_Master_<Language>.md"` right after the `cp` above. On
+the browser branches, where there is no shell to check with, the
+file-creation tool's own result is the check — the write succeeded and the
+file appears among the downloads offered, not merely named in the closing
+line. Either way, if the check fails, retry once; if it still fails, say so
+plainly and hand over the Markdown already shown in chat instead of naming a
+file that was never produced.
 
 ## Close the phase
 
 Show the user the finished CV and point out what changed and why — they should
-be able to maintain this themselves afterwards. Then open with exactly one of
-the two lines below, never both, matching the branch just taken. Each line
-carries a `<files>` slot: on the Harvard branch, fill it with every `.docx`
-and `.pdf` produced this run, one pair per language processed; on the "keep
-their styles" branch, fill it with every `.docx`, `.pdf` and `.md` produced
-this run, one trio per language processed. Never a fixed count — a bilingual
-or multilingual run produces one set per language. Before sending, check
-both halves of the rule above: exactly one line went out, matching the
-branch taken, never both, and `<files>` was replaced in it — no
-angle-bracket token reaches the applicant.
+be able to maintain this themselves afterwards. Then send exactly one of the
+three openers below, chosen by the outcome just reached, never more than one.
+The label before each opener is for the model only — only the quoted line is
+applicant-facing. The first two carry a `<files>` slot: on the Harvard branch,
+fill it with every `.docx` and `.pdf` produced this run, one pair per language
+processed; on the "keep their styles" branch, fill it with every `.docx`,
+`.pdf` and `.md` produced this run, one trio per language processed. Never a
+fixed count — a bilingual or multilingual run produces one set per language.
+The third opener has no slot: code execution was off, so no file was produced
+to name. Before sending, check: exactly one opener went out, matching the
+outcome reached, never more than one; on the first two, `<files>` was
+replaced — no angle-bracket token reaches the applicant.
 
-> **Harvard.** The master CV is ready: <files>.
+Harvard branch, files produced:
 
-> **Keep their styles.** The master CV is ready: <files>, so you
-> can paste the Markdown into your own design.
+> The master CV is ready: <files>.
+
+Keep-their-styles branch, files produced:
+
+> The master CV is ready: <files>, so you can paste the Markdown into your
+> own design.
+
+Code execution off, no file produced:
+
+> There are no files this run — code execution is off. The rewritten CV is
+> the Markdown already shown above, ready to paste into your own document.
+> Turn on Code execution and file creation in Settings > Capabilities and ask
+> again for the finished .docx and .pdf, or keep the Markdown as is.
+
+All three outcomes above still get the same handoff:
 
 > From here I can search openings and apply for you, but that needs a browser
 > Claude can drive: the Claude in Chrome side panel, Claude Cowork on desktop,
@@ -304,11 +324,13 @@ angle-bracket token reaches the applicant.
 > Claude in Chrome runs on Chrome on desktop only.
 >
 > If you have it, tell me and we keep going. If you would rather not, we stop
-> here — you have the files and I will show you how to adapt them per opening.
+> here — you have what this run produced and I will show you how to adapt it
+> per opening.
 
-If the user declines, hand over the files, a short guide on swapping the summary
-and skills per opening, and the naming convention. Then stop cleanly. This is a
-complete outcome, not a failure.
+If the user declines, hand over whatever this run produced — the files, or
+the Markdown already shown in chat — a short guide on swapping the summary
+and skills per opening, and the naming convention when files exist. Then stop
+cleanly. This is a complete outcome, not a failure.
 
 If the user says they have it, generate the campaign brief from
 `assets/campaign-brief-template.md` before moving on, and go to

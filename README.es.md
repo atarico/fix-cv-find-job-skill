@@ -116,10 +116,12 @@ Dos cosas independientes deciden qué podés correr: tu **plan** y la
 **superficie** en la que estás.
 
 **Plan.** Las fases 1 y 2 — la auditoría del CV y la reescritura del CV
-maestro — corren con el plan gratuito, en el chat común. Solo tenés que activar
-**Code execution and file creation** primero, en **Configuración →
-Capacidades**. Las fases 3 a 6 necesitan una superficie con navegador, y cada
-una de esas superficies necesita un plan pago.
+maestro — corren con el plan gratuito, en el chat común, actives o no
+**Code execution and file creation** en **Configuración → Capacidades**: si
+la activás, obtenés el `.docx` y el `.pdf` terminados; si la dejás apagada,
+obtenés el CV reescrito como texto en el chat. Las fases 3 a 6 necesitan una
+superficie con navegador, y cada una de esas superficies necesita un plan
+pago.
 
 **Superficie**, para las fases 3 a 6, necesita alguna de estas:
 

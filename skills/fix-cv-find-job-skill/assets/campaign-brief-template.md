@@ -21,9 +21,11 @@ Code. Confirmed once; a new session reads it from here instead of asking
 again: <surface>.
 
 **CV format choice** — one of two fixed values, `harvard` or `keep-styles`
-(the applicant's original styles, delivered also as plain text for their own
-file). Confirmed once, only when phase 2 asked the question; a new session
-reads it from here instead of asking again: <format>.
+(the same rendered .docx and .pdf as the Harvard branch, plus the Markdown to
+paste into the applicant's own design — neither branch carries over the
+source file's original photo, colour or layout). Confirmed once, only when
+phase 2 asked the question; a new session reads it from here instead of
+asking again: <format>.
 
 | Phase | Done | Last run |
 |---|---|---|

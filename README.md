@@ -115,9 +115,11 @@ Two independent things decide what you can run: your **plan**, and the
 **surface** you are on.
 
 **Plan.** Phases 1 and 2 — the CV audit and the master CV rewrite — run on the
-free plan, in ordinary web chat. Turn on **Code execution and file creation**
-first, under **Settings → Capabilities**. Phases 3 to 6 need a browser-capable
-surface, and every one of those surfaces needs a paid plan.
+free plan, in ordinary web chat, either way: turn on **Code execution and
+file creation** under **Settings → Capabilities** and you get the finished
+`.docx` and `.pdf`; leave it off and you get the rewritten CV as text in the
+chat. Phases 3 to 6 need a browser-capable surface, and every one of those
+surfaces needs a paid plan.
 
 **Surface**, for phases 3 to 6, needs one of:
 

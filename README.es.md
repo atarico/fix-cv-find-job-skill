@@ -174,6 +174,11 @@ ln -s "$PWD/fix-cv-find-job-skill/skills/fix-cv-find-job-skill" ~/.claude/skills
 
 - Tu CV en cualquier formato — PDF, Word o pegado como texto. Si no tenés uno,
   un enlace a tu perfil profesional sirve para arrancar.
+- **Un navegador que Claude pueda manejar**, para las fases 3 a 6. El camino
+  habitual es la [extensión de Claude para Chrome](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn) — instalala e iniciá
+  sesión antes de arrancar. Claude Cowork y `claude --chrome` hacen lo mismo;
+  mirá [Requisitos](#requisitos) para las tres y para qué pasa si no tenés
+  ninguna.
 - Para las fases de búsqueda: tené la **sesión iniciada** en los portales de
   empleo donde quieras buscar, en el mismo navegador. Esta skill nunca crea
   cuentas ni ingresa contraseñas.

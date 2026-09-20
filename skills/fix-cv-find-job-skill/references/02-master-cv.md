@@ -322,7 +322,9 @@ Keep-their-styles branch, files produced:
 Code execution off, no file produced:
 
 > There are no files this run — code execution is off. The rewritten CV is
-> the Markdown already shown above, ready to paste into your own document.
+> the Markdown already shown above, ready to paste into your own document, and
+> your campaign brief is here as text too. Keep both, and attach the brief next
+> time: it is what lets me pick up where we left off instead of starting over.
 > Turn on Code execution and file creation in Settings > Capabilities and ask
 > again for the finished .docx and .pdf, or keep the Markdown as is.
 
@@ -344,6 +346,12 @@ following that field's own fencing rule. Phase 4 always tailors from that text,
 never from a file left in this session, and an applicant who stops here may
 come back in a later session — the brief is the only thing that carries this
 run forward, so it is written whether or not this session continues.
+
+Deliver it the way this run delivered the CV: as a download where file creation
+is available, and pasted into the chat as text where it is not. The brief is
+Markdown and needs no file creation, so the branch that produced no files still
+produces this one. Tell the applicant to keep it and attach it next time —
+without it, nothing from this run survives the session.
 
 If the user declines, hand over whatever this run produced — the files, or the
 Markdown already shown in chat — together with the brief, a short guide on

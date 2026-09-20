@@ -67,6 +67,7 @@ SCORE   6/10 — ATS compatibility and quantification are dragging the average
   - [Keeping your campaign between sessions](#keeping-your-campaign-between-sessions)
 - [What it will not do](#what-it-will-not-do)
   - [Two things to know](#two-things-to-know)
+- [Set your expectations](#set-your-expectations)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -110,18 +111,25 @@ own, and nothing is sent without you seeing it first.
 
 ## Requirements
 
-Phases 1 and 2 run anywhere Claude skills run.
+Two independent things decide what you can run: your **plan**, and the
+**surface** you are on.
 
-Phases 3 to 6 drive a real browser using your existing logins, which needs one
-of:
+**Plan.** Phases 1 and 2 — the CV audit and the master CV rewrite — run on the
+free plan, in ordinary web chat, either way: turn on **Code execution and
+file creation** under **Settings → Capabilities** and you get the finished
+`.docx` and `.pdf`; leave it off and you get the rewritten CV as text in the
+chat. Phases 3 to 6 need a browser-capable surface, and every one of those
+surfaces needs a paid plan.
 
-- **Claude in Chrome** side panel — paid plan, Chrome or Edge on desktop only
+**Surface**, for phases 3 to 6, needs one of:
+
+- **Claude in Chrome** side panel — any paid plan, Chrome on desktop only
 - **Claude Cowork** on desktop
 - **Claude Code** started with `claude --chrome`
 
-If you have none of those, the skill stops after phase 2 and hands you the
-files with instructions for applying by hand. **That is a complete outcome,
-not a failure.**
+If you have none of those — including if you are on the free plan — the skill
+stops after phase 2 and hands you the files with instructions for applying by
+hand. **That is a complete outcome, not a failure.**
 
 ## Install
 
@@ -149,7 +157,8 @@ ordinary claude.ai chat**. If that is where you work, install it as a skill:
 1. Download `fix-cv-find-job-skill.zip` from
    [Releases](https://github.com/atarico/fix-cv-find-job-skill/releases), or
    build it yourself with `./scripts/package.sh`
-2. Go to **Settings → Skills → Upload skill**
+2. Go to **Customize → Skills**, click **+**, then **Create skill → Upload a
+   skill**. The path is the same on every plan, free included.
 3. Select the zip. A security scan runs on save.
 
 ### From the terminal
@@ -240,9 +249,9 @@ inbox sorted into real replies, new openings and automatic receipts.
 
 **The audit is a mirror, not an oracle.** The audit and the match scores are
 only as good as what you tell it. If you overstate your seniority or hide a
-disqualifier, it will send you to interviews you cannot pass. It never invents
-anything you did not give it — which also means it cannot fix what you
-misreport.
+disqualifier, it will send you to interviews you cannot pass. It cannot invent
+a degree, job, date, tool, metric or employer you did not give it — which also
+means it cannot fix what you misreport.
 
 ### Triggering the inbox check on its own
 
@@ -300,6 +309,28 @@ you.
 **The inbox pass is a first pass.** The skill decides what to open from sender
 and subject, so it will miss things that are worded unusually. Check your inbox
 yourself as well.
+
+## Set your expectations
+
+This skill helps you pass filters and spend your attention where it matters.
+It does not guarantee you a job, and it cannot guarantee one soon. It is not
+infallible, and it will not turn into a hundred interviews in two weeks —
+nobody's tool does that, and anything that promises it is not being straight
+with you.
+
+It is built to be run repeatedly, not once: the standalone inbox and job
+search entry points exist because postings and replies keep changing, and
+duplicate detection exists because re-running is the expected pattern, not an
+edge case. Run it at least once a day if you want it covering what changed
+since yesterday.
+
+And back up what it writes. This skill's rules forbid adding a degree, job,
+date, tool, metric or employer you did not supply — every claim on the master
+CV traces back to something you said. That does not make it infallible: it can
+still reframe or emphasise something wrongly, and it is your name on the page.
+Read the master CV before it goes anywhere, and confirm it reflects your real
+situation. If a line would not hold up in an interview, cut it before a
+recruiter finds that out for you.
 
 ## Contributing
 

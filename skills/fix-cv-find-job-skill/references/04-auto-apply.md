@@ -32,17 +32,23 @@ its application history page — not a guess from memory. If the user already
 applied to this company and role, stop and tell them. Never apply twice. A
 duplicate reads as careless and some systems reject it automatically.
 
-**2. Tailor the CV.** Never the generic one. Pick the named summary variant
-from the master CV whose specialisation matches the posting, reorder skills so
-the posting's keywords surface first, and select the experience most relevant
-to this specific role. If the applicant has portfolio items or work samples,
-include a fixed number of them — decide the count once for the campaign, not
-per application — chosen each time against what this specific posting asks
-for, never the same set copy-pasted across applications. Where there is no
-portfolio, carry the field's own equivalent instead: licences, certifications,
-registration numbers, references, or a trade record, selected the same way
-against what the posting asks for. Keep it to two pages. Match the posting's
-language, using the matching-language master CV from phase 2 as the base.
+**2. Tailor the CV.** Never the generic one. Start from the master CV in the
+posting's language, restored from the campaign brief's CV assets section —
+there is one master per language, never one per specialisation. If that text is
+missing, empty or unusable for the posting's language, stop this phase: tell the
+applicant the brief has no master CV to work from, and route back to
+`references/02-master-cv.md` to rebuild it from a CV they supply. Never draft an
+application from a CV you assembled yourself — a tailored CV the applicant never
+approved is exactly what prime directive 2 forbids. From it, pick
+the named summary variant whose target matches the posting's specialisation,
+reorder skills so the posting's keywords surface first, and select the
+experience most relevant to this specific role. If the applicant has portfolio
+items or work samples, include a fixed number of them — decide the count once
+for the campaign, not per application — chosen each time against what this
+specific posting asks for, never the same set copy-pasted across applications.
+Where there is no portfolio, carry the field's own equivalent instead:
+licences, certifications, registration numbers, references, or a trade record,
+selected the same way against what the posting asks for. Keep it to two pages.
 
 **3. Write the cover letter.** One page, three or four short paragraphs, in the
 posting's language:

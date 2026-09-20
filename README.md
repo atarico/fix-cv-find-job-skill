@@ -100,7 +100,7 @@ to relearn these rules one lost application at a time.
 | Phase | What you get | Needs a browser |
 |---|---|---|
 | 1. CV audit | 20 roles you are the best candidate for, the ATS keywords to carry, what a screener sees in 10 seconds, and a score out of 10 with the path to raising it | no |
-| 2. Master CV | Your CV rebuilt on the XYZ formula, ATS-ready, two pages, with swappable summary variants — delivered as `.docx` and `.pdf` | no |
+| 2. Master CV | Your CV rebuilt on the XYZ formula, ATS-ready, two pages, with swappable summary variants — delivered as `.docx`, `.pdf` and Markdown | no |
 | 3. Job search | Every matching opening across your platforms, ranked, with a match score and the keywords each one wants | yes |
 | 4. Apply | A tailored CV and cover letter per opening, forms filled, applications tracked, full report | yes |
 | 5. LinkedIn | Your profile aligned with the rewritten CV | yes |
@@ -117,9 +117,9 @@ Two independent things decide what you can run: your **plan**, and the
 **Plan.** Phases 1 and 2 — the CV audit and the master CV rewrite — run on the
 free plan, in ordinary web chat, either way: turn on **Code execution and
 file creation** under **Settings → Capabilities** and you get the finished
-`.docx` and `.pdf`; leave it off and you get the rewritten CV as text in the
-chat. Phases 3 to 6 need a browser-capable surface, and every one of those
-surfaces needs a paid plan.
+`.docx`, `.pdf` and Markdown; leave it off and you get the rewritten CV as
+text in the chat. Phases 3 to 6 need a browser-capable surface, and every one
+of those surfaces needs a paid plan.
 
 **Surface**, for phases 3 to 6, needs one of:
 
@@ -219,8 +219,8 @@ number, method — with vague and passive language stripped out, the keywords
 worked in, two pages, and several named, swappable summary variants — one per
 specialisation from the audit — so you can retarget it per opening by name. It
 is built in every language you work in; the CV itself never targets one job
-posting's language, only the tailored copies in step 5 do. Delivered as `.docx`
-and `.pdf`, one pair per language.
+posting's language, only the tailored copies in step 5 do. Delivered as `.docx`,
+`.pdf` and Markdown, one set per language.
 
 If you have no browser available, this is where it ends, and it hands you the
 files plus instructions for applying by hand. That is a complete outcome.

@@ -20,12 +20,12 @@ What has already run, so a new session does not repeat it.
 Code. Confirmed once; a new session reads it from here instead of asking
 again: <surface>.
 
-**CV format choice** — one of two fixed values, `harvard` or `keep-styles`
-(the same rendered .docx and .pdf as the Harvard branch, plus the Markdown to
-paste into the applicant's own design — neither branch carries over the
-source file's original photo, colour or layout). Confirmed once, only when
-phase 2 asked the question; a new session reads it from here instead of
-asking again: <format>.
+**CV photo choice** — the CV always comes back in the Harvard style; this
+field only tracks the photo. One of two fixed values: `with-photo` means the
+Harvard `.docx` and `.pdf` carry the source file's photo, `no-photo` means
+they do not. Confirmed once, only when phase 2 asked the question — which
+happens only when the source CV carried a photo in the first place; a new
+session reads it from here instead of asking again: <photo>.
 
 | Phase | Done | Last run |
 |---|---|---|

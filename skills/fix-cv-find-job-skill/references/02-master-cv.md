@@ -4,6 +4,16 @@ Rewrite the CV as a master template the user adapts to any opening. Not a
 finished CV for one job: a base where swapping a handful of marked lines
 retargets the whole document.
 
+**What the master must be.** It covers the bases of the applicant's whole
+sector, not one posting or one recent role — the CV you would hand someone who
+says they need people in that sector, without naming a specific opening. There
+is one master per language, never one per specialisation: specialisations live
+in the summary variants built later in this phase, as instructions for adapting
+this one document, not as separate CVs. State this plainly here, because
+nothing downstream checks for it: without this rule, a model tends to bias the
+master toward whichever job sits most recent in the source CV, and nothing
+later in this workflow catches that drift.
+
 ## Format — ask once, before rewriting, only if there is something to ask
 
 Before anything else, check the campaign brief's `CV format choice` field.
@@ -327,11 +337,17 @@ All three outcomes above still get the same handoff:
 > here — you have what this run produced and I will show you how to adapt it
 > per opening.
 
-If the user declines, hand over whatever this run produced — the files, or
-the Markdown already shown in chat — a short guide on swapping the summary
-and skills per opening, and the naming convention when files exist. Then stop
-cleanly. This is a complete outcome, not a failure.
+Generate the campaign brief from `assets/campaign-brief-template.md` either
+way, before branching on the answer. Fill Section 3's master CV text field with
+the clean Markdown already produced above, one fenced block per language,
+following that field's own fencing rule. Phase 4 always tailors from that text,
+never from a file left in this session, and an applicant who stops here may
+come back in a later session — the brief is the only thing that carries this
+run forward, so it is written whether or not this session continues.
 
-If the user says they have it, generate the campaign brief from
-`assets/campaign-brief-template.md` before moving on, and go to
-`references/03-job-search.md`.
+If the user declines, hand over whatever this run produced — the files, or the
+Markdown already shown in chat — together with the brief, a short guide on
+swapping the summary and skills per opening, and the naming convention when
+files exist. Then stop cleanly. This is a complete outcome, not a failure.
+
+If the user says they have it, go to `references/03-job-search.md`.

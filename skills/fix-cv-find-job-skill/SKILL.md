@@ -85,9 +85,11 @@ URL. Accept a standalone request with neither, such as "check my email" or
 - **No brief, a CV supplied.** First run. Confirm the surface (below), then go
   to `references/01-cv-audit.md`. Phases 1 and 2 run once, in order, and never
   run again on their own after this.
-- **A brief attached, no new CV.** Restore every field from it. Do not re-run
-  the CV audit or the master CV rewrite — the brief's own status record shows
-  they already happened. Resume exactly where the brief says the last session
+- **A brief attached, no new CV.** Restore every field from it, including the
+  master CV text held in its CV assets section — that text, not any file left
+  in this session, is what later phases tailor from. Do not re-run the CV
+  audit or the master CV rewrite — the brief's own status record shows they
+  already happened. Resume exactly where the brief says the last session
   stopped: the next unswept platform, the next queued application, a blocked
   item, or whatever its status and "next step" fields name.
 - **A brief attached and a new CV supplied.** Restore the brief, then ask once,

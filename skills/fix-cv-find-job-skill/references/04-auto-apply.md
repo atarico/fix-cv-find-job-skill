@@ -34,7 +34,12 @@ duplicate reads as careless and some systems reject it automatically.
 
 **2. Tailor the CV.** Never the generic one. Start from the master CV in the
 posting's language, restored from the campaign brief's CV assets section —
-there is one master per language, never one per specialisation. From it, pick
+there is one master per language, never one per specialisation. If that text is
+missing, empty or unusable for the posting's language, stop this phase: tell the
+applicant the brief has no master CV to work from, and route back to
+`references/02-master-cv.md` to rebuild it from a CV they supply. Never draft an
+application from a CV you assembled yourself — a tailored CV the applicant never
+approved is exactly what prime directive 2 forbids. From it, pick
 the named summary variant whose target matches the posting's specialisation,
 reorder skills so the posting's keywords surface first, and select the
 experience most relevant to this specific role. If the applicant has portfolio

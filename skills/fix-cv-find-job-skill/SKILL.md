@@ -89,9 +89,16 @@ URL. Accept a standalone request with neither, such as "check my email" or
   master CV text held in its CV assets section — that text, not any file left
   in this session, is what later phases tailor from. Do not re-run the CV
   audit or the master CV rewrite — the brief's own status record shows they
-  already happened. Resume exactly where the brief says the last session
-  stopped: the next unswept platform, the next queued application, a blocked
-  item, or whatever its status and "next step" fields name.
+  already happened. **Unless that text is missing or unusable**: a brief
+  written before the field existed, truncated, hand-edited, or with its fenced
+  block broken on re-upload. There is nothing to tailor from then, so say so
+  plainly, ask for the CV as a file, pasted text or a profile URL, and run
+  `references/02-master-cv.md` to rebuild the master before any browser phase.
+  Never improvise a master from the brief's remaining fields, and never
+  reconstruct one from memory of an earlier session.
+  Resume exactly where the brief says the last session stopped: the next
+  unswept platform, the next queued application, a blocked item, or whatever
+  its status and "next step" fields name.
 - **A brief attached and a new CV supplied.** Restore the brief, then ask once,
   before anything else: "You attached a new CV — want the audit and rewrite run
   on it, or keep the master CV already on file?" Yes routes to
@@ -111,8 +118,10 @@ URL. Accept a standalone request with neither, such as "check my email" or
     state, say so and ask for the CV, or offer to run phase 3's parameter
     collection first — there is nothing to search from otherwise.
 
-Phases 1 and 2 never re-run on an existing brief unless the user attaches a new
-CV and explicitly says yes to rerunning them.
+Phases 1 and 2 never re-run on an existing brief on their own. There are two
+exceptions, both above: the user attaches a new CV and explicitly says yes to
+rerunning them, or the brief holds no usable master CV text and phase 2 has to
+rebuild one before any browser phase can tailor from it.
 
 Then confirm the surface, when it is not already known from the brief: ask
 whether they are in the Claude in Chrome side panel, Claude Cowork on desktop,

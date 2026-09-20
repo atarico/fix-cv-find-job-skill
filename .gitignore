@@ -3,3 +3,4 @@ dist/
 odd/
 node_modules/
 .astro/
+__pycache__/

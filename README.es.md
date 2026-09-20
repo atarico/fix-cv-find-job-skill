@@ -101,7 +101,7 @@ reaprender estas reglas de a una postulación perdida por vez.
 | Fase | Qué obtenés | Necesita navegador |
 |---|---|---|
 | 1. Auditoría del CV | Los 20 puestos para los que sos mejor candidato, las palabras clave ATS que deberías incluir, qué se ve en 10 segundos y un puntaje del 1 al 10 con el camino para subirlo | no |
-| 2. CV maestro | Tu CV reconstruido con la fórmula XYZ, listo para ATS, dos páginas, con variantes de resumen intercambiables — entregado en `.docx` y `.pdf` | no |
+| 2. CV maestro | Tu CV reconstruido con la fórmula XYZ, listo para ATS, dos páginas, con variantes de resumen intercambiables — entregado en `.docx`, `.pdf` y Markdown | no |
 | 3. Búsqueda | Todas las vacantes que encajan en tus plataformas, rankeadas, con puntaje de compatibilidad y las palabras clave que pide cada una | sí |
 | 4. Postulación | CV y carta a medida por vacante, formularios completados, postulaciones registradas, reporte final | sí |
 | 5. LinkedIn | Tu perfil alineado con el CV reescrito | sí |
@@ -118,10 +118,10 @@ Dos cosas independientes deciden qué podés correr: tu **plan** y la
 **Plan.** Las fases 1 y 2 — la auditoría del CV y la reescritura del CV
 maestro — corren con el plan gratuito, en el chat común, actives o no
 **Code execution and file creation** en **Configuración → Capacidades**: si
-la activás, obtenés el `.docx` y el `.pdf` terminados; si la dejás apagada,
-obtenés el CV reescrito como texto en el chat. Las fases 3 a 6 necesitan una
-superficie con navegador, y cada una de esas superficies necesita un plan
-pago.
+la activás, obtenés el `.docx`, el `.pdf` y el Markdown terminados; si la
+dejás apagada, obtenés el CV reescrito como texto en el chat. Las fases 3 a 6
+necesitan una superficie con navegador, y cada una de esas superficies
+necesita un plan pago.
 
 **Superficie**, para las fases 3 a 6, necesita alguna de estas:
 
@@ -226,7 +226,8 @@ incorporadas, dos páginas, y varias variantes de resumen con nombre propio —
 una por especialización de la auditoría — para reorientarlo según la vacante
 eligiendo por nombre. Se construye en cada idioma en el que trabajás; el CV en
 sí nunca sigue el idioma de una vacante puntual, eso solo pasa con las copias a
-medida del paso 5. Entregado en `.docx` y `.pdf`, un par por idioma.
+medida del paso 5. Entregado en `.docx`, `.pdf` y Markdown, un conjunto por
+idioma.
 
 Si no tenés navegador disponible, acá termina, y te entrega los archivos más las
 instrucciones para postular a mano. Eso es un resultado completo.

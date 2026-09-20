@@ -118,7 +118,7 @@ next, and wait:
 > Next I rewrite this as a master CV you can adapt to any opening: every bullet
 > rebuilt on the XYZ formula, vague and passive language removed, the ATS
 > keywords worked in, a flexible summary at the top, two pages maximum, and you
-> get it as .docx and .pdf.
+> get it as .docx, .pdf and Markdown.
 >
 > Want me to go ahead?
 

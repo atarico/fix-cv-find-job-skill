@@ -2,7 +2,7 @@
 name: fix-cv-find-job-skill
 description: Fixes your CV and finds you a job. Use when the user wants a resume or CV reviewed, rewritten, scored, or optimized for ATS; wants to find or search job openings and vacancies; wants help applying to jobs, writing cover letters, or tracking applications; wants their LinkedIn profile improved to match their CV; or says things like "review my CV", "revisa mi CV", "find me a job", "buscame trabajo", "apply for me", "postulate por mi", "check my email for job replies" or "revisa mi mail". Works for any industry or profession, not only tech.
 license: Apache-2.0
-compatibility: Plan and surface are independent. The CV audit and CV rewrite phases run on any surface where this skill runs, free web chat included, either way: with code execution enabled in Settings > Capabilities you get the finished .docx and .pdf, without it you get the rewritten CV as text in the chat. The job search, auto-apply, LinkedIn and inbox phases need a browser-capable surface, which requires a paid plan: Claude in Chrome (any paid plan, Chrome on desktop only), Claude Cowork on desktop, or Claude Code with --chrome.
+compatibility: Plan and surface are independent. Phases 1 and 2 run on any surface where this skill runs, free web chat included: with code execution enabled in Settings > Capabilities you get the finished .docx, .pdf and Markdown; without it, the CV as chat text. Phases 3 to 6 need a browser-capable surface, which needs a paid plan: Claude in Chrome (paid plan, desktop only), Claude Cowork, or Claude Code with --chrome.
 metadata:
   version: 0.2.0
   author: atarico
@@ -64,7 +64,7 @@ them all at once.
 | # | Phase | Reference | Needs browser |
 |---|---|---|---|
 | 1 | CV audit and score | `references/01-cv-audit.md` | no |
-| 2 | Master CV rewrite (.docx + .pdf) | `references/02-master-cv.md` | no |
+| 2 | Master CV rewrite (.docx + .pdf + Markdown) | `references/02-master-cv.md` | no |
 | 3 | Job search and match table | `references/03-job-search.md` | yes |
 | 4 | Auto-apply | `references/04-auto-apply.md` | yes |
 | 5 | LinkedIn alignment | `references/05-linkedin.md` | yes |

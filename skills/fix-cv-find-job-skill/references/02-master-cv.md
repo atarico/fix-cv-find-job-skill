@@ -14,61 +14,16 @@ nothing downstream checks for it: without this rule, a model tends to bias the
 master toward whichever job sits most recent in the source CV, and nothing
 later in this workflow catches that drift.
 
-## Format — Harvard always; ask only about the photo
-
-Before anything else, check the campaign brief's `CV photo choice` field.
-No brief at all — the state of every first run — counts exactly like an
-empty field, never as a recorded answer, same as a placeholder below.
-What an angle-bracket token means depends on where it sits. A brief field that
-still carries its placeholder, such as `<photo>` or `<surface>`, is
-legitimately unanswered and counts as empty, never as a recorded answer — this
-holds for every placeholder field in the brief, not only this one. Everywhere
-else they mark a value to fill in: a slot in a message written to the
-applicant, or a variable in a filename like `<Name>` and `<Language>`. Those
-must always be substituted, and no angle-bracket token may ever reach text the
-applicant actually reads or a file they receive — see the close-phase rule
-below for the check that enforces it. If the field already
-holds `with-photo` or `no-photo`, skip straight to that outcome — do not
-ask again. Only run the rest of this gate when that field is empty or there
-is no brief at all.
-
 The CV always comes back in the Harvard style: black and white, one column,
 the fixed template in `assets/reference.docx`. There is nothing to weigh
-against it, and nothing to ask about colour, columns or typography. The only
-open question is whether the source CV's photo comes along.
+against it, and nothing to ask about colour, columns or typography.
 
-- **The CV arrived as a file.** If you can open it and inspect it, look for a
-  photo. No photo — skip the question and go straight to the rewrite in the
-  Harvard style, no photo. If it cannot be inspected at all — a scanned or
-  image-only PDF, a password-protected or unsupported document, an attachment
-  that fails to render — there is nothing to check either: say so plainly and
-  go straight to the rewrite in the Harvard style, no photo, the same outcome
-  as the pasted-text path, reached for a different reason.
-- **The CV arrived as pasted text or a LinkedIn profile URL.** There is no
-  photo to carry over, so there is nothing to ask: say so plainly and go
-  straight to the rewrite in the Harvard style, no photo.
-- **This is a resumed session and the source CV is gone.** The field is empty
-  and there is no file, pasted text or URL left in this session to look at.
-  There is nothing to inspect, so there is nothing to ask: proceed in the
-  Harvard style, no photo, and tell the applicant plainly that a resumed
-  session with no source CV defaults to Harvard style without the photo.
-
-If the source file carries a photo, ask once, before rewriting anything, in
-the applicant's own language:
-
-> Do we keep the photo?
-
-- **Yes** — Harvard style, with the photo.
-- **No** — Harvard style, no photo.
-
-Record the answer in the campaign brief's `CV photo choice` field (Section 0)
-only when this gate asked the question above and the applicant answered it,
-writing exactly `with-photo` or `no-photo` — the only two values this field
-ever holds, so a resumed session reads a fixed token instead of
-re-interpreting prose. Every skip path — the photo-free or uninspectable file,
-the pasted text or LinkedIn URL, and the resumed session with nothing left to
-inspect — leaves the field empty, so a later session with an actual photo to
-weigh can still ask.
+The master ships without a photo. Photos are routinely discarded in the
+United States, the United Kingdom and Canada on bias-avoidance grounds, and
+expected across much of continental Europe and Latin America — whether to
+add one depends on the market the applicant is targeting, not on this skill.
+An applicant whose market expects a photo adds it themselves afterwards, in
+their own copy, with a word processor.
 
 ## Language — every language the applicant works in, not the posting's
 
@@ -236,31 +191,6 @@ content to fix a problem that was never the content's.
 If the file is missing, regenerate it with `scripts/make-reference-docx.py` from
 the repository. Do not work around its absence by shrinking the font.
 
-### The photo, when kept
-
-Answering "Yes" means the photo has to come out of the source file and into the
-generated `.docx` — extracted and re-embedded, not named in the closing line and
-hoped for. The hard half is the extraction: a `.docx` source keeps its images as
-ordinary media parts, while other formats need a library able to read that
-format's images.
-
-Once the photo is a file on disk, embedding it is not a post-processing step.
-Reference it from the clean Markdown — `![](photo.png)` beside the name and
-contact line — and the conversion carries it through: pandoc copies it into the
-document's media parts and writes the drawing reference itself. On a surface
-that builds the `.docx` with `python-docx` instead, place it with `add_picture`,
-sized to sit beside the name and contact line without displacing them.
-
-Either way the photo is in the document before the `.pdf` is rendered from it,
-so both files carry it.
-
-Where no such library is available on the current surface, extraction is not
-possible: say so plainly to the applicant, and deliver the three Harvard files
-without the photo rather than dropping it silently or naming a photo that was
-never added. This follows the same rule the code-execution
-fallback above follows for the files themselves — a missing capability is
-disclosed, never papered over.
-
 ### Verify, do not trust
 
 Check the output rather than assuming the conversion behaved. Run this gate
@@ -303,6 +233,15 @@ plainly and hand over the Markdown already shown in chat instead of naming a
 file that was never produced.
 
 ## Close the phase
+
+An angle-bracket token marks a value to fill in: a slot in a message written
+to the applicant, such as `<files>` below, or a variable in a filename, such
+as `<Name>` and `<Language>` throughout this phase. Those must always be
+substituted, and no angle-bracket token may ever reach text the applicant
+actually reads or a file they receive. The same holds for the campaign
+brief: a field that still carries its placeholder, such as `<surface>` or
+`<seniority>`, is legitimately unanswered and counts as empty, never as a
+recorded answer, for every placeholder field in the brief.
 
 Show the user the finished CV and point out what changed and why — they should
 be able to maintain this themselves afterwards. Then send exactly one of the

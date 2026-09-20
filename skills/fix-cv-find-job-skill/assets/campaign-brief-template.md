@@ -20,13 +20,6 @@ What has already run, so a new session does not repeat it.
 Code. Confirmed once; a new session reads it from here instead of asking
 again: <surface>.
 
-**CV photo choice** — the CV always comes back in the Harvard style; this
-field only tracks the photo. One of two fixed values: `with-photo` means the
-Harvard `.docx` and `.pdf` carry the source file's photo, `no-photo` means
-they do not. Confirmed once, only when phase 2 asked the question — which
-happens only when the source CV carried a photo in the first place; a new
-session reads it from here instead of asking again: <photo>.
-
 | Phase | Done | Last run |
 |---|---|---|
 | 1. CV audit | | |
@@ -112,13 +105,14 @@ fresh per posting.
 ## 3. CV assets
 
 Built once per language the applicant works in — the master CV follows no
-posting. The .docx and .pdf are downloads, not stored here; the text itself is,
-below, so a resumed session has it without re-uploading anything.
+posting. The .docx, .pdf and Markdown are downloads, not stored here; the text
+itself is, below, so a resumed session has it without re-uploading anything.
 
 | File | Language | Location / state |
 |---|---|---|
 | Master CV (.docx) | | |
 | Master CV (.pdf) | | |
+| Master CV (.md) | | |
 
 **Master CV text** — the full Markdown body phase 2 already writes for each
 language. One master per language, never one per specialisation:

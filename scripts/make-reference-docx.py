@@ -87,12 +87,17 @@ BODY_SIZE_HP = 20  # 10pt document default, single spaced
 MARGIN_TWIPS = 720  # half an inch on every side
 
 # One explicit font for the whole document, in place of pandoc's theme fonts.
-# Calibri renders as itself on Windows/macOS and as the metric-compatible
-# Carlito on Linux (shipped with LibreOffice), so line breaks and page count
-# are identical everywhere. ATS-safe, and what most CVs already use.
+# Calibri renders as itself on Windows/macOS. On Linux it maps to Carlito,
+# which is metric-compatible, so line breaks and page count are identical
+# everywhere -- but only when Carlito is installed: it is a *Recommends* of
+# LibreOffice, not a dependency (Debian/Ubuntu: fonts-crosextra-carlito).
+# Without it fontconfig falls back to a wider face and the two-page gate
+# can fail for a reason that is not the content's. ATS-safe either way.
 BODY_FONT = "Calibri"
 # Styles that must stand out from body text by weight, since colour is gone.
 BOLD_STYLES = ("Title", "Subtitle", "Heading1", "Heading2", "Heading3", "Heading4", "Heading5", "Heading6")
+# Styles a CV never uses; pandoc <= 3.1 does not even define this one.
+OPTIONAL_STYLES = ("SourceCode",)
 
 # width x height in twips
 PAGE_SIZES = {
@@ -115,25 +120,57 @@ def _size_runs(size_hp: int) -> str:
     return f'<w:sz w:val="{size_hp}"/><w:szCs w:val="{size_hp}"/>'
 
 
-def _strip_sizes(xml: str) -> str:
-    xml = re.sub(r'<w:sz\b[^>]*/>', "", xml)
-    return re.sub(r'<w:szCs\b[^>]*/>', "", xml)
+class TemplateError(RuntimeError):
+    """A rewrite did not land. Raised instead of returning unchanged XML, so a
+    template that silently kept pandoc's defaults can never be written."""
+
+
+def _insert_run_prop(rpr_inner: str, fragment: str) -> str:
+    """Insert ``fragment`` into the body of a <w:rPr>, honouring schema order.
+
+    CT_RPr is an ordered sequence that begins rStyle, rFonts, b, bCs, ... sz,
+    szCs, ... Everything this script inserts (fonts, bold, sizes) belongs right
+    after rStyle/rFonts, so the fragment goes after the last of those when
+    present and at the very start otherwise.
+    """
+    anchor = 0
+    for m in re.finditer(r"<w:(?:rStyle|rFonts)\b[^>]*/>", rpr_inner):
+        anchor = m.end()
+    return rpr_inner[:anchor] + fragment + rpr_inner[anchor:]
+
+
+def _with_run_props(block: str, fragment: str, strip: str) -> str:
+    """Return ``block`` (a <w:style> or <w:rPrDefault>) with ``fragment`` set
+    in its <w:rPr>, after removing every element matching ``strip``.
+
+    Handles a populated <w:rPr>, a self-closing <w:rPr/>, and no rPr at all
+    (one is created at the end of the block, where the schema puts it). Raises
+    TemplateError if the fragment could not be placed.
+    """
+    block = re.sub(strip, "", block)
+    block = re.sub(r"<w:rPr\s*/>", "<w:rPr></w:rPr>", block, count=1)
+    m = re.search(r"<w:rPr>(.*?)</w:rPr>", block, re.S)
+    if m is None:
+        close = "</w:style>" if "</w:style>" in block else "</w:rPrDefault>"
+        if close not in block:
+            raise TemplateError("no <w:rPr> and no place to create one in: %s" % block[:80])
+        return block.replace(close, "<w:rPr>" + fragment + "</w:rPr>" + close, 1)
+    inner = _insert_run_prop(m.group(1), fragment)
+    out = block[: m.start(1)] + inner + block[m.end(1):]
+    if fragment not in out:
+        raise TemplateError("failed to insert %s" % fragment)
+    return out
 
 
 def force_rpr(block: str, size_hp: int) -> str:
-    """Ensure a <w:style> block's run properties carry exactly our size.
+    """Ensure a <w:style> block carries exactly our run size (never two)."""
+    return _with_run_props(block, _size_runs(size_hp), r"<w:sz(?:Cs)?\b[^>]*/>")
 
-    Existing sizes are removed first, so the result never carries two ``w:sz``
-    elements. When the style has no ``rPr`` at all, one is appended before
-    ``</w:style>`` -- the position the schema puts it in (after ``pPr``).
-    """
-    block = _strip_sizes(block)
-    sz = _size_runs(size_hp)
-    if re.search(r"<w:rPr\s*/>", block):
-        return re.sub(r"<w:rPr\s*/>", "<w:rPr>" + sz + "</w:rPr>", block, count=1)
-    if "<w:rPr>" in block:
-        return block.replace("<w:rPr>", "<w:rPr>" + sz, 1)
-    return block.replace("</w:style>", "<w:rPr>" + sz + "</w:rPr></w:style>", 1)
+
+def force_bold(block: str) -> str:
+    r"""Ensure a <w:style> block is bold -- also overriding an explicit
+    ``<w:b w:val="0"/>``, which the older ``<w:b\s*/>`` pattern let through."""
+    return _with_run_props(block, "<w:b/><w:bCs/>", r"<w:b(?:Cs)?\b[^>]*/>")
 
 
 def force_spacing(block: str, before: int, after: int) -> str:
@@ -155,19 +192,31 @@ def force_spacing(block: str, before: int, after: int) -> str:
     return block.replace("</w:style>", ppr + "</w:style>", 1)
 
 
+def _rpr_default(styles: str) -> "tuple[str, re.Match]":
+    """Locate <w:rPrDefault>, creating docDefaults/rPrDefault when absent.
+
+    pandoc has always shipped one, but this is the container every document
+    default hangs off, and the point of this script is to survive what pandoc
+    changes next -- so its absence is handled, not assumed away.
+    """
+    if not re.search(r"<w:docDefaults\b", styles):
+        styles, n = re.subn(r"(<w:styles\b[^>]*>)", r"\1<w:docDefaults></w:docDefaults>", styles, count=1)
+        if n == 0:
+            raise TemplateError("styles.xml has no <w:styles> root")
+    styles = re.sub(r"<w:docDefaults\s*/>", "<w:docDefaults></w:docDefaults>", styles, count=1)
+    if not re.search(r"<w:rPrDefault\b", styles):
+        styles = re.sub(r"(<w:docDefaults\b[^>]*>)", r"\1<w:rPrDefault></w:rPrDefault>", styles, count=1)
+    styles = re.sub(r"<w:rPrDefault\s*/>", "<w:rPrDefault></w:rPrDefault>", styles, count=1)
+    m = re.search(r"<w:rPrDefault\b[^>]*>.*?</w:rPrDefault>", styles, re.S)
+    if m is None:
+        raise TemplateError("could not locate or create <w:rPrDefault>")
+    return styles, m
+
+
 def force_doc_defaults(styles: str, size_hp: int) -> str:
     """Set the document-default run size, replacing rather than duplicating."""
-    m = re.search(r"<w:rPrDefault>.*?</w:rPrDefault>", styles, re.S)
-    if not m:
-        block = "<w:rPrDefault><w:rPr>" + _size_runs(size_hp) + "</w:rPr></w:rPrDefault>"
-        return styles.replace("<w:docDefaults>", "<w:docDefaults>" + block, 1)
-    block = _strip_sizes(m.group(0))
-    if re.search(r"<w:rPr\s*/>", block):
-        block = re.sub(r"<w:rPr\s*/>", "<w:rPr>" + _size_runs(size_hp) + "</w:rPr>", block, count=1)
-    elif "<w:rPr>" in block:
-        block = block.replace("<w:rPr>", "<w:rPr>" + _size_runs(size_hp), 1)
-    else:
-        block = block.replace("</w:rPrDefault>", "<w:rPr>" + _size_runs(size_hp) + "</w:rPr></w:rPrDefault>", 1)
+    styles, m = _rpr_default(styles)
+    block = _with_run_props(m.group(0), _size_runs(size_hp), r"<w:sz(?:Cs)?\b[^>]*/>")
     return styles[: m.start()] + block + styles[m.end():]
 
 
@@ -182,18 +231,6 @@ def strip_colour(styles: str) -> str:
     return re.sub(r"<w:color\b[^>]*/>", "", styles)
 
 
-def force_bold(block: str) -> str:
-    """Ensure a <w:style> block's run properties carry bold (once)."""
-    block = re.sub(r"<w:b\s*/>", "", block)
-    block = re.sub(r"<w:bCs\s*/>", "", block)
-    bold = "<w:b/><w:bCs/>"
-    if re.search(r"<w:rPr\s*/>", block):
-        return re.sub(r"<w:rPr\s*/>", "<w:rPr>" + bold + "</w:rPr>", block, count=1)
-    if "<w:rPr>" in block:
-        return block.replace("<w:rPr>", "<w:rPr>" + bold, 1)
-    return block.replace("</w:style>", "<w:rPr>" + bold + "</w:rPr></w:style>", 1)
-
-
 def pin_font(styles: str, font: str) -> str:
     """Replace every theme font reference with one explicit font.
 
@@ -205,13 +242,8 @@ def pin_font(styles: str, font: str) -> str:
     """
     styles = re.sub(r'<w:rFonts\b[^>]*Theme="[^"]*"[^>]*/>', "", styles)
     rfonts = '<w:rFonts w:ascii="{f}" w:hAnsi="{f}" w:cs="{f}" w:eastAsia="{f}"/>'.format(f=font)
-    m = re.search(r"<w:rPrDefault>.*?</w:rPrDefault>", styles, re.S)
-    block = m.group(0)
-    block = re.sub(r"<w:rFonts\b[^>]*/>", "", block)
-    if re.search(r"<w:rPr\s*/>", block):
-        block = re.sub(r"<w:rPr\s*/>", "<w:rPr>" + rfonts + "</w:rPr>", block, count=1)
-    else:
-        block = block.replace("<w:rPr>", "<w:rPr>" + rfonts, 1)
+    styles, m = _rpr_default(styles)
+    block = _with_run_props(m.group(0), rfonts, r"<w:rFonts\b[^>]*/>")
     return styles[: m.start()] + block + styles[m.end():]
 
 
@@ -318,15 +350,22 @@ def inspect(path: pathlib.Path) -> dict:
             "Harvard style is black and white, but these styles carry a colour: %s" % ", ".join(coloured)
         )
 
-    not_bold = []
+    not_bold, missing = [], []
     for sid in BOLD_STYLES:
         m = re.search(r'<w:style [^>]*w:styleId="%s".*?</w:style>' % sid, styles, re.S)
-        if m and not re.search(r"<w:b\s*/>", m.group(0)):
+        if m is None:
+            missing.append(sid)          # fail closed: absent is not "fine", it is uncontrolled
+        elif not re.search(r"<w:b/>|<w:b\s+w:val=\"(?:1|true|on)\"\s*/>|<w:b\s*/>", m.group(0)):
             not_bold.append(sid)
     result["unbold_headings"] = not_bold
+    result["missing_styles"] = missing
     if not_bold:
         result["problems"].append(
             "with colour gone, headings must be bold to stand out from body text; these are not: %s" % ", ".join(not_bold)
+        )
+    if missing:
+        result["problems"].append(
+            "required styles missing from styles.xml (pandoc would fall back to its own defaults for them): %s" % ", ".join(missing)
         )
 
     theme_fonts = re.findall(r'<w:rFonts\b[^>]*Theme="[^"]*"[^>]*/>', styles)
@@ -350,7 +389,9 @@ def inspect(path: pathlib.Path) -> dict:
     for style_id, size_hp, before, after in STYLES:
         m = re.search(r'<w:style [^>]*w:styleId="%s".*?</w:style>' % style_id, styles, re.S)
         if not m:
-            result["styles"][style_id] = None  # pandoc's default has no such style; fine
+            result["styles"][style_id] = None
+            if style_id not in OPTIONAL_STYLES and style_id not in missing:
+                result["problems"].append("required style %s missing from styles.xml" % style_id)
             continue
         block = m.group(0)
         got_sz = [int(s) for s in re.findall(r'<w:sz w:val="(\d+)"', block)]

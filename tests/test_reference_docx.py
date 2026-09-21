@@ -37,6 +37,7 @@ import sys
 import tempfile
 import traceback
 import unittest
+import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SKILL = ROOT / "skills" / "fix-cv-find-job-skill"
@@ -69,7 +70,20 @@ def _need(*tools: str) -> None:
     missing = [t for t in tools if shutil.which(t) is None]
     if not missing:
         return
-    msg = "missing tools: %s (apt: pandoc libreoffice-writer poppler-utils)" % ", ".join(missing)
+    msg = "missing tools: %s (apt: pandoc libreoffice-writer poppler-utils fonts-crosextra-carlito)" % ", ".join(missing)
+    if os.environ.get("CI"):
+        raise AssertionError(msg)
+    raise unittest.SkipTest(msg)
+
+
+def _need_font(family: str, package: str) -> None:
+    """The font test depends on a font package, not a binary; check it as such."""
+    if shutil.which("fc-list") is None:
+        return  # no fontconfig to ask; the pdffonts assertion will still tell
+    installed = subprocess.run(["fc-list", ":family=%s" % family], capture_output=True, text=True).stdout.strip()
+    if installed:
+        return
+    msg = "font %s is not installed (apt: %s); LibreOffice would substitute a wider face" % (family, package)
     if os.environ.get("CI"):
         raise AssertionError(msg)
     raise unittest.SkipTest(msg)
@@ -223,6 +237,65 @@ def test_colour_is_stripped_from_every_style():
         "weights and underlines must survive: %s" % out
 
 
+def test_defaults_are_created_when_pandoc_ships_none():
+    """pin_font/force_doc_defaults must survive a styles.xml without the
+    containers they write into -- the very drift this script exists to absorb.
+    The old pin_font did m.group(0) on a None match and crashed."""
+    shapes = {
+        "no docDefaults": '<w:styles xmlns:w="x"><w:style w:styleId="Normal"/></w:styles>',
+        "empty docDefaults": '<w:styles xmlns:w="x"><w:docDefaults></w:docDefaults></w:styles>',
+        "self-closing docDefaults": '<w:styles xmlns:w="x"><w:docDefaults/></w:styles>',
+        "rPrDefault without rPr": '<w:styles xmlns:w="x"><w:docDefaults><w:rPrDefault></w:rPrDefault></w:docDefaults></w:styles>',
+        "self-closing rPrDefault": '<w:styles xmlns:w="x"><w:docDefaults><w:rPrDefault/></w:docDefaults></w:styles>',
+        "self-closing rPr": '<w:styles xmlns:w="x"><w:docDefaults><w:rPrDefault><w:rPr/></w:rPrDefault></w:docDefaults></w:styles>',
+    }
+    for label, xml in shapes.items():
+        out = mk.pin_font(mk.force_doc_defaults(xml, 20), "Calibri")
+        block = re.search(r"<w:rPrDefault\b[^>]*>.*?</w:rPrDefault>", out, re.S)
+        assert block, "%s: no rPrDefault in output" % label
+        assert re.findall(r'<w:sz w:val="(\d+)"', block.group(0)) == ["20"], "%s: size not set once: %s" % (label, out)
+        assert re.findall(r'<w:rFonts [^>]*w:ascii="([^"]+)"', block.group(0)) == ["Calibri"], "%s: font not pinned once: %s" % (label, out)
+        assert out.count("<w:docDefaults") == 1 and out.count("<w:rPrDefault") == 1, "%s: containers duplicated: %s" % (label, out)
+    try:
+        mk.pin_font("<not-styles/>", "Calibri")
+    except mk.TemplateError:
+        pass
+    else:
+        raise AssertionError("pin_font returned unchanged XML instead of raising on a document with no <w:styles> root")
+
+
+def test_bold_overrides_an_explicit_off_and_keeps_schema_order():
+    """<w:b w:val="0"/> means 'not bold' and used to survive the rewrite; and
+    inserted run properties must follow rStyle/rFonts, not precede them."""
+    off = '<w:style w:styleId="H"><w:name w:val="H"/><w:rPr><w:rFonts w:ascii="X"/><w:b w:val="0"/><w:bCs w:val="0"/><w:sz w:val="24"/></w:rPr></w:style>'
+    out = mk.force_bold(mk.force_rpr(off, 20))
+    inner = re.search(r"<w:rPr>(.*?)</w:rPr>", out, re.S).group(1)
+    assert 'w:val="0"' not in inner, out
+    assert inner.count("<w:b/>") == 1 and inner.count("<w:bCs/>") == 1, out
+    assert re.findall(r'<w:sz w:val="(\d+)"', inner) == ["20"], out
+    order = [m.group(1) for m in re.finditer(r"<w:(rFonts|b|bCs|sz|szCs)\b", inner)]
+    assert order == ["rFonts", "b", "bCs", "sz", "szCs"], "rPr children out of schema order: %s" % order
+
+
+def test_inspect_fails_closed_when_a_heading_style_is_missing():
+    """A renamed or dropped heading style used to report zero problems -- the
+    gate failed open in exactly the mode it was added for."""
+    with tempfile.TemporaryDirectory() as tmp:
+        broken = pathlib.Path(tmp) / "reference.docx"
+        with zipfile.ZipFile(SHIPPED) as zin, zipfile.ZipFile(broken, "w", zipfile.ZIP_DEFLATED) as zout:
+            for item in zin.infolist():
+                data = zin.read(item.filename)
+                if item.filename == "word/styles.xml":
+                    text = data.decode("utf-8")
+                    text = re.sub(r'<w:style [^>]*w:styleId="Heading2".*?</w:style>', "", text, count=1, flags=re.S)
+                    assert 'w:styleId="Heading2"' not in text
+                    data = text.encode("utf-8")
+                zout.writestr(item, data)
+        report = mk.inspect(broken)
+        assert "Heading2" in report["missing_styles"], report
+        assert any("Heading2" in p for p in report["problems"]), "inspect() reported no problem for a missing heading style: %r" % report["problems"]
+
+
 # --------------------------------------------------------------------------- #
 # 2. render
 # --------------------------------------------------------------------------- #
@@ -262,6 +335,7 @@ def test_shipped_reference_pins_the_font():
     gone).
     """
     _need("pandoc", "libreoffice", "pdfinfo", "pdftotext", "pdffonts")
+    _need_font("Carlito", "fonts-crosextra-carlito")
     with tempfile.TemporaryDirectory() as tmp:
         r = _render(FIXTURE, pathlib.Path(tmp), SHIPPED)
         out = subprocess.run(["pdffonts", str(r["pdf"])], capture_output=True, text=True, check=True).stdout

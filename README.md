@@ -7,7 +7,7 @@
 **Fixes your CV and finds you a job.**
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)](.claude-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/version-0.3.1-blue.svg)](.claude-plugin/plugin.json)
 [![Phases](https://img.shields.io/badge/phases-6-blue.svg)](#six-phases-none-of-them-automatic)
 [![Industry](https://img.shields.io/badge/industry-any-blue.svg)](skills/fix-cv-find-job-skill/SKILL.md)
 [![No browser needed](https://img.shields.io/badge/no%20browser%20needed-2%2F6-blue.svg)](#requirements)

@@ -4,7 +4,7 @@ description: Fixes your CV and finds you a job. Use when the user wants a resume
 license: Apache-2.0
 compatibility: Plan and surface are independent. Phases 1 and 2 run on any surface where this skill runs, free web chat included: with code execution enabled in Settings > Capabilities you get the finished .docx, .pdf and Markdown; without it, the CV as chat text. Phases 3 to 6 need a browser-capable surface, which needs a paid plan: Claude in Chrome (paid plan, desktop only), Claude Cowork, or Claude Code with --chrome.
 metadata:
-  version: 0.3.0
+  version: 0.3.1
   author: atarico
   repository: https://github.com/atarico/fix-cv-find-job-skill
 ---

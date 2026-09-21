@@ -1,7 +1,7 @@
 {
   "name": "fix-cv-find-job-skill",
   "description": "Fixes your CV and finds you a job. Audits and rewrites your resume for ATS, searches openings across the job boards you use, applies for you, aligns your LinkedIn, and triages your inbox for replies. Works for any industry.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": {
     "name": "atarico",
     "url": "https://github.com/atarico"

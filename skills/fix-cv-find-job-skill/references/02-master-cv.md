@@ -210,6 +210,40 @@ A finished two-page CV lands around 3,000 characters per page. Substantially
 less means the layout is loose, not that the content is thin — fix the layout
 before cutting anything.
 
+Before judging length, check which font the PDF actually used. The template pins
+Calibri, which Linux renders as the metric-compatible Carlito -- identical
+widths, so identical line breaks and page count. But Carlito is a *Recommends*
+of LibreOffice, not a dependency, and without it the renderer substitutes a
+wider face:
+
+```bash
+PDF="CV_<Name>_Master_<Language>.pdf"
+if [ ! -s "$PDF" ]; then
+  echo "no PDF: the conversion failed; fix that before checking anything else"
+elif ! command -v pdffonts >/dev/null 2>&1; then
+  echo "cannot check fonts: pdffonts (poppler-utils) is not installed; the two-page gate still applies"
+else
+  # OpenSymbol is LibreOffice's bullet glyph font, never a text face
+  faces=$(pdffonts "$PDF" | tail -n +3 | awk '{print $1}' | cut -d+ -f2 |
+          grep -Ev '^OpenSymbol' | sort -u)
+  wrong=$(printf '%s\n' "$faces" | grep -Ev '^(Carlito|Calibri)' | tr '\n' ' ')
+  if [ -z "$faces" ]; then
+    echo "cannot check fonts: the PDF embeds no text face; check the conversion, not the content"
+  elif [ -z "$wrong" ]; then
+    echo "font ok"
+  else
+    echo "font fallback: ${wrong}-- install fonts-crosextra-carlito and re-render before cutting any content"
+  fi
+fi
+```
+
+Each branch states only what it measured. A font fallback is not a content
+problem: if the PDF embeds anything other than Calibri or Carlito, the layout is
+wider than the template assumes, and the two-page gate may fail for that reason
+alone. Install the font and re-render first; only then judge length. The two
+"cannot check" branches mean the font is unverified, not that it is wrong --
+the page and character gates above still decide.
+
 If it still runs long, **cut content**: drop the weakest bullet from each role,
 keeping the ones carrying numbers, and fold any evidence worth saving into a
 surviving bullet. Never shrink the font below readable size and never squeeze

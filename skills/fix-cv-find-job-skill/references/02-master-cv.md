@@ -218,15 +218,20 @@ wider face:
 
 ```bash
 PDF="CV_<Name>_Master_<Language>.pdf"
+case "$PDF" in *'<'*'>'*)
+  echo "substitute the name and language into the filename first; nothing has been measured yet" ;;
+*)
 if [ ! -s "$PDF" ]; then
   echo "no PDF: the conversion failed; fix that before checking anything else"
 elif ! command -v pdffonts >/dev/null 2>&1; then
   echo "cannot check fonts: pdffonts (poppler-utils) is not installed; the two-page gate still applies"
 else
-  # OpenSymbol is LibreOffice's bullet glyph font, never a text face
+  # OpenSymbol is LibreOffice's bullet glyph font, never a text face.
+  # Each grep ends a substitution and exits 1 when it filters every line out --
+  # which is the healthy case here -- so `|| true` keeps a strict shell alive.
   faces=$(pdffonts "$PDF" | tail -n +3 | awk '{print $1}' | cut -d+ -f2 |
-          grep -Ev '^OpenSymbol' | sort -u)
-  wrong=$(printf '%s\n' "$faces" | grep -Ev '^(Carlito|Calibri)' | tr '\n' ' ')
+          grep -Ev '^OpenSymbol' | sort -u) || true
+  wrong=$(printf '%s\n' "$faces" | grep -Ev '^(Carlito|Calibri)([-,]|$)' | tr '\n' ' ') || true
   if [ -z "$faces" ]; then
     echo "cannot check fonts: the PDF embeds no text face; check the conversion, not the content"
   elif [ -z "$wrong" ]; then
@@ -234,10 +239,13 @@ else
   else
     echo "font fallback: ${wrong}-- install fonts-crosextra-carlito and re-render before cutting any content"
   fi
-fi
+fi ;;
+esac
 ```
 
-Each branch states only what it measured. A font fallback is not a content
+Each branch states only what it measured -- including the first, which fires
+when the filename still carries its angle-bracket tokens and therefore names no
+file yet. A font fallback is not a content
 problem: if the PDF embeds anything other than Calibri or Carlito, the layout is
 wider than the template assumes, and the two-page gate may fail for that reason
 alone. Install the font and re-render first; only then judge length. The two

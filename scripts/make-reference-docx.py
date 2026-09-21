@@ -29,6 +29,16 @@ The CV phase promises the Harvard style -- black and white -- so every run
 colour is stripped and the inspection below refuses a template that carries
 one.
 
+Two more things vary with the pandoc version and are pinned here rather than
+inherited. pandoc <= 3.1 makes headings bold; pandoc 3.9 does not, and tells
+them apart by colour alone -- strip the colour and a heading looks like body
+text. So bold is forced on Title, Subtitle and Heading 1-6. And the default
+theme fonts moved from Calibri/Cambria (metric-compatible Carlito/Caladea ship
+with LibreOffice, so the page count is the same everywhere) to Aptos, which has
+no metric-compatible substitute and falls back to DejaVu Sans on Linux, wider
+by enough to push a full second page onto a third. So every theme font
+reference is removed and one explicit font is set as the document default.
+
 Usage:
     python3 scripts/make-reference-docx.py            # rewrite the shipped asset
     python3 scripts/make-reference-docx.py --out X    # write somewhere else
@@ -55,13 +65,18 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 DEFAULT_OUT = ROOT / "skills" / "fix-cv-find-job-skill" / "assets" / "reference.docx"
 
 # styleId -> (size in half-points, space before, space after) in twips
+# In a CV written as "# Name / ## Section / ### Role", Heading 1 is the name:
+# it gets a name's size, not a section's. Title/Subtitle only apply when the
+# name is passed as pandoc metadata instead, and are kept in step with it.
 STYLES = [
-    ("Title", 32, 0, 40),
+    ("Title", 28, 0, 40),
     ("Subtitle", 22, 0, 60),
-    ("Heading1", 22, 160, 60),
+    ("Heading1", 28, 0, 40),
     ("Heading2", 21, 140, 40),
     ("Heading3", 20, 120, 40),
     ("Heading4", 20, 100, 40),
+    ("Heading5", 20, 80, 40),
+    ("Heading6", 20, 80, 40),
     ("BodyText", 20, 0, 60),
     ("Compact", 20, 0, 40),
     ("FirstParagraph", 20, 0, 60),
@@ -70,6 +85,14 @@ STYLES = [
 
 BODY_SIZE_HP = 20  # 10pt document default, single spaced
 MARGIN_TWIPS = 720  # half an inch on every side
+
+# One explicit font for the whole document, in place of pandoc's theme fonts.
+# Calibri renders as itself on Windows/macOS and as the metric-compatible
+# Carlito on Linux (shipped with LibreOffice), so line breaks and page count
+# are identical everywhere. ATS-safe, and what most CVs already use.
+BODY_FONT = "Calibri"
+# Styles that must stand out from body text by weight, since colour is gone.
+BOLD_STYLES = ("Title", "Subtitle", "Heading1", "Heading2", "Heading3", "Heading4", "Heading5", "Heading6")
 
 # width x height in twips
 PAGE_SIZES = {
@@ -159,6 +182,39 @@ def strip_colour(styles: str) -> str:
     return re.sub(r"<w:color\b[^>]*/>", "", styles)
 
 
+def force_bold(block: str) -> str:
+    """Ensure a <w:style> block's run properties carry bold (once)."""
+    block = re.sub(r"<w:b\s*/>", "", block)
+    block = re.sub(r"<w:bCs\s*/>", "", block)
+    bold = "<w:b/><w:bCs/>"
+    if re.search(r"<w:rPr\s*/>", block):
+        return re.sub(r"<w:rPr\s*/>", "<w:rPr>" + bold + "</w:rPr>", block, count=1)
+    if "<w:rPr>" in block:
+        return block.replace("<w:rPr>", "<w:rPr>" + bold, 1)
+    return block.replace("</w:style>", "<w:rPr>" + bold + "</w:rPr></w:style>", 1)
+
+
+def pin_font(styles: str, font: str) -> str:
+    """Replace every theme font reference with one explicit font.
+
+    Theme fonts are resolved through theme1.xml, whose contents change between
+    pandoc releases (Calibri/Cambria up to 3.1, Aptos in 3.9). Removing every
+    ``rFonts`` that points at the theme and setting one explicit family in
+    ``docDefaults`` makes the rendered font -- and therefore the page count --
+    independent of the pandoc that built the template.
+    """
+    styles = re.sub(r'<w:rFonts\b[^>]*Theme="[^"]*"[^>]*/>', "", styles)
+    rfonts = '<w:rFonts w:ascii="{f}" w:hAnsi="{f}" w:cs="{f}" w:eastAsia="{f}"/>'.format(f=font)
+    m = re.search(r"<w:rPrDefault>.*?</w:rPrDefault>", styles, re.S)
+    block = m.group(0)
+    block = re.sub(r"<w:rFonts\b[^>]*/>", "", block)
+    if re.search(r"<w:rPr\s*/>", block):
+        block = re.sub(r"<w:rPr\s*/>", "<w:rPr>" + rfonts + "</w:rPr>", block, count=1)
+    else:
+        block = block.replace("<w:rPr>", "<w:rPr>" + rfonts, 1)
+    return styles[: m.start()] + block + styles[m.end():]
+
+
 def restyle(styles: str) -> str:
     for style_id, size_hp, before, after in STYLES:
         match = re.search(
@@ -167,8 +223,12 @@ def restyle(styles: str) -> str:
         if not match:
             continue
         block = force_spacing(force_rpr(match.group(0), size_hp), before, after)
+        if style_id in BOLD_STYLES:
+            block = force_bold(block)
         styles = styles.replace(match.group(0), block, 1)
-    return strip_colour(force_doc_defaults(styles, BODY_SIZE_HP))
+    styles = force_doc_defaults(styles, BODY_SIZE_HP)
+    styles = pin_font(styles, BODY_FONT)
+    return strip_colour(styles)
 
 
 # --------------------------------------------------------------------------- #
@@ -258,7 +318,28 @@ def inspect(path: pathlib.Path) -> dict:
             "Harvard style is black and white, but these styles carry a colour: %s" % ", ".join(coloured)
         )
 
+    not_bold = []
+    for sid in BOLD_STYLES:
+        m = re.search(r'<w:style [^>]*w:styleId="%s".*?</w:style>' % sid, styles, re.S)
+        if m and not re.search(r"<w:b\s*/>", m.group(0)):
+            not_bold.append(sid)
+    result["unbold_headings"] = not_bold
+    if not_bold:
+        result["problems"].append(
+            "with colour gone, headings must be bold to stand out from body text; these are not: %s" % ", ".join(not_bold)
+        )
+
+    theme_fonts = re.findall(r'<w:rFonts\b[^>]*Theme="[^"]*"[^>]*/>', styles)
     rpr_default = re.search(r"<w:rPrDefault>.*?</w:rPrDefault>", styles, re.S)
+    default_font = re.search(r'<w:rFonts\b[^>]*w:ascii="([^"]+)"', rpr_default.group(0)) if rpr_default else None
+    result["font"] = default_font.group(1) if default_font else None
+    if theme_fonts:
+        result["problems"].append(
+            "%d theme font reference(s) remain; the rendered font would depend on pandoc's theme" % len(theme_fonts)
+        )
+    if result["font"] != BODY_FONT:
+        result["problems"].append("document default font is %r, expected %r" % (result["font"], BODY_FONT))
+
     sizes = re.findall(r'<w:sz w:val="(\d+)"', rpr_default.group(0)) if rpr_default else []
     result["docDefaults_sz"] = [int(s) for s in sizes]
     if result["docDefaults_sz"] != [BODY_SIZE_HP]:

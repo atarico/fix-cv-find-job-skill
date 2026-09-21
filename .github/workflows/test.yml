@@ -12,10 +12,10 @@ jobs:
       CI: "1"   # missing render tools fail the run instead of skipping
     steps:
       - uses: actions/checkout@v4
-      - name: Install pandoc, LibreOffice and poppler
+      - name: Install pandoc, LibreOffice, Carlito and poppler
         run: |
           sudo apt-get update -q
-          sudo apt-get install -y -q --no-install-recommends pandoc libreoffice-writer poppler-utils zip
+          sudo apt-get install -y -q --no-install-recommends pandoc libreoffice-writer fonts-crosextra-carlito poppler-utils zip
       - name: Reference document structure and two-page render
         run: python3 tests/test_reference_docx.py
       - name: Skill zip still builds

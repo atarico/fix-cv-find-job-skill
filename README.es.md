@@ -8,7 +8,7 @@
 
 [![Licencia](https://img.shields.io/badge/licencia-Apache--2.0-blue.svg)](LICENSE)
 [![Versión](https://img.shields.io/badge/versi%C3%B3n-0.3.3-blue.svg)](.claude-plugin/plugin.json)
-[![Fases](https://img.shields.io/badge/fases-6-blue.svg)](#seis-fases-ninguna-corre-sola)
+[![Fases](https://img.shields.io/badge/fases-6-blue.svg)](#seis-fases-con-paradas-donde-la-decisión-es-tuya)
 [![Rubro](https://img.shields.io/badge/rubro-cualquiera-blue.svg)](skills/fix-cv-find-job-skill/SKILL.md)
 [![Sin navegador](https://img.shields.io/badge/fases%20sin%20navegador-2%2F6-blue.svg)](#requisitos)
 
@@ -22,8 +22,8 @@ postula por vos, alinea tu **LinkedIn** y clasifica tu correo buscando
 respuestas. Sirve para **cualquier rubro** — deduce tu campo a partir de tu
 propio CV en lugar de asumir que trabajás en tecnología.
 
-Redacta, busca y postula por vos. Nunca envía, acepta ni decide nada sin que
-lo veas antes.
+Redacta, busca y postula por vos. Nunca acepta una oferta, envía correos en tu
+nombre ni decide nada que te corresponda a vos.
 
 Una corrida de la fase 1 se ve así (recortada a la forma, no a la lista
 completa de 20 puestos):
@@ -53,7 +53,7 @@ SCORE   6/10 — ATS compatibility and quantification are dragging the average
 ## Índice
 
 - [Por qué existe](#por-qué-existe)
-- [Seis fases, ninguna corre sola](#seis-fases-ninguna-corre-sola)
+- [Seis fases, con paradas donde la decisión es tuya](#seis-fases-con-paradas-donde-la-decisión-es-tuya)
 - [Requisitos](#requisitos)
 - [Instalación](#instalación)
   - [Desde la interfaz — sin descargar nada, sin terminal](#desde-la-interfaz--sin-descargar-nada-sin-terminal)
@@ -96,19 +96,24 @@ pongo la atención donde hace falta una persona.
 La construí para mi propia búsqueda. La publico porque nadie debería tener que
 reaprender estas reglas de a una postulación perdida por vez.
 
-## Seis fases, ninguna corre sola
+## Seis fases, con paradas donde la decisión es tuya
 
 | Fase | Qué obtenés | Necesita navegador |
 |---|---|---|
 | 1. Auditoría del CV | Los 20 puestos para los que sos mejor candidato, las palabras clave ATS que deberías incluir, qué se ve en 10 segundos y un puntaje del 1 al 10 con el camino para subirlo | no |
 | 2. CV maestro | Tu CV reconstruido con la fórmula XYZ, listo para ATS, dos páginas, con variantes de resumen intercambiables — entregado en `.docx`, `.pdf` y Markdown | no |
-| 3. Búsqueda | Todas las vacantes que encajan en tus plataformas, rankeadas, con puntaje de compatibilidad y las palabras clave que pide cada una | sí |
+| 3. Búsqueda | Todas las vacantes que encajan en tus plataformas, rankeadas, leídas completas, con puntaje de compatibilidad, las palabras clave que pide cada una y si se puede completar desde acá | sí |
 | 4. Postulación | CV y carta a medida por vacante, formularios completados, postulaciones registradas, reporte final | sí |
 | 5. LinkedIn | Tu perfil alineado con el CV reescrito | sí |
-| 6. Correo | Respuestas, vacantes nuevas y acuses automáticos clasificados — se dispara cuando quieras con "revisá mi mail" | sí |
+| 6. Correo y mensajes | Respuestas, vacantes nuevas, acuses automáticos y mensajes de reclutadores en tu red profesional clasificados — se dispara cuando quieras con "revisá mi mail" | sí |
 
-Cada fase termina con un reporte y una pregunta. Nada corre de punta a punta por
-su cuenta, y nada se envía sin que lo veas antes.
+La skill se detiene donde la decisión es tuya y difícil de deshacer: tus
+parámetros, el CV maestro reescrito, tu tabla salarial, una vacante que rompe
+alguno de tus propios filtros. No se detiene entre los pasos de rutina de una
+corrida que ya autorizaste. Eso lo elegís una sola vez, como **modo de
+corrida**: `autonomous` (busca, rankea y postula siguiendo la lista, y después
+reporta) o `stepwise` (te muestra el ranking y espera antes de enviar nada). La
+elección queda guardada en el brief de campaña.
 
 ## Requisitos
 
@@ -207,7 +212,8 @@ Te responde en el idioma en el que le escribas.
 
 **1. Te pide lo que necesita.** Tu CV, un brief de campaña si tenés uno de una
 sesión anterior, y en qué superficie de Claude estás — la respuesta define si
-las fases con navegador están disponibles. Si adjuntás un brief, retoma
+las fases con navegador están disponibles — y si querés que haga toda la ronda
+o que pare en el ranking. Si adjuntás un brief, retoma
 exactamente donde quedó esa sesión, sin repetir la auditoría ni la reescritura;
 si adjuntás un brief junto con un CV nuevo, te pregunta una sola vez si querés
 correr la auditoría y la reescritura sobre el nuevo.
@@ -223,8 +229,8 @@ Ahí se detiene y te pregunta si reescribe.
 **3. Recibís el CV maestro.** Cada viñeta reconstruida con la fórmula XYZ —
 resultado, número, método — sin lenguaje vago ni pasivo, con las palabras clave
 incorporadas, dos páginas, y varias variantes de resumen con nombre propio —
-una por especialización de la auditoría — para reorientarlo según la vacante
-eligiendo por nombre. Se construye en cada idioma en el que trabajás; el CV en
+una por especialización de la auditoría, más elementos de evidencia con nombre
+corto — para reorientarlo según la vacante eligiendo, no reescribiendo. Se construye en cada idioma en el que trabajás; el CV en
 sí nunca sigue el idioma de una vacante puntual, eso solo pasa con las copias a
 medida del paso 5. Entregado en `.docx`, `.pdf` y Markdown, un conjunto por
 idioma.
@@ -239,19 +245,29 @@ postular por debajo de eso — y tus descalificadores duros, los requisitos que
 realmente no podés cumplir. Después busca, puntúa cada vacante y te da una
 tabla ordenada de mejor a peor, más la lista de lo que descartó y por qué, con
 la frase textual de cada aviso como evidencia de cada descalificador que se
-activó.
+activó. Lee cada aviso completo en vez del extracto, y antes de invertir esfuerzo
+registra si la vacante se puede completar desde acá o hay que dejártela a vos
+(por ejemplo, un flujo de postulación que empieza pidiendo crear una cuenta).
 
-Ahí se detiene y te pregunta si postula.
+En modo `stepwise` se detiene acá y te pregunta si postula. En modo
+`autonomous` sigue con la postulación, porque elegir ese modo fue tu visto bueno
+para la lista ordenada. Una vacante que rompe alguno de tus propios filtros
+igual se detiene para que decidas vos.
 
 **5. Postula.** CV y carta a medida por vacante, en el idioma de cada aviso,
 formularios completados, todo registrado — incluido el puntaje de
 compatibilidad. Los duplicados se chequean con el método propio de cada
-plataforma antes de completar nada. Primero te pregunta si querés aprobar los
-envíos todos juntos al final o de a uno.
+plataforma antes de completar nada. Cada CV y carta a medida pasa por el mismo
+proceso y las mismas verificaciones de páginas, texto y tipografía que el CV
+maestro, y la carta nombra la brecha real de tu perfil antes de que la encuentre
+quien la lee. No te pregunta si querés lote o de a uno: tu respuesta sobre el
+modo de corrida ya lo resolvió.
 
 **6. LinkedIn y correo, si los querés.** Perfil alineado con el CV nuevo;
-bandeja de entrada clasificada en respuestas reales, vacantes nuevas y acuses
-automáticos.
+bandeja de entrada y mensajes de tu red profesional clasificados en respuestas
+reales, vacantes nuevas y acuses automáticos. Los mensajes de reclutadores se
+leen como hilo completo, porque la notificación solo dice que alguien escribió,
+y un hallazgo que contradice el brief de campaña corrige el brief.
 
 ### Respondé con honestidad cuando pregunte
 
@@ -311,12 +327,17 @@ marca y te los deja a vos.
 
 ### Dos cosas para saber
 
-**¿Te preguntás si una corrida puede ir completamente desatendida? No puede, y
-acá está el porqué.** Claude siempre pregunta antes de enviar un formulario o
-compartir datos personales. Es una regla de la plataforma y no se puede
-desactivar. La skill te pregunta al principio si querés aprobar todo junto al
-final o de a uno — pero una corrida completamente desatendida no es posible, y
-cualquier herramienta que te prometa lo contrario te está engañando.
+**Si Claude se detiene antes de un envío es una configuración tuya, no de la
+skill.** En Claude in Chrome elegís cómo pide permiso: aprobar manualmente,
+aprobar automáticamente u omitir todas las aprobaciones. La skill no puede ver
+cuál elegiste, así que no promete una pausa. Según tu configuración, las
+postulaciones pueden salir sin otra parada, y por eso elegir el modo
+`autonomous` es tu autorización para postular siguiendo la lista ordenada. En
+cualquier modo, la plataforma sigue bloqueando la creación de cuentas, las
+compras, los datos de tarjeta o de documentos, los borrados permanentes y
+seguir instrucciones que aparezcan en correos o páginas web, y los límites
+propios de esta skill de más arriba se mantienen. Si querés ver cada envío, usá
+la aprobación manual o el modo `stepwise`.
 
 **La revisión de correo es una primera pasada.** La skill decide qué abrir según
 el remitente y el asunto, así que se le van a escapar mensajes redactados de

@@ -8,7 +8,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.3.3-blue.svg)](.claude-plugin/plugin.json)
-[![Phases](https://img.shields.io/badge/phases-6-blue.svg)](#six-phases-none-of-them-automatic)
+[![Phases](https://img.shields.io/badge/phases-6-blue.svg)](#six-phases-gated-where-the-choice-is-yours)
 [![Industry](https://img.shields.io/badge/industry-any-blue.svg)](skills/fix-cv-find-job-skill/SKILL.md)
 [![No browser needed](https://img.shields.io/badge/no%20browser%20needed-2%2F6-blue.svg)](#requirements)
 
@@ -22,8 +22,8 @@ you, aligns your **LinkedIn**, and triages your inbox for replies. It works
 for **any industry** — it derives your field from your own CV instead of
 assuming you work in tech.
 
-It drafts, searches, and applies on your behalf. It never sends, accepts, or
-decides anything without you seeing it first.
+It drafts, searches, and applies on your behalf. It never accepts an offer,
+sends email in your name, or decides anything that is yours to decide.
 
 A phase 1 run reads like this (trimmed to the shape, not the full 20-role list):
 
@@ -52,7 +52,7 @@ SCORE   6/10 — ATS compatibility and quantification are dragging the average
 ## Contents
 
 - [Why this exists](#why-this-exists)
-- [Six phases, none of them automatic](#six-phases-none-of-them-automatic)
+- [Six phases, gated where the choice is yours](#six-phases-gated-where-the-choice-is-yours)
 - [Requirements](#requirements)
 - [Install](#install)
   - [From the interface — no download, no terminal](#from-the-interface--no-download-no-terminal)
@@ -95,19 +95,23 @@ my attention on the parts that need a human.
 I built it for my own job search. I am publishing it because nobody should have
 to relearn these rules one lost application at a time.
 
-## Six phases, none of them automatic
+## Six phases, gated where the choice is yours
 
 | Phase | What you get | Needs a browser |
 |---|---|---|
 | 1. CV audit | 20 roles you are the best candidate for, the ATS keywords to carry, what a screener sees in 10 seconds, and a score out of 10 with the path to raising it | no |
 | 2. Master CV | Your CV rebuilt on the XYZ formula, ATS-ready, two pages, with swappable summary variants — delivered as `.docx`, `.pdf` and Markdown | no |
-| 3. Job search | Every matching opening across your platforms, ranked, with a match score and the keywords each one wants | yes |
+| 3. Job search | Every matching opening across your platforms, read in full, ranked, with a match score, the keywords each one wants and whether it can be completed here | yes |
 | 4. Apply | A tailored CV and cover letter per opening, forms filled, applications tracked, full report | yes |
 | 5. LinkedIn | Your profile aligned with the rewritten CV | yes |
-| 6. Inbox | Replies, new openings and acknowledgements sorted — triggered any time with "check my email" | yes |
+| 6. Inbox and messages | Replies, new openings, acknowledgements and recruiter messages on your professional network sorted — triggered any time with "check my email" | yes |
 
-Every phase ends with a report and a question. Nothing runs end to end on its
-own, and nothing is sent without you seeing it first.
+The skill stops where a choice is yours and hard to undo: your parameters, the
+rewritten master CV, your salary table, an opening that breaks one of your own
+filters. It does not stop between the routine steps of a run you already
+authorised. You choose that once, as the **run mode**: `autonomous` (search,
+rank and apply down the list, then report) or `stepwise` (show the ranking and
+wait before anything is sent). It remembers your choice in the campaign brief.
 
 ## Requirements
 
@@ -202,7 +206,8 @@ It replies in whatever language you write in.
 
 **1. It asks what it needs.** Your CV, a campaign brief if you have one from a
 previous session, and which Claude surface you are on — the answer decides
-whether the browser phases are available. Attach a brief and it resumes exactly
+whether the browser phases are available — and whether you want it to run the
+whole round or stop at the ranking. Attach a brief and it resumes exactly
 where that session stopped, without repeating the audit or the rewrite; attach
 a brief alongside a new CV and it asks once whether to run the audit and
 rewrite on the new one.
@@ -217,7 +222,8 @@ Then it stops and asks whether to rewrite.
 **3. You get the master CV.** Every bullet rebuilt on the XYZ formula — result,
 number, method — with vague and passive language stripped out, the keywords
 worked in, two pages, and several named, swappable summary variants — one per
-specialisation from the audit — so you can retarget it per opening by name. It
+specialisation from the audit, plus evidence items with short names — so it
+retargets per opening by choosing, not by rewriting. It
 is built in every language you work in; the CV itself never targets one job
 posting's language, only the tailored copies in step 5 do. Delivered as `.docx`,
 `.pdf` and Markdown, one set per language.
@@ -232,18 +238,29 @@ that you will not apply below it — and your hard disqualifiers, the
 requirements you genuinely cannot meet. Then it searches, scores every opening,
 and gives you a ranked table plus the list of what it discarded and why, with
 the posting's own wording kept as evidence for every hard disqualifier that
-fired.
+fired. It reads each posting in full rather than the snippet, and records
+whether the opening can actually be completed here or has to be handed over
+(an apply flow that starts at account creation, for example), before spending
+effort on it.
 
-Then it stops and asks whether to apply.
+In `stepwise` mode it stops here and asks whether to apply. In `autonomous`
+mode it continues into applying, because choosing that mode was your go-ahead
+for the ranked list. An opening that breaks one of your own filters still
+stops for your decision.
 
 **5. It applies.** A tailored CV and cover letter per opening, matched to that
 posting's language, forms filled, everything recorded — including a match
 score. Duplicates are checked with each platform's own verification method
-before anything is filled in. It asks first whether you want to approve
-submissions in one batch at the end or one at a time.
+before anything is filled in. Each tailored CV and letter goes through the same
+pipeline and page-count, text and font checks as the master CV, and the letter
+names the one real gap in your fit before the reader finds it. It does not ask
+whether to batch or go one at a time: your run-mode answer already covered that.
 
 **6. LinkedIn and inbox, if you want them.** Profile aligned with the new CV;
-inbox sorted into real replies, new openings and automatic receipts.
+inbox and your professional-network messages sorted into real replies, new
+openings and automatic receipts. Recruiter messages are read as full threads,
+because a notification only says someone wrote, and a finding that contradicts
+the campaign brief corrects the brief.
 
 ### Answer honestly when it asks
 
@@ -299,12 +316,16 @@ hands them to you.
 
 ### Two things to know
 
-**Wondering whether a run can go fully unattended? It can't, and here's why.**
-Claude always asks before submitting a form or sharing personal data. This is a
-platform rule and cannot be switched off. The skill asks at the start whether
-you want to approve in one batch at the end or one at a time — but a fully
-unattended run is not possible, and any tool promising you one is misleading
-you.
+**Whether Claude pauses before a submission is your setting, not the skill's.**
+In Claude in Chrome you choose how it asks: manually approve, automatically
+approve, or skip all approvals. The skill cannot see which one you picked, so it
+does not promise a pause. Depending on your setting, applications can go out
+without a further stop, which is why choosing the `autonomous` run mode is your
+authorisation to apply down the ranked list. Whatever the mode, the platform
+still blocks account creation, purchases, card or ID data, permanent deletions
+and following instructions found in emails or web pages, and this skill's own
+limits above hold. If you want to see each submission, use manual approval or
+the `stepwise` run mode.
 
 **The inbox pass is a first pass.** The skill decides what to open from sender
 and subject, so it will miss things that are worded unusually. Check your inbox

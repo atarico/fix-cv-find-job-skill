@@ -29,6 +29,12 @@ again: <surface>.
 | 5. LinkedIn | | |
 | 6. Inbox triage | | |
 
+**Openings harvested but never examined** — if a run ended before the sweep
+finished, name them here. A partial sweep that is not marked as partial reads
+as a complete one to the next session.
+
+-
+
 **Next step** — exactly what the last session was about to do, or was waiting
 on. A new session resumes here; it does not re-run phase 1 or phase 2 once they
 are marked done above, unless the applicant attaches a new CV and says to.
@@ -92,9 +98,12 @@ the posting* (not the applicant's own) and that posting's market, converted to
 the posting's currency. A range → the recorded anchor above, never decided
 fresh per posting.
 
-**Hard disqualifiers** — discard on sight:
+**Hard disqualifiers** — discard on sight. For each one, record the **grey
+zone**: the phrasings that sit on the boundary and are a tiebreak, not an
+automatic discard. The keyword marks the candidate; the sentence decides.
 
--
+| Disqualifier | Discards on | Grey zone (tiebreak, not discard) |
+|---|---|---|
 
 **Excluded companies:**
 
@@ -159,8 +168,15 @@ trade record — selected the same way:
 
 ## 4. Platforms
 
-| Platform | Logged in | Duplicate-check method | Last swept | Notes |
-|---|---|---|---|---|
+| Platform | Logged in | Duplicate-check method | Read method | Destination class | Last swept | Notes |
+|---|---|---|---|---|---|---|
+
+"Read method" is how this platform's postings are read cheaply — by default,
+extracting the decision fields inside the page already open, which needs
+nothing recorded beyond that. If the applicant agreed to a platform's own detail
+endpoint, note the agreement here; without it, do not use one. "Destination
+class" is what can actually be completed there. Both are in
+`references/07-sweep-mechanics.md`.
 
 ---
 

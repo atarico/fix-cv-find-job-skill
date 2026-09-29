@@ -100,12 +100,18 @@ front so they do not mistake a guardrail for a malfunction.
   nothing and costs the rest of the queue.
 - **CAPTCHAs cannot be solved.** Hand the tab back to the user.
 - **Accounts cannot be created, and passwords are never entered.** If a platform
-  demands signup or SSO, stop and hand it over.
+  demands signup or SSO, stop and hand it over — and recognise it *before*
+  tailoring a CV for it, using the destination table in
+  `references/07-sweep-mechanics.md`.
 - **No local disk in the Chrome side panel.** Files are delivered as downloads.
   Campaign state persists through a downloadable brief the user re-uploads next
   session — see `assets/campaign-brief-template.md`.
 - **Chrome on desktop only.** Claude in Chrome is not supported on other
   Chromium-based browsers or on mobile devices.
+- **Browser tooling fails during long runs.** Disconnections, failed batches and
+  blocked returns are normal, not terminal. Each has a recovery in
+  `references/07-sweep-mechanics.md`; use it and keep going. A blocked return is
+  reported and skipped, never disguised to get it through.
 
 ## Phases
 
@@ -116,10 +122,19 @@ them all at once.
 |---|---|---|---|
 | 1 | CV audit and score | `references/01-cv-audit.md` | no |
 | 2 | Master CV rewrite (.docx + .pdf + Markdown) | `references/02-master-cv.md` | no |
-| 3 | Job search and match table | `references/03-job-search.md` | yes |
+| 3 | Job search and match table | `references/03-job-search.md`, `references/07-sweep-mechanics.md` | yes |
 | 4 | Auto-apply | `references/04-auto-apply.md` | yes |
 | 5 | LinkedIn alignment | `references/05-linkedin.md` | yes |
 | 6 | Inbox triage | `references/06-inbox-triage.md` | yes |
+
+One of those references is a technique rather than a phase, and it is worth
+loading with the phase that uses it:
+
+- **`references/07-sweep-mechanics.md`** — how to read a whole board without
+  exhausting the context: harvesting identifiers, batch reads in the page you
+  already have open, two-tier triage, set-difference duplicate checks,
+  hard-filter false positives, the destination table, and what to do when the
+  browser fails. Load it with phase 3; phase 6 harvests with the same technique.
 
 Phase 6 is also a standalone entry point. If the user opens with "check my
 email" or "revisa mi mail", go straight to `references/06-inbox-triage.md`.

@@ -47,6 +47,17 @@ Ask in one grouped block, not one question at a time:
    When one of these fires against a real posting, record the posting's own
    wording for the requirement as evidence next to the discard — not a
    paraphrase — so the discard is checkable later.
+
+   **The keyword marks the candidate; the sentence decides.** Never discard
+   on a keyword match alone. A language filter matching "English" fires just
+   as readily on "Spanish (native), English (intermediate)" and on "Good
+   level of English", neither of which is a disqualifier. Read the whole
+   sentence before discarding, every time.
+
+   Ask the applicant, while collecting each disqualifier, for its **grey
+   zone**: the phrasings that sit on their boundary and should count as a
+   tiebreak against the rest of the posting rather than an automatic
+   discard. Record the grey zone in the brief next to the disqualifier.
 7. **Exclusions.** Companies they will not work for, or have already applied to.
 
 ## The salary rules
@@ -74,9 +85,17 @@ the audit, which is where most people's search goes wrong.
 Prefer recent postings. Anything older than roughly six weeks in a fast market
 is likely filled; judge by the norms of the field.
 
-Group tabs so several postings can be read at once, and read the full posting
-rather than the search-result snippet. Digest emails and listing previews are
-routinely truncated and routinely misleading.
+Read the full posting, never the search-result snippet — digest emails and
+listing previews are routinely truncated and routinely misleading. *How* to do
+that at the scale of a whole board is `references/07-sweep-mechanics.md`, and
+it is not optional reading: opening postings one tab at a time exhausts the
+context somewhere around the tenth one, and a sweep that dies at ten openings
+is the most common way this skill underdelivers.
+
+In short, and detailed there: harvest identifiers first, read them in batches
+inside the page you already have open, extract only the fields a score depends
+on, and triage in two tiers so no deep read is ever spent on an opening the
+title and location already killed.
 
 ## Scoring the match
 
@@ -90,6 +109,13 @@ requirements the CV can evidence directly.
 **Lowers the score:** required experience well above theirs; a hard credential
 they lack; a specialisation outside their history; a stale posting; an
 arrangement that does not suit; pay below their floor.
+
+**Classify the destination while scoring.** How an opening is applied to
+decides whether it is worth tailoring documents for at all — a posting whose
+apply button opens on an account-creation screen can never be completed here,
+and finding that out after writing a cover letter is wasted work. Use the
+destination table in `references/07-sweep-mechanics.md` and carry the class
+into the match table.
 
 **Discard outright, and record why:** any hard disqualifier from the parameters
 — with the posting's own wording kept as evidence next to the reason; postings
@@ -107,8 +133,11 @@ who only sees the matches.
 
 Sort best match first.
 
-| # | Company | Role | Link | Match | Why | Keywords to carry | Posted | Status |
-|---|---|---|---|---|---|---|---|---|
+| # | Company | Role | Link | Match | Why | Keywords to carry | Posted | Destination | Status |
+|---|---|---|---|---|---|---|---|---|---|
+
+"Destination" is the class from the table in `references/07-sweep-mechanics.md`:
+what can actually be completed for this opening, and what has to be handed over.
 
 Follow it with:
 

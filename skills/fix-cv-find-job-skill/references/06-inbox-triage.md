@@ -67,8 +67,12 @@ rejection. A message titled *"Update on your application"* can be an interview
 invitation. Subjects are templates; the outcome lives in the body. **Never
 classify from the subject line.**
 
-Digest and alert emails arrive truncated. Follow the links to read the actual
-postings rather than classifying from the preview text.
+Digest and alert emails arrive truncated. Their links, however, are intact,
+and a single digest routinely carries ten to twenty openings. Harvest the
+identifiers from those links and read the postings in batches — the technique
+is in `references/07-sweep-mechanics.md`, the same one phase 3 uses. Never
+classify an opening from preview text, and never open twenty tabs to avoid
+doing so.
 
 ## Classify into three
 

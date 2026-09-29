@@ -232,6 +232,14 @@ Recorded for the pattern, not for the record.
 
 ---
 
+## 9b. Recruiter threads and direct approaches
+
+Direct approaches often outproduce the boards. Digests do not carry their
+content, so these are read in the network's own message list.
+
+| Recruiter | Company / role | Last message | Who owes a reply | Next step |
+|---|---|---|---|---|
+
 ## 10. Not yet swept
 
 -

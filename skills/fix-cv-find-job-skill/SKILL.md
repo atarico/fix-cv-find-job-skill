@@ -125,7 +125,7 @@ them all at once.
 | 3 | Job search and match table | `references/03-job-search.md`, `references/07-sweep-mechanics.md` | yes |
 | 4 | Auto-apply | `references/04-auto-apply.md`, `references/08-document-engine.md` | yes |
 | 5 | LinkedIn alignment | `references/05-linkedin.md` | yes |
-| 6 | Inbox triage | `references/06-inbox-triage.md` | yes |
+| 6 | Inbox and messages triage | `references/06-inbox-triage.md` | yes |
 
 Two of those references are techniques rather than phases, and both are worth
 loading with the phase that uses them:

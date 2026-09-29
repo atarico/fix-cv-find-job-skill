@@ -65,6 +65,14 @@ posting's language:
 - The strongest evidence from the CV that maps to what they asked for.
 - What the user brings that the posting did not ask for but the role benefits
   from.
+- **The gap, named by the applicant before the reader finds it.** Where the
+  posting asks for something real that the CV cannot evidence, say so in one
+  plain sentence and say what is adjacent to it — a stated language level, a
+  tool never used professionally, an adjacent industry rather than this one.
+  This is not a concession. A reader who finds an unmentioned gap discounts
+  everything else in the letter; a reader who is told it, once and without
+  apology, reads the rest as accurate. It also keeps the letter consistent
+  with the screening answers, which are already honest by rule.
 - A short, plain closing. No pleading, no flattery.
 
 Name the files consistently: `CV_<Name>_<Company>.pdf` and

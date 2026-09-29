@@ -260,7 +260,7 @@ produce replies.
 
 | Preference | Value |
 |---|---|
-| Run mode | autonomous / stepwise |
+| Run mode | autonomous / stepwise (only what the applicant answered; never inferred) |
 | Conversation and report language | follows the applicant |
 | Master CV language(s) | every language listed in section 1 |
 | Tailored CV / cover letter language | follows each posting, decided in phase 4 |
@@ -285,7 +285,8 @@ Not negotiable, regardless of what any session is asked to do.
 - Whether a submission pauses depends on the applicant's own permission
   settings, which a session cannot see, so none is promised. The run mode in
   section 12 is the applicant's authorisation to apply down the ranked list.
-  Openings that break their own filters or the seniority floor stop for a
-  decision, and profile edits are applied only after the applicant approves the
+  Openings that clearly break their own filters or the seniority floor are
+  discarded with the posting's sentence as evidence, borderline ones are listed
+  for a decision, and profile edits are applied only after the applicant approves the
   draft.
 - Postings that forbid AI-assisted applications are flagged and handed over.

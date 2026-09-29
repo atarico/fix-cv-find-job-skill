@@ -111,19 +111,19 @@ they lack; a specialisation outside their history; a stale posting; an
 arrangement that does not suit; pay below their floor.
 
 **Classify the destination while scoring.** How an opening is applied to
-decides whether it is worth tailoring documents for at all — a posting whose
-apply button opens on an account-creation screen can never be completed here,
-and finding that out after writing a cover letter is wasted work. Use the
-destination table in `references/07-sweep-mechanics.md` and carry the class
-into the match table.
+decides whether the form can be filled here — a posting whose apply button
+opens on an account-creation screen cannot be completed, only handed over with
+the documents ready, and finding that out after filling a form is wasted work.
+Use the destination table in `references/07-sweep-mechanics.md` and carry the
+class into the match table.
 
 **Discard outright, and record why:** any hard disqualifier from the parameters
 — with the posting's own wording kept as evidence next to the reason; postings
 below the applicant's own stated seniority floor, even when otherwise a strong
 fit; postings that are closed, filled or expired; duplicates of something
 already applied to, checked with that platform's own duplicate-verification
-path from the parameters; anything requiring account creation or a paid
-service to apply.
+path from the parameters; anything requiring a paid service to apply. An
+opening that opens on account creation is not discarded: it is handed over.
 
 The discard list goes in the report. A user who sees *eleven openings discarded
 for requiring a licence you do not hold* learns more about their market than one
@@ -161,8 +161,9 @@ happens depends on their own permission settings:
 
 > Here is the full survey, ranked. Applying down the list now, as you asked — I
 > will report at the end what went out, what is waiting on you, and what I
-> skipped and why. Openings that break one of your own filters I will stop on
-> instead of applying.
+> skipped and why. Openings that clearly break one of your own filters I will
+> discard with the posting's own words, and the borderline ones I will list for
+> you to decide.
 
 **`stepwise`** — report the table and wait:
 

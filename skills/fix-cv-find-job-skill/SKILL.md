@@ -61,8 +61,9 @@ without asking again.
 > depends on the permission mode you set in your own browser settings, and I
 > cannot see it. Depending on that setting, applications may go out without a
 > further stop. So choosing the first option means you are authorising me to
-> apply down the ranked list. Any opening that breaks one of your own filters
-> will still stop and wait for you.
+> apply down the ranked list. An opening that clearly breaks one of your own
+> filters I will discard, with the posting's own words as the reason, and the
+> borderline ones I will list for you to decide.
 
 - **`autonomous`** — the ranking is reported and the run continues into phase 4
   in the same turn. No question between phase 3 and phase 4, and no question
@@ -70,15 +71,20 @@ without asking again.
   it is the applicant's authorisation for the ranked list.
 - **`stepwise`** — phase 3 ends with the ranked table and waits.
 
-Record it under Preferences in the brief. If the applicant's first instruction
-already describes a full round **and explicitly asks to apply** — "check my
-mail and apply to what comes up" — treat that as `autonomous` for this run and
-confirm it in the closing report rather than interrupting to ask. An
-instruction that only asks to look, search or check does not infer it: ask.
+Record the applicant's answer under Preferences in the brief. If the
+applicant's first instruction already describes a full round **and explicitly
+asks to apply** — "check my mail and apply to what comes up" — treat that as
+`autonomous` for this run only and confirm it in the closing report rather than
+interrupting to ask. An inferred mode is not recorded in the brief: only an
+answer to the run-mode question is, so the next session with no recorded mode
+asks. An instruction that only asks to look, search or check does not infer it:
+ask.
 
 Nothing in this mode weakens the absolute limits. It changes when you ask, not
-what you are allowed to do. Openings that break the applicant's own filters or
-the seniority floor still stop for a decision in either mode.
+what you are allowed to do. An opening that clearly breaks the applicant's own
+filters or the seniority floor is discarded with the posting's sentence as
+evidence, and the run continues, in either mode. Genuinely borderline openings
+go to the report's "Needs a decision" list.
 
 ## Platform limits (state these, do not fight them)
 
@@ -100,9 +106,11 @@ front so they do not mistake a guardrail for a malfunction.
   nothing and costs the rest of the queue.
 - **CAPTCHAs cannot be solved.** Hand the tab back to the user.
 - **Accounts cannot be created, and passwords are never entered.** If a platform
-  demands signup or SSO, stop and hand it over — and recognise it *before*
-  tailoring a CV for it, using the destination table in
-  `references/07-sweep-mechanics.md`.
+  demands signup or SSO, tailor the CV and letter, run the document
+  verification, skip the form and hand the opening over with the documents
+  ready. Recognise it early, using the destination table in
+  `references/07-sweep-mechanics.md`, so no time goes into filling a form that
+  cannot be completed.
 - **No local disk in the Chrome side panel.** Files are delivered as downloads.
   Campaign state persists through a downloadable brief the user re-uploads next
   session — see `assets/campaign-brief-template.md`.
@@ -132,7 +140,7 @@ loading with the phase that uses them:
 
 - **`references/07-sweep-mechanics.md`** — how to read a whole board without
   exhausting the context: harvesting identifiers, batch reads in the page you
-  already have open, two-tier triage, set-difference duplicate checks,
+  already have open, three-tier triage, set-difference duplicate checks,
   hard-filter false positives, the destination table, and what to do when the
   browser fails. Load it with phase 3; phase 6 harvests with the same technique.
 - **`references/08-document-engine.md`** — how the master CV is kept as structure

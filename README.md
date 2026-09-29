@@ -107,11 +107,14 @@ to relearn these rules one lost application at a time.
 | 6. Inbox and messages | Replies, new openings, acknowledgements and recruiter messages on your professional network sorted — triggered any time with "check my email" | yes |
 
 The skill stops where a choice is yours and hard to undo: your parameters, the
-rewritten master CV, your salary table, an opening that breaks one of your own
-filters. It does not stop between the routine steps of a run you already
-authorised. You choose that once, as the **run mode**: `autonomous` (search,
-rank and apply down the list, then report) or `stepwise` (show the ranking and
-wait before anything is sent). It remembers your choice in the campaign brief.
+rewritten master CV, your salary table. It does not stop between the routine
+steps of a run you already authorised. You choose that once, as the **run
+mode**: `autonomous` (search, rank and apply down the list, then report) or
+`stepwise` (show the ranking and wait before anything is sent). It remembers
+your answer in the campaign brief; a mode it inferred from your first
+instruction holds for that run only and is not saved. An opening that clearly
+breaks one of your own filters is discarded with the posting's own words as
+evidence; borderline ones are listed for you to decide.
 
 ## Requirements
 
@@ -240,13 +243,16 @@ and gives you a ranked table plus the list of what it discarded and why, with
 the posting's own wording kept as evidence for every hard disqualifier that
 fired. It reads each posting in full rather than the snippet, and records
 whether the opening can actually be completed here or has to be handed over
-(an apply flow that starts at account creation, for example), before spending
-effort on it.
+(an apply flow that starts at account creation, for example), before filling
+any form. If it starts at account creation, the skill does not create the
+account: it tailors the CV and letter, verifies them, and hands the opening
+over with the documents ready.
 
 In `stepwise` mode it stops here and asks whether to apply. In `autonomous`
 mode it continues into applying, because choosing that mode was your go-ahead
-for the ranked list. An opening that breaks one of your own filters still
-stops for your decision.
+for the ranked list. An opening that clearly breaks one of your own filters is
+discarded, and a borderline one goes to a "Needs a decision" list; neither
+stops the run.
 
 **5. It applies.** A tailored CV and cover letter per opening, matched to that
 posting's language, forms filled, everything recorded — including a match

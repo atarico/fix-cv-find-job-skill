@@ -65,7 +65,7 @@ score depends on:
 - title, company, location, posted date
 - the platform's own seniority and employment-type criteria
 - **the sentence** containing each hard-disqualifier keyword from the campaign
-  brief — not a boolean, the sentence, because section 7 below depends on it
+  brief — not a boolean, the sentence, because the "Hard filters" section below depends on it
 - the sentence containing a years-of-experience figure
 - the sentence containing a salary figure
 - whether the posting is closed
@@ -78,7 +78,7 @@ you are about to apply to.
 
 **4. Score from the extraction.** Phase 3's scoring rules run on this table.
 
-## Two-tier triage
+## Three-tier triage
 
 Do not pay for a deep read on an opening the cheap fields already killed.
 
@@ -135,21 +135,22 @@ what makes the decision checkable later.
 
 ## Know the destination before you invest
 
-The apply button tells you what is possible, before any CV is tailored. Classify
-first, then decide whether to spend.
+The apply button tells you what is possible, before any form is touched.
+Classify first, then decide whether to fill the form.
 
 | Destination | What is possible |
 |---|---|
 | Native one-click apply on the board itself | Complete and submit, screening questions included |
 | Hosted ATS with an open application form (Ashby, Lever, Greenhouse and similar) | Fill every field; the applicant uploads the document and confirms |
-| ATS that opens on account creation (Workday and similar) | **Nothing. Hand it over immediately — do not tailor a CV first** |
+| ATS that opens on account creation (Workday and similar) | **No form.** Tailor the CV and letter, verify them, hand the opening over with the documents ready |
 | Anything gated by a CAPTCHA at submit | Fill everything, leave it loaded, hand over the last click |
 | Company-owned form | Read it before investing; highly variable |
 
 Record each platform's and each ATS's classification in the brief the first time
-you meet it. The point is to spend an hour of document work only where the
-application can actually be completed, and to spend ten seconds discarding what
-starts with a password field.
+you meet it. The point is to spend form-filling effort only where the
+application can actually be completed, and to recognise in ten seconds what
+starts with a password field: it still gets its documents, and the applicant
+gets the last steps.
 
 ## When the browser fails
 

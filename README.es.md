@@ -108,12 +108,15 @@ reaprender estas reglas de a una postulación perdida por vez.
 | 6. Correo y mensajes | Respuestas, vacantes nuevas, acuses automáticos y mensajes de reclutadores en tu red profesional clasificados — se dispara cuando quieras con "revisá mi mail" | sí |
 
 La skill se detiene donde la decisión es tuya y difícil de deshacer: tus
-parámetros, el CV maestro reescrito, tu tabla salarial, una vacante que rompe
-alguno de tus propios filtros. No se detiene entre los pasos de rutina de una
-corrida que ya autorizaste. Eso lo elegís una sola vez, como **modo de
-corrida**: `autonomous` (busca, rankea y postula siguiendo la lista, y después
+parámetros, el CV maestro reescrito, tu tabla salarial. No se detiene entre los
+pasos de rutina de una corrida que ya autorizaste. Eso lo elegís una sola vez,
+como **modo de corrida**: `autonomous` (busca, rankea y postula siguiendo la lista, y después
 reporta) o `stepwise` (te muestra el ranking y espera antes de enviar nada). La
-elección queda guardada en el brief de campaña.
+respuesta queda guardada en el brief de campaña; un modo que la skill deduce de
+tu primera instrucción vale solo para esa corrida y no se guarda. Una vacante
+que rompe claramente alguno de tus propios filtros se descarta con la frase
+textual del aviso como evidencia; las dudosas quedan en una lista para que
+decidas.
 
 ## Requisitos
 
@@ -247,12 +250,16 @@ tabla ordenada de mejor a peor, más la lista de lo que descartó y por qué, co
 la frase textual de cada aviso como evidencia de cada descalificador que se
 activó. Lee cada aviso completo en vez del extracto, y antes de invertir esfuerzo
 registra si la vacante se puede completar desde acá o hay que dejártela a vos
-(por ejemplo, un flujo de postulación que empieza pidiendo crear una cuenta).
+(por ejemplo, un flujo de postulación que empieza pidiendo crear una cuenta),
+antes de completar ningún formulario. Si arranca creando una cuenta, la skill
+no la crea: prepara el CV y la carta, los verifica y te deja la vacante con los
+documentos listos.
 
 En modo `stepwise` se detiene acá y te pregunta si postula. En modo
 `autonomous` sigue con la postulación, porque elegir ese modo fue tu visto bueno
-para la lista ordenada. Una vacante que rompe alguno de tus propios filtros
-igual se detiene para que decidas vos.
+para la lista ordenada. Una vacante que rompe claramente alguno de tus propios
+filtros se descarta, y una dudosa pasa a una lista de "Necesita tu decisión";
+ninguna detiene la corrida.
 
 **5. Postula.** CV y carta a medida por vacante, en el idioma de cada aviso,
 formularios completados, todo registrado — incluido el puntaje de

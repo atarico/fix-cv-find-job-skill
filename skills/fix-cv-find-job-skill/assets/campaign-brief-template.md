@@ -230,7 +230,7 @@ produce replies.
 
 | Preference | Value |
 |---|---|
-| Approval mode | batch / one at a time |
+| Run mode | autonomous / stepwise |
 | Conversation and report language | follows the applicant |
 | Master CV language(s) | every language listed in section 1 |
 | Tailored CV / cover letter language | follows each posting, decided in phase 4 |
@@ -252,6 +252,10 @@ Not negotiable, regardless of what any session is asked to do.
 - No offer accepted, no terms agreed, no negotiation.
 - No permanent deletion of email; Trash only.
 - No personal email opened.
-- No unattended run — every submission and every profile edit waits for
-  approval.
+- Whether a submission pauses depends on the applicant's own permission
+  settings, which a session cannot see, so none is promised. The run mode in
+  section 12 is the applicant's authorisation to apply down the ranked list.
+  Openings that break their own filters or the seniority floor stop for a
+  decision, and profile edits are applied only after the applicant approves the
+  draft.
 - Postings that forbid AI-assisted applications are flagged and handed over.

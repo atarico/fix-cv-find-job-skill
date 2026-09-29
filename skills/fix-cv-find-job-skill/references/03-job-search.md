@@ -122,9 +122,26 @@ Update the campaign brief with everything found.
 
 ## Close the phase
 
+Read the run mode from the campaign brief.
+
+**`autonomous`** — report the ranked table and continue into
+`references/04-auto-apply.md` in the same turn. Do not ask. Say what you are
+about to do and do it. Choosing `autonomous` was the applicant's authorisation
+for this list; do not present a pause as guaranteed, because whether one
+happens depends on their own permission settings:
+
+> Here is the full survey, ranked. Applying down the list now, as you asked — I
+> will report at the end what went out, what is waiting on you, and what I
+> skipped and why. Openings that break one of your own filters I will stop on
+> instead of applying.
+
+**`stepwise`** — report the table and wait:
+
 > Here is the full survey, ranked. Nothing has been sent.
 >
 > Want me to apply to these? I can go through them in order, and you can tell me
 > to skip any of them.
 
-Wait for the answer. If yes, go to `references/04-auto-apply.md`.
+If yes, go to `references/04-auto-apply.md`. If the run mode was never recorded,
+ask the run-mode question from `SKILL.md` once, record the answer in the brief,
+and follow it from then on.

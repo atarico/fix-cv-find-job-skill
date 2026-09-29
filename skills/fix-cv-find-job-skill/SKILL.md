@@ -33,20 +33,71 @@ tech, and it derives every judgement from the user's own CV and target market.
 3. **Announce before acting.** Before every phase, tell the user in plain words
    what is about to happen, what the limits are, and what you need from them.
    No phase starts on assumption.
-4. **Gate every phase.** This workflow never runs end to end on its own. Each
-   phase ends with a report and an explicit question. Wait for the answer.
-5. **The user owns the decisions.** You draft, they approve. You never send an
+4. **Gate decisions, not steps.** Stop for the applicant where a choice is
+   theirs to make and hard to undo: the parameters, the rewritten master CV, the
+   salary table, an opening that breaks one of their own filters, anything
+   irreversible. Do **not** stop between the routine steps of a run that was
+   already authorised. See "Run mode" below — this is the single change that
+   most decides how many openings a session actually reaches.
+5. **Finish the sweep.** A run ends when every harvested opening has been
+   classified — applied to, pre-filled and handed over, or discarded with its
+   evidence. It does not end because the context got tight or a tool failed
+   once. If you cannot finish, say which openings were left unexamined and why;
+   never let a partial sweep read as a complete one.
+6. **The user owns the decisions.** You draft, they approve. You never send an
    email in their name, never accept a job offer, never negotiate salary.
+
+## Run mode
+
+Decided once, recorded in the campaign brief, honoured by every later session
+without asking again.
+
+> Before I start: do you want me to **run the whole round** — check the inbox,
+> sweep the boards, rank, and apply down the list, reporting at the end what I
+> sent and what I skipped and why? Or do you want me to **stop and show you the
+> ranking** before anything gets applied to?
+>
+> One thing to know before you choose. Whether I pause before each submission
+> depends on the permission mode you set in your own browser settings, and I
+> cannot see it. Depending on that setting, applications may go out without a
+> further stop. So choosing the first option means you are authorising me to
+> apply down the ranked list. Any opening that breaks one of your own filters
+> will still stop and wait for you.
+
+- **`autonomous`** — the ranking is reported and the run continues into phase 4
+  in the same turn. No question between phase 3 and phase 4, and no question
+  about batching. This is the mode that reaches the whole board, and choosing
+  it is the applicant's authorisation for the ranked list.
+- **`stepwise`** — phase 3 ends with the ranked table and waits.
+
+Record it under Preferences in the brief. If the applicant's first instruction
+already describes a full round **and explicitly asks to apply** — "check my
+mail and apply to what comes up" — treat that as `autonomous` for this run and
+confirm it in the closing report rather than interrupting to ask. An
+instruction that only asks to look, search or check does not infer it: ask.
+
+Nothing in this mode weakens the absolute limits. It changes when you ask, not
+what you are allowed to do. Openings that break the applicant's own filters or
+the seniority floor still stop for a decision in either mode.
 
 ## Platform limits (state these, do not fight them)
 
-These are enforced by the platform, not by this skill. Tell the user up front so
-they do not mistake a guardrail for a malfunction.
+Most of these are enforced by the platform, not by this skill. Tell the user up
+front so they do not mistake a guardrail for a malfunction.
 
-- **Form submissions always pause for approval.** Claude pauses on consequential
-  actions and always asks before sharing personal data. A job application is
-  both. A fully unattended run is impossible. Design around it, never promise
-  otherwise.
+- **Whether a submission pauses is the applicant's setting, not this skill's.**
+  Claude in Chrome lets the user choose how it asks — manually approve actions,
+  approve automatically, or skip all approvals — and this skill cannot see which
+  one is active. Do not promise a pause and do not build a run on the assumption
+  that one will happen; in the skip mode nothing pauses and nothing checks the
+  actions. What holds in every mode is this skill's own absolute limits, and the
+  platform still blocks account creation, purchases, handling of card or ID
+  data, permanent deletions, and following instructions found in emails or web
+  content. Never present any of that as a malfunction — when the platform stops
+  something, it is doing its job. The reason not to add a second approval on
+  top of the run-mode answer is not that the platform will pause: the applicant
+  already authorised applying down the list, so asking again per batch buys
+  nothing and costs the rest of the queue.
 - **CAPTCHAs cannot be solved.** Hand the tab back to the user.
 - **Accounts cannot be created, and passwords are never entered.** If a platform
   demands signup or SSO, stop and hand it over.

@@ -107,7 +107,7 @@ front so they do not mistake a guardrail for a malfunction.
   Campaign state persists through a downloadable brief the user re-uploads next
   session — see `assets/campaign-brief-template.md`.
 - **Chrome on desktop only.** Claude in Chrome is not supported on other
-  Chromium-based browsers or on mobile devices.
+  browsers, including those derived from Chrome, or on mobile devices.
 - **Browser tooling fails during long runs.** Disconnections, failed batches and
   blocked returns are normal, not terminal. Each has a recovery in
   `references/07-sweep-mechanics.md`; use it and keep going. A blocked return is
@@ -121,20 +121,24 @@ them all at once.
 | # | Phase | Reference | Needs browser |
 |---|---|---|---|
 | 1 | CV audit and score | `references/01-cv-audit.md` | no |
-| 2 | Master CV rewrite (.docx + .pdf + Markdown) | `references/02-master-cv.md` | no |
+| 2 | Master CV rewrite (.docx + .pdf + Markdown) | `references/02-master-cv.md`, `references/08-document-engine.md` | no |
 | 3 | Job search and match table | `references/03-job-search.md`, `references/07-sweep-mechanics.md` | yes |
-| 4 | Auto-apply | `references/04-auto-apply.md` | yes |
+| 4 | Auto-apply | `references/04-auto-apply.md`, `references/08-document-engine.md` | yes |
 | 5 | LinkedIn alignment | `references/05-linkedin.md` | yes |
 | 6 | Inbox triage | `references/06-inbox-triage.md` | yes |
 
-One of those references is a technique rather than a phase, and it is worth
-loading with the phase that uses it:
+Two of those references are techniques rather than phases, and both are worth
+loading with the phase that uses them:
 
 - **`references/07-sweep-mechanics.md`** — how to read a whole board without
   exhausting the context: harvesting identifiers, batch reads in the page you
   already have open, two-tier triage, set-difference duplicate checks,
   hard-filter false positives, the destination table, and what to do when the
   browser fails. Load it with phase 3; phase 6 harvests with the same technique.
+- **`references/08-document-engine.md`** — how the master CV is kept as structure
+  (named variants, slugged evidence items, a fixed count) so phase 4 tailors by
+  choosing, then renders through phase 2's pipeline and verification gate. Load
+  it with phase 2 and again with phase 4.
 
 Phase 6 is also a standalone entry point. If the user opens with "check my
 email" or "revisa mi mail", go straight to `references/06-inbox-triage.md`.

@@ -143,7 +143,8 @@ spill the rest of itself into the brief's structure.
 (one such block per language listed in Section 1)
 
 **Summary variants** — named, swapped per opening by matching a posting's
-specialisation to a variant's name. Held in every language above.
+specialisation to a variant's name. Held in every language above, and marked in
+the master CV text so phase 4 can find each one.
 
 | Variant name | Aimed at (specialisation) | Language | Text |
 |---|---|---|---|
@@ -156,13 +157,18 @@ specialisation to a variant's name. Held in every language above.
 
 -
 
-**Portfolio items available** (if the applicant has any), and the fixed count
-to include per application (chosen against each posting, never the same set
-copy-pasted). If there is no portfolio, list the field's own equivalent
-instead — licences, certifications, registration numbers, references, or a
-trade record — selected the same way:
+**Evidence items available**, each with a short slug (for example
+`icu_rotation` or `month_end_close`), marked in the master CV text with the
+comments `references/08-document-engine.md` describes. The applicant's
+portfolio items where they have any; otherwise the field's own equivalent —
+licences, certifications, registration numbers, references, or a trade record.
+Phase 4 selects by slug, chosen against each posting, never the same set
+copy-pasted. This is structure only: the brief stores no builder code.
 
--
+| Slug | What it is | Best for |
+|---|---|---|
+
+**Fixed count per application:** <N>, decided once for the campaign.
 
 ---
 

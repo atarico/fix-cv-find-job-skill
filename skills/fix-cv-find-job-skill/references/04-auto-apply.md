@@ -36,8 +36,11 @@ its application history page — not a guess from memory. If the user already
 applied to this company and role, stop and tell them. Never apply twice. A
 duplicate reads as careless and some systems reject it automatically.
 
-**2. Tailor the CV.** Never the generic one. Start from the master CV in the
-posting's language, restored from the campaign brief's CV assets section —
+**2. Tailor the CV.** Never the generic one. Tailoring is a choice from the
+master's structure, not a rewrite: load `references/08-document-engine.md` and
+select the named variant and the slugged evidence items, then render through
+phase 2's pipeline. Start from the master CV in the posting's language,
+restored from the campaign brief's CV assets section —
 there is one master per language, never one per specialisation. If that text is
 missing, empty or unusable for the posting's language, stop this phase: tell the
 applicant the brief has no master CV to work from, and route back to
@@ -67,6 +70,14 @@ posting's language:
 Name the files consistently: `CV_<Name>_<Company>.pdf` and
 `CoverLetter_<Name>_<Company>.pdf`.
 
+**3b. Verify the documents.** Run phase 2's verification gate
+(`references/02-master-cv.md`, "Verify, do not trust") on each tailored CV —
+page count, extracted text, and the font check — and check that the letter is
+exactly one page. A font fallback is not a content problem: fix the font and
+render again before cutting anything. Look at the rendered first page as well.
+If a document is over length, shorten the letter or drop one evidence item and
+render again; never ship it over length and never silently truncate.
+
 **4. Fill the form.** Use only real data from the user's profile. Apply the
 salary rules from phase 3: free text gets "negotiable" first, a forced numeric
 field draws from the salary table's row for this posting's stated seniority and
@@ -76,9 +87,12 @@ go back and collect that row first. Answer screening questions truthfully from
 the CV — never claim experience the CV does not support, even when the honest
 answer costs the application.
 
-**5. Handle what blocks you.** When a field needs something only the user can
-provide — a photo, a video, an ID document, a date of birth, a CAPTCHA, an
-account, a login, a signature — leave that tab open with everything else already
+**5. Handle what blocks you.** The destination class carried in from phase 3
+already says what will block this one, so act on it before spending: an
+opening whose apply flow starts at account creation gets handed over
+immediately, with no CV tailored for it. For everything else, when a field
+needs something only the user can provide — a photo, a video, an ID document, a
+date of birth, a CAPTCHA, an account, a login, a signature — leave that tab open with everything else already
 filled in, open a new tab, and continue down the list. Collect all of these and
 present them together at the end. Never guess at personal data. Never create an
 account or enter a password.

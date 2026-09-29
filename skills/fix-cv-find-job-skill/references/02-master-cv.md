@@ -342,3 +342,21 @@ swapping the summary and skills per opening, and the naming convention when
 files exist. Then stop cleanly. This is a complete outcome, not a failure.
 
 If the user says they have it, go to `references/03-job-search.md`.
+
+---
+
+## Keep the master as structure, not only prose
+
+Phase 4 tailors from this master by choosing, not by rewriting, so the master has
+to be built for that choice. On every surface, whether or not code execution is
+on, do three things before closing the phase, and load
+`references/08-document-engine.md` for the detail:
+
+- Mark each named summary variant and each evidence item in the master text, in
+  every language, with the comments that file describes.
+- Give every evidence item a short slug that says what it is.
+- Settle, once, how many evidence items each tailored CV carries.
+
+All of it goes in the campaign brief with the master text. None of it changes the
+pipeline: the .docx, .pdf and Markdown are still produced exactly as described
+above, and phase 4 renders through that same pipeline and its gate.

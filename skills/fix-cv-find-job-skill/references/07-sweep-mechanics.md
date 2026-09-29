@@ -90,8 +90,8 @@ costs nothing.
 **Tier two, the batch read above**, only for what survived tier one.
 
 **Tier three, the full posting in a tab**, only for what you are about to apply
-to, because the cover letter needs a specific detail from it and the screening
-questions need the exact wording.
+to or hand over with tailored documents, because the cover letter needs a
+specific detail from it and the screening questions need the exact wording.
 
 As an illustration of the proportions: seventy-seven harvested openings can come
 down to fifty-six after tier two and the hard filters, with only a handful ever

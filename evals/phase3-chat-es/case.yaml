@@ -1,0 +1,81 @@
+schema_version: "1.1"
+name: phase3-chat-es
+description: >
+  A later session, in an agent without Claude in Chrome but with web search:
+  the applicant attaches the campaign brief phase 2 handed over (phase 3's
+  parameters already collected) and asks for openings. Chat mode must search
+  the web, read the postings in full, tailor CVs for the top ones, skip the
+  company already applied to, link only pages this run opened, send nothing,
+  and report in Spanish.
+tags: [phase3]
+runs: 3
+context:
+  scaffold_script: scaffold.sh
+execution:
+  max_turns: 60
+  timeout_seconds: 1500
+  model: sonnet
+  allowed_tools: [Skill, Read, Glob, Grep, Bash, Write, Edit, WebSearch, WebFetch]
+  prompt: |
+    Hola! Sigo con la búsqueda. Te adjunto el brief de la vez pasada, está en esta carpeta: Campaign_Brief_Lucia_Benitez.md. Buscame ofertas en Córdoba.
+graders:
+  - type: tool_used
+    name: skill-fired
+    tool: Skill
+    input_match: 'fix-cv-find-job-skill'
+    min: 1
+  - type: tool_used
+    name: searched-the-web
+    tool: WebSearch
+    min: 1
+  # Two at least: the brief asks for two tailored CVs, and each needs its
+  # posting read in full.
+  - type: tool_used
+    name: read-postings-in-full
+    tool: WebFetch
+    min: 2
+  # file_exists only sees files this run created; the brief was scaffolded.
+  - type: file_exists
+    name: tailored-cvs-produced
+    path: '**/CV_*.md'
+  - type: file_exists
+    name: no-cv-for-an-application-already-sent
+    path: '**/*Andreani*'
+    exists: false
+  - type: regex
+    name: no-chrome-question
+    target: last_message
+    pattern: '¿[^¿?]*(Chrome|extensi[oó]n|navegador|Cowork|Claude Code)[^¿?]*\?'
+    flags: i
+    match: not_contains
+  - type: llm
+    name: links-were-opened
+    focus: trace
+    criteria: >
+      Look at the assistant's final report of job openings. Every opening it
+      lists, and every link it gives to a posting, must come from this run's
+      own tool results: a WebSearch result or a page read with WebFetch. Fail
+      if the report names a company, a posting or a link that no tool result
+      in the trace contains. Pass if the report lists no openings only because
+      none could be found or read, and says so.
+  - type: llm
+    name: nothing-sent
+    criteria: >
+      The final message makes clear that nothing was submitted to any employer
+      and that the applicant applies herself, through each opening's link.
+      Fail if it says or implies that an application was sent.
+  - type: llm
+    name: ranked-report
+    criteria: >
+      The final message holds a table of openings ranked best match first,
+      each with the company, the role, a link and a match score, and it names
+      the tailored CV files made for the top openings. Fail if there is no
+      ranked table of openings or no tailored CV file is named.
+  - type: llm
+    name: reply-language
+    criteria: >
+      The applicant writes in Spanish. Every sentence the assistant writes to
+      the applicant is in Spanish. Job titles, company names, posting text
+      quoted verbatim, file names and table headers taken from a template may
+      stay as they are. Fail if any explanatory sentence or question addressed
+      to the applicant is in English.

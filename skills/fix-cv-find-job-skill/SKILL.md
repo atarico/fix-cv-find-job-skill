@@ -20,7 +20,9 @@ tech, and it derives every judgement from the user's own CV and target market.
 1. **Language follows the artifact, not one rule for all of them.** Detect the
    user's language from how they write and answer in it — that never changes.
    - **Conversation and every report** follow the applicant's own language,
-     always.
+     always. The quoted lines in this skill (`> …`) say what to tell the
+     applicant, written in English for you: say them in the applicant's
+     language, never verbatim in English to someone who writes in another.
    - **The master CV** is built in every language the applicant works in. It
      follows no posting — phase 2 runs before any posting exists.
    - **The tailored CV and cover letter** follow the target job posting's

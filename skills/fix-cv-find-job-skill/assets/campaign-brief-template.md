@@ -274,7 +274,7 @@ produce replies.
 | Preference | Value |
 |---|---|
 | Run mode | autonomous / stepwise (only what the applicant answered; never inferred) |
-| Conversation and report language | follows the applicant |
+| Conversation and report language | <the language the applicant writes in>; a later session still follows how they write then |
 | Master CV language(s) | every language listed in section 1 |
 | Tailored CV / cover letter language | follows each posting, decided in phase 4 |
 

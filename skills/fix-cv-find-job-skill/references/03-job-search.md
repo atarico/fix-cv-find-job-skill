@@ -94,8 +94,8 @@ is the most common way this skill underdelivers.
 
 In short, and detailed there: harvest identifiers first, read them in batches
 inside the page you already have open, extract only the fields a score depends
-on, and triage in two tiers so no deep read is ever spent on an opening the
-title and location already killed.
+on, and triage in tiers (`references/07-sweep-mechanics.md` owns them) so no
+deep read is ever spent on an opening the title and location already killed.
 
 ## Scoring the match
 

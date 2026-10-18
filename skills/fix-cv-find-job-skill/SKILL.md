@@ -189,9 +189,9 @@ URL. Accept a standalone request with neither, such as "check my email" or
   routes straight to whichever browser phase the brief's status calls for.
 - **A standalone request, no CV.** "Check my email", "find me openings," or an
   equivalent — the two do not need the same things to start.
-  - **Inbox triage** ("check my email", "revisa mi mail") always proceeds:
-    go straight to `references/06-inbox-triage.md`. Reading and classifying
-    an inbox needs no CV, no brief and no parameters. With brief state on
+  - **Inbox triage** ("check my email", "revisa mi mail") needs no CV, no
+    brief and no parameters: once the capability check (below) allows phase 6,
+    go straight to `references/06-inbox-triage.md`. With brief state on
     file it scores new openings in full; without it, it still runs, degraded,
     exactly as that reference file describes.
   - **Job search** ("find me openings", "buscame trabajo") does need

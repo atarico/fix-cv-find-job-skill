@@ -191,6 +191,9 @@ class" is what can actually be completed there. Both are in
 Never apply twice to the same company and role. Check this table, and the
 platform's own duplicate-check method above, before every application.
 
+This table is the source of the applications log handed over each cycle. List
+only applications actually submitted.
+
 | Date | Company | Role | Platform | Match | Salary given | Status | Notes |
 |---|---|---|---|---|---|---|---|
 

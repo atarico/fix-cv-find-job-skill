@@ -269,6 +269,10 @@ proceso y las mismas verificaciones de páginas, texto y tipografía que el CV
 maestro, y la carta nombra la brecha real de tu perfil antes de que la encuentre
 quien la lee. No te pregunta si querés lote o de a uno: tu respuesta sobre el
 modo de corrida ya lo resolvió.
+Cada ciclo termina con un **registro de postulaciones** junto a tu brief: una
+lista acumulada de lo que realmente se envió (fecha, empresa, puesto, salario
+pedido, plataforma), de la más reciente a la más antigua, para que encuentres la
+vacante cuando una empresa te contacte.
 
 **6. LinkedIn y correo, si los querés.** Perfil alineado con el CV nuevo;
 bandeja de entrada y mensajes de tu red profesional clasificados en respuestas
@@ -303,6 +307,10 @@ lo que postulaste y todo lo que quedó trabado — y retoma exactamente donde el
 brief dice que quedó la última sesión, así que la auditoría del CV y la
 reescritura del CV maestro nunca vuelven a correr una vez que el brief las
 marca como hechas.
+
+Junto al brief se entrega un **registro de postulaciones**
+(`Applications_<Nombre>_<fecha>.md`), reconstruido en cada ciclo con todo lo que
+postulaste. Conservá solo el más reciente.
 
 Si adjuntás un CV nuevo junto con un brief existente, te pregunta una sola vez
 si querés volver a correr la auditoría y la reescritura sobre ese CV; si le

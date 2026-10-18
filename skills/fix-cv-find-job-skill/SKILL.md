@@ -189,9 +189,9 @@ URL. Accept a standalone request with neither, such as "check my email" or
   routes straight to whichever browser phase the brief's status calls for.
 - **A standalone request, no CV.** "Check my email", "find me openings," or an
   equivalent — the two do not need the same things to start.
-  - **Inbox triage** ("check my email", "revisa mi mail") always proceeds:
-    go straight to `references/06-inbox-triage.md`. Reading and classifying
-    an inbox needs no CV, no brief and no parameters. With brief state on
+  - **Inbox triage** ("check my email", "revisa mi mail") needs no CV, no
+    brief and no parameters: once the capability check (below) allows phase 6,
+    go straight to `references/06-inbox-triage.md`. With brief state on
     file it scores new openings in full; without it, it still runs, degraded,
     exactly as that reference file describes.
   - **Job search** ("find me openings", "buscame trabajo") does need
@@ -208,8 +208,10 @@ rebuild one before any browser phase can tailor from it.
 
 ### Capability check
 
-Run it once at entry, unless the brief already records the answer. Detect; do
-not ask what your own tools already tell you. Ask only what you cannot tell, and
+Run it at the start of every session, from your own tools. A brief's record of
+the surface is a note about the previous session, never the answer: the same
+brief may have been written on another agent. Detect; do not ask what your own
+tools already tell you. Ask only what you cannot tell, and
 never by product name.
 
 - **Can you drive a browser through Claude in Chrome?** Look at your tools: the

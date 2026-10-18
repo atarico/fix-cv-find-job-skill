@@ -77,8 +77,11 @@ posting's language:
   with the screening answers, which are already honest by rule.
 - A short, plain closing. No pleading, no flattery.
 
-Name the files consistently: `CV_<Name>_<Company>.pdf` and
-`CoverLetter_<Name>_<Company>.pdf`.
+Name the files consistently: `CV_<Name>_<Company>.docx`,
+`CV_<Name>_<Company>.pdf`, `CV_<Name>_<Company>.md` and
+`CoverLetter_<Name>_<Company>.pdf`. The tailored CV is delivered as the same
+three files as the master, the way phase 2 allows in this environment
+(`references/02-master-cv.md`, "Producing the three files").
 
 **3b. Verify the documents.** Run phase 2's verification gate
 (`references/02-master-cv.md`, "Verify, do not trust") on each tailored CV —

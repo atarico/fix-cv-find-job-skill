@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: SKILL.md conforms to the Agent Skills spec
         run: python3 tests/test_skill_spec.py
+      - name: Cross-file references resolve
+        run: python3 tests/test_skill_consistency.py
 
   reference-docx:
     runs-on: ubuntu-latest

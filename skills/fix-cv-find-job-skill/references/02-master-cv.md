@@ -167,8 +167,8 @@ find ~ /mnt -path '*fix-cv-find-job-skill/assets/reference.docx' 2>/dev/null | h
 The skill folder may be read-only. Write every output to the user's working
 directory, never into the skill folder.
 
-**(a) A shell with pandoc and LibreOffice** (`libreoffice` or `soffice`) — this
-is what Claude Code, Codex and OpenCode normally run. Convert locally, and
+**(a) A shell with pandoc and LibreOffice** (`libreoffice` or `soffice`) —
+the probe finds both. Convert locally, and
 **always pass the reference document**. Run this whole produce-and-verify block
 once per language, from a separate `CV_<Language>.md`, so one language's output
 never overwrites another's:
@@ -201,9 +201,8 @@ applicant there, or fall to branch (b). Do not work around the absence by
 shrinking the font.
 
 **(b) Code execution with python-docx and reportlab, where (a) is incomplete**
-(no pandoc, or pandoc without LibreOffice) — Claude.ai
-web chat, the Claude in Chrome side panel and Cowork once code execution is on,
-and ChatGPT typically land here. Build the .docx with `python-docx` and the
+(no pandoc, or pandoc without LibreOffice) — the probe
+finds those packages but not the full toolchain of (a). Build the .docx with `python-docx` and the
 .pdf with `reportlab`, or generate the .docx and render the .pdf from it. Also
 write the clean Markdown already produced above to a file, named
 `CV_<Name>_Master_<Language>.md`. If a package is missing, try installing it
@@ -383,21 +382,17 @@ cleanly. This is a complete outcome, not a failure.
 
 **With Claude in Chrome**, both outcomes above also get this handoff:
 
-> From here I can search openings and apply for you, but that needs a browser
-> Claude can drive: the Claude in Chrome side panel, Claude Cowork on desktop,
-> or Claude Code started with `--chrome`. Any of those needs a paid plan, and
-> Claude in Chrome runs on Chrome on desktop only.
->
-> If you have it, tell me and we keep going. If you would rather not, we stop
-> here — you have what this run produced and I will show you how to adapt it
-> per opening.
+> From here I can search openings and apply for you in your browser. Want to
+> keep going now? If you would rather not, we stop here — you have what this
+> run produced and I will show you how to adapt it per opening.
 
 If the user declines, hand over whatever this run produced — the files, or the
 Markdown already shown in chat — together with the brief, a short guide on
 swapping the summary and skills per opening, and the naming convention when
 files exist. Then stop cleanly. This is a complete outcome, not a failure.
 
-If the user says they have it, go to `references/03-job-search.md`.
+If the user says to keep going, go to `references/03-job-search.md`. Do not
+ask whether they have a browser surface: the capability check already answered.
 
 ---
 

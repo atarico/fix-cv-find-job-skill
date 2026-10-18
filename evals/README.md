@@ -39,6 +39,8 @@ claude plugin eval . --ablation none --judge-model sonnet --case 'phase1-*' --ma
   LibreOffice, as in `tests/test_reference_docx.py`.
 - The first run asks you to trust the plugin directory.
 - Results land in `evals/results/`, which is not committed.
+- A phase 2 run writes the continued session next to its `history.jsonl`,
+  named after the session id; git ignores it.
 
 The suite is not in CI: it costs money on every run and needs a credential.
 Run it before a release that changes phases 1 or 2.

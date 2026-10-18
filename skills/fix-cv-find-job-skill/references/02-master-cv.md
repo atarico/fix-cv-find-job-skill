@@ -142,10 +142,13 @@ Mark every swappable block with a comment the user can find and replace.
 
 ## Producing the three files
 
-Write the CV as clean Markdown first and show it to the user in chat before
-converting. Then convert with whatever the environment can actually do. Probe
-once, at the start of rendering, and choose the branch from what the probe
-finds, never from the name of the product you run in:
+Write the CV as clean Markdown first, show it to the applicant in chat with
+what changed and why, and ask them to approve it or ask for changes. This is
+the gate prime directive 4 names: render nothing and start no later phase until
+they approve. A requested change is applied and the CV shown again; it is not an
+approval. Once approved, convert with whatever the environment can actually
+do. Probe once, at the start of rendering, and choose the branch from what the
+probe finds, never from the name of the product you run in:
 
 ```bash
 command -v pandoc soffice libreoffice pdfinfo pdftotext pdffonts

@@ -382,7 +382,10 @@ Generate the campaign brief from `assets/campaign-brief-template.md` (resolved
 against the skill's own folder) either way, before anything else in the close.
 Fill Section 3's master CV text field with
 the clean Markdown already produced above, one fenced block per language,
-following that field's own fencing rule. Phase 4 always tailors from that text,
+following that field's own fencing rule. Fill Section 1's confirmed facts with
+every figure, date or outcome the applicant confirmed in this session, such as
+the answers to phase 1's questions, including the ones they said they never
+measured. Phase 4 always tailors from that text,
 never from a file left in this session, and an applicant who stops here may
 come back in a later session — the brief is the only thing that carries this
 run forward, so it is written whether or not this session continues.

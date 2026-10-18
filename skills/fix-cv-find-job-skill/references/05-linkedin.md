@@ -62,6 +62,10 @@ landed. Profile editors save inconsistently.
 Never change their name, never remove existing recommendations, never alter
 employment dates to something the user has not confirmed.
 
+Anything the applicant confirms in this phase — a date, a title, a figure —
+goes into the brief's confirmed facts (section 1) before the phase closes, and
+the updated brief is handed over with the close.
+
 ## Close the phase
 
 Show what changed and what is left for them to do by hand — a photo, a

@@ -68,6 +68,14 @@ provided. Never invent, never infer.
 | Field | Value |
 |---|---|
 
+**Confirmed facts** — every figure, date or outcome the applicant confirmed in
+answer to a question (phase 1's questions, phase 5's checks), and every one they
+said they do not know or never measured. Later sessions may use what is here;
+anything neither here nor in the CV is still unconfirmed.
+
+| Fact | Confirmed in |
+|---|---|
+
 ---
 
 ## 2. Target

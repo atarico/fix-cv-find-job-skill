@@ -111,7 +111,10 @@ present them together at the end. Never guess at personal data. Never create an
 account or enter a password.
 
 **6. Record it.** Company, role, date, platform, match score, salary figure
-given, files sent, status, and anything left blocked.
+given, files sent, status, and anything left blocked. Only an application that
+was actually submitted goes into brief section 5. A handed-over opening was not
+sent by this skill: it joins section 5, and so the applications log, once the
+applicant confirms they submitted it.
 
 ## Absolute limits
 
@@ -155,6 +158,22 @@ Then:
 
 Update the campaign brief and give it to the user to download. Tell them plainly
 that it is how the next session picks up where this one stopped.
+
+Then build the **applications log** from brief section 5 and hand it over next
+to the brief, every cycle. It is what the applicant opens when a company calls
+back and they need to remember what they sent there.
+
+- Name it `Applications_<Name>_<YYYY-MM-DD>.md`, so the newest download is
+  obvious. It is cumulative: tell the applicant to keep only the latest.
+- One table per group, newest first: **This cycle** above **Earlier**. Columns,
+  named as in section 5: `Date | Company | Role | Salary given | Platform`.
+- Copy the salary figure exactly as recorded, including "negotiable". Where the
+  form asked for none, write that. Never fill one in.
+- List only what was submitted. Handed-over openings stay out until confirmed.
+- Where files cannot be delivered (`references/08-document-engine.md`, "When
+  there is no code execution"), give the same table in chat.
+
+The Final report table above stays as it is; the log is in addition to it.
 
 ## Close the phase
 

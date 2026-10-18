@@ -35,8 +35,13 @@ claude plugin eval . --ablation none --judge-model sonnet --case 'phase1-*' --ma
 - On a Claude subscription the runs use the plan's usage; the dollar figure
   is the runner's API-price equivalent, which `--max-cost-usd` caps.
 - The phase 2 cases need Bash, which the runner only grants inside its sandbox:
-  on Linux that needs `bubblewrap` and `socat`. Rendering also needs pandoc and
-  LibreOffice, as in `tests/test_reference_docx.py`.
+  on Linux that needs `bubblewrap` and `socat`. On Ubuntu 24.04 and later,
+  AppArmor also has to let `bwrap` create user namespaces, or every command
+  fails with `bwrap: loopback: Failed RTM_NEWADDR`. A profile for
+  `/usr/bin/bwrap` with `userns,` in `/etc/apparmor.d/` does it.
+- Rendering also needs pandoc and LibreOffice, as in
+  `tests/test_reference_docx.py`, where the sandbox can see them: a pandoc
+  installed under `/home/linuxbrew` was not found from inside it.
 - The first run asks you to trust the plugin directory.
 - Results land in `evals/results/`, which is not committed.
 - A phase 2 run writes the continued session next to its `history.jsonl`,

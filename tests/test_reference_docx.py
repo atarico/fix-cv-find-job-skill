@@ -339,6 +339,37 @@ def test_documented_pandoc_command_keeps_plain_typography():
         assert not set(xml) & {"–", "—", "“", "”"}, "smart typography leaked into the .docx"
 
 
+def test_documented_render_block_works_with_a_read_only_home():
+    """Branch (a)'s block, run as written, must produce the PDF in a sandbox.
+
+    Sandboxed agents (Codex's workspace-write mode, Claude Code's sandbox)
+    leave the home directory read-only. LibreOffice's default profile lives
+    there, so the stock conversion dies without writing a PDF.
+    """
+    _need("pandoc", "libreoffice")
+    text = (SKILL / "references" / "02-master-cv.md").read_text(encoding="utf-8")
+    block = re.search(r'```bash\n(SKILL_DIR="<absolute path of the skill folder>"\n.*?)```', text, re.S)
+    assert block, "branch (a)'s render block not found in references/02-master-cv.md"
+    script = (block.group(1)
+              .replace("<absolute path of the skill folder>", str(SKILL))
+              .replace("<Language>", "English").replace("<Name>", "Fixture"))
+    with tempfile.TemporaryDirectory() as tmp:
+        work, home = pathlib.Path(tmp, "work"), pathlib.Path(tmp, "home")
+        work.mkdir()
+        home.mkdir()
+        shutil.copy(FIXTURE, work / "CV_English.md")
+        home.chmod(0o555)
+        env = dict(os.environ, HOME=str(home), XDG_CONFIG_HOME=str(home / ".config"))
+        try:
+            subprocess.run(["bash", "-e", "-c", script], cwd=work, env=env, timeout=240,
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        finally:
+            home.chmod(0o755)
+        pdf = work / "CV_Fixture_Master_English.pdf"
+        assert pdf.exists() and pdf.stat().st_size > 0, \
+            "the documented render block wrote no PDF with a read-only home"
+
+
 def test_shipped_reference_renders_black_and_white():
     """Phase 2 promises the Harvard style: black and white. Measure it on the page."""
     _need("pandoc", "libreoffice", "pdfinfo", "pdftotext", "pdftoppm")

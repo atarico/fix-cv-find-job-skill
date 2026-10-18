@@ -180,12 +180,16 @@ never overwrites another's:
 
 ```bash
 SKILL_DIR="<absolute path of the skill folder>"
+LO_PROFILE="$(mktemp -d)"
 pandoc -f markdown-smart "CV_<Language>.md" -o "CV_<Name>_Master_<Language>.docx" --reference-doc="$SKILL_DIR/assets/reference.docx"
-libreoffice --headless --convert-to pdf "CV_<Name>_Master_<Language>.docx" --outdir .
+libreoffice --headless -env:UserInstallation="file://$LO_PROFILE" --convert-to pdf "CV_<Name>_Master_<Language>.docx" --outdir .
 ```
 
 `-f markdown-smart` keeps pandoc from turning `--` into an en dash and straight
 quotes into curly ones: the .docx carries the characters the Markdown has.
+`-env:UserInstallation` gives LibreOffice a throwaway profile. Its default one
+lives in the home directory, which sandboxed agents keep read-only, and without
+a writable profile LibreOffice exits without writing the PDF.
 
 Use `soffice` in place of `libreoffice` where that is the binary's name. The
 third deliverable needs no extra conversion: `CV_<Language>.md` above is
@@ -225,8 +229,8 @@ for child in list(body)[:-1]:   # keep the final sectPr: page size and margins
     body.remove(child)
 ```
 
-Render the .pdf from that .docx where a converter exists, or build it with
-`reportlab`. Also write the clean Markdown already produced above to a file,
+Render the .pdf from that .docx where LibreOffice exists, with the same command
+and throwaway profile as (a), or build it with `reportlab`. Also write the clean Markdown already produced above to a file,
 named `CV_<Name>_Master_<Language>.md`. The verification gate below applies to
 this branch exactly as to (a): two pages or fewer, real text. If a package is
 missing, try installing it once (`pip install python-docx reportlab`); with no

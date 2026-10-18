@@ -141,40 +141,46 @@ Mark every swappable block with a comment the user can find and replace.
 ## Producing the three files
 
 Write the CV as clean Markdown first and show it to the user in chat before
-converting. Then convert with whatever the current surface has. Every run now
-delivers the same three files — `.docx`, `.pdf`, and the clean Markdown —
-there is no branch left that skips any of them:
-
-**Any surface with code execution enabled in Settings > Capabilities** — the
-Claude in Chrome side panel, Cowork, and ordinary web chat, including the free
-plan, all qualify once that setting is on; this is the same capability
-`SKILL.md`'s compatibility line promises. Build the .docx with `python-docx`
-and the .pdf with `reportlab`, or generate the .docx and render the .pdf from
-it. Also write the clean Markdown already produced above to a file, named
-`CV_<Name>_Master_<Language>.md`. Deliver every file the naming rule below
-calls for as downloads. There is no local working directory here; the user
-saves the files through the browser.
-
-**That same setting, off.** It is off by default, so do not assume it is on.
-Without code execution there is no way to build a .docx or a .pdf on these
-surfaces: hand the applicant the clean Markdown already produced above,
-directly in the chat, as the deliverable. Say plainly why there are no
-files — code execution is off — and name the toggle: **Code execution and
-file creation**, under Settings > Capabilities. Let the applicant decide:
-turn it on and ask again for the finished files, or take the Markdown as is.
-Close the phase with the second opener below — the file-naming rules that
-follow this section do not apply to this branch.
-
-**Claude Code** — convert locally, and **always pass the reference document**.
-Run this whole produce-and-verify block once per language, from a separate
-`CV_<Language>.md`, so one language's output never overwrites another's:
+converting. Then convert with whatever the environment can actually do. Probe
+once, at the start of rendering, and choose the branch from what the probe
+finds, never from the name of the product you run in:
 
 ```bash
-pandoc "CV_<Language>.md" -o "CV_<Name>_Master_<Language>.docx" --reference-doc=assets/reference.docx
+command -v pandoc soffice libreoffice pdfinfo pdftotext pdffonts
+python3 -c "import docx, reportlab" && echo "python-docx + reportlab ok"
+fc-list | grep -Ei 'carlito|calibri'
+```
+
+Every run delivers the same three files — `.docx`, `.pdf`, and the clean
+Markdown — on branches (a) and (b). Only branch (c) cannot.
+
+**Find the skill's own folder first.** It is the directory that holds this
+skill's `SKILL.md`. Resolve every bundled file (`assets/reference.docx`,
+`assets/campaign-brief-template.md`) against it, never against the working
+directory, and pass tools an absolute path. If you do not know where the skill
+was loaded from, locate it:
+
+```bash
+find ~ /mnt -path '*fix-cv-find-job-skill/assets/reference.docx' 2>/dev/null | head -1
+```
+
+The skill folder may be read-only. Write every output to the user's working
+directory, never into the skill folder.
+
+**(a) A shell with pandoc and LibreOffice** (`libreoffice` or `soffice`) — this
+is what Claude Code, Codex and OpenCode normally run. Convert locally, and
+**always pass the reference document**. Run this whole produce-and-verify block
+once per language, from a separate `CV_<Language>.md`, so one language's output
+never overwrites another's:
+
+```bash
+SKILL_DIR="<absolute path of the skill folder>"
+pandoc "CV_<Language>.md" -o "CV_<Name>_Master_<Language>.docx" --reference-doc="$SKILL_DIR/assets/reference.docx"
 libreoffice --headless --convert-to pdf "CV_<Name>_Master_<Language>.docx" --outdir .
 ```
 
-The third deliverable needs no extra conversion: `CV_<Language>.md` above is
+Use `soffice` in place of `libreoffice` where that is the binary's name. The
+third deliverable needs no extra conversion: `CV_<Language>.md` above is
 already the pandoc input, sitting on disk. Copy it to
 `CV_<Name>_Master_<Language>.md` and hand that file over alongside the .docx
 and .pdf:
@@ -188,8 +194,35 @@ styling is built for reports — one-inch margins, 12pt body, oversized headings
 and renders the same CV across four pages. Without this flag you will cut good
 content to fix a problem that was never the content's.
 
-If the file is missing, regenerate it with `scripts/make-reference-docx.py` from
-the repository. Do not work around its absence by shrinking the font.
+If the file is missing from an installed copy, say so plainly: the generator
+`scripts/make-reference-docx.py` is not shipped inside the skill, it lives in
+the repository (https://github.com/atarico/fix-cv-find-job-skill). Point the
+applicant there, or fall to branch (b). Do not work around the absence by
+shrinking the font.
+
+**(b) Code execution with python-docx and reportlab, no pandoc** — Claude.ai
+web chat, the Claude in Chrome side panel and Cowork once code execution is on,
+and ChatGPT typically land here. Build the .docx with `python-docx` and the
+.pdf with `reportlab`, or generate the .docx and render the .pdf from it. Also
+write the clean Markdown already produced above to a file, named
+`CV_<Name>_Master_<Language>.md`. If a package is missing, try installing it
+once (`pip install python-docx reportlab`); with no network, fall to branch (c)
+and tell the applicant why.
+
+**(c) Neither** — hand the applicant the clean Markdown already produced above,
+directly in the chat, as the deliverable. Say plainly why there are no files:
+this environment cannot run code, or lacks the packages and has no network to
+get them. On Claude, where code execution is a setting that is off by default,
+name the toggle — **Code execution and file creation**, under Settings >
+Capabilities — and let the applicant decide: turn it on and ask again for the
+finished files, or take the Markdown as is. Close the phase with the second
+opener below — the file-naming rules that follow this section do not apply to
+this branch.
+
+**Deliver files the way the environment allows.** On a shell, they are written
+to disk: report their paths. On web surfaces with no local disk, offer them as
+downloads; the user saves them through the browser. Where neither is possible,
+the Markdown goes in the chat.
 
 ### Verify, do not trust
 
@@ -252,6 +285,15 @@ alone. Install the font and re-render first; only then judge length. The two
 "cannot check" branches mean the font is unverified, not that it is wrong --
 the page and character gates above still decide.
 
+Try to install Carlito once (`fonts-crosextra-carlito` through the system
+package manager) before judging anything. Where it cannot be installed — no
+network, no package manager, a read-only environment — say so once, keep the
+.docx as the deliverable of record (it names Calibri and renders correctly on
+the reader's machine), and treat the PDF's page count as indicative only. Never
+shorten content to fit a measure taken with a fallback font. Where `pdfinfo`,
+`pdftotext` or `pdffonts` are missing, run the parts of this gate the
+environment can run and say which were not.
+
 If it still runs long, **cut content**: drop the weakest bullet from each role,
 keeping the ones carrying numbers, and fold any evidence worth saving into a
 surviving bullet. Never shrink the font below readable size and never squeeze
@@ -265,9 +307,9 @@ unconditionally and the two-page gate checks for it, so an exception here
 would leave the gate looking for a file that was never written.
 
 Verify the Markdown was actually written, once per language, before it is
-ever named to the applicant: on Claude Code, run
+ever named to the applicant: on a shell, run
 `test -s "CV_<Name>_Master_<Language>.md"` right after the `cp` above. On
-the browser branches, where there is no shell to check with, the
+the web branches, where there is no shell to check with, the
 file-creation tool's own result is the check — the write succeeded and the
 file appears among the downloads offered, not merely named in the closing
 line. Either way, if the check fails, retry once; if it still fails, say so
@@ -302,16 +344,42 @@ Files produced:
 
 > The master CV is ready: <files>.
 
-Code execution off, no file produced:
+No file produced (branch (c)):
 
-> There are no files this run — code execution is off. The rewritten CV is
+> There are no files this run — I cannot run code here. The rewritten CV is
 > the Markdown already shown above, ready to paste into your own document, and
 > your campaign brief is here as text too. Keep both, and attach the brief next
 > time: it is what lets me pick up where we left off instead of starting over.
-> Turn on Code execution and file creation in Settings > Capabilities and ask
-> again for the finished .docx, .pdf and Markdown, or keep the Markdown as is.
 
-Both outcomes above still get the same handoff:
+On Claude, add to that second opener: "Turn on Code execution and file
+creation in Settings > Capabilities and ask again for the finished .docx, .pdf
+and Markdown, or keep the Markdown as is."
+
+Generate the campaign brief from `assets/campaign-brief-template.md` (resolved
+against the skill's own folder) either way, before anything else in the close.
+Fill Section 3's master CV text field with
+the clean Markdown already produced above, one fenced block per language,
+following that field's own fencing rule. Phase 4 always tailors from that text,
+never from a file left in this session, and an applicant who stops here may
+come back in a later session — the brief is the only thing that carries this
+run forward, so it is written whether or not this session continues.
+
+Deliver it the way this run delivered the CV: written to disk beside the CV
+files with its path reported on a shell, as a download on web surfaces with file
+creation, and pasted into the chat as text where neither is available. The brief
+is Markdown and needs no file creation, so the branch that produced no files
+still produces this one. Tell the applicant to keep it and attach it next time —
+without it, nothing from this run survives the session.
+
+**Without Claude in Chrome** (capability check at Entry), finish here: the CV
+files and the campaign brief, and nothing else. No browser handoff question,
+and do not read `references/03-job-search.md`. Say once, plainly: phases 3 to 6
+— searching openings, applying, LinkedIn, inbox — continue in Claude with
+Claude in Chrome, re-using this brief. Add a short guide on swapping the summary
+and skills per opening, and the naming convention when files exist. Then stop
+cleanly. This is a complete outcome, not a failure.
+
+**With Claude in Chrome**, both outcomes above also get this handoff:
 
 > From here I can search openings and apply for you, but that needs a browser
 > Claude can drive: the Claude in Chrome side panel, Claude Cowork on desktop,
@@ -321,20 +389,6 @@ Both outcomes above still get the same handoff:
 > If you have it, tell me and we keep going. If you would rather not, we stop
 > here — you have what this run produced and I will show you how to adapt it
 > per opening.
-
-Generate the campaign brief from `assets/campaign-brief-template.md` either
-way, before branching on the answer. Fill Section 3's master CV text field with
-the clean Markdown already produced above, one fenced block per language,
-following that field's own fencing rule. Phase 4 always tailors from that text,
-never from a file left in this session, and an applicant who stops here may
-come back in a later session — the brief is the only thing that carries this
-run forward, so it is written whether or not this session continues.
-
-Deliver it the way this run delivered the CV: as a download where file creation
-is available, and pasted into the chat as text where it is not. The brief is
-Markdown and needs no file creation, so the branch that produced no files still
-produces this one. Tell the applicant to keep it and attach it next time —
-without it, nothing from this run survives the session.
 
 If the user declines, hand over whatever this run produced — the files, or the
 Markdown already shown in chat — together with the brief, a short guide on

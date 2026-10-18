@@ -7,7 +7,7 @@ in `tests/` check the files; these check what an agent actually does with them.
 |---|---|---|
 | `phase1-audit-es` | a Spanish request with an English CV pasted in | the skill fires; the audit is in Spanish; no invented figures; no question about Chrome; no unsourced statistic |
 | `phase2-rewrite-es` | the audit done, the applicant's answers | the rewrite is shown for approval before anything renders; plain-hyphen date ranges; Spanish; only the figures the applicant gave |
-| `phase2-render-es` | the rewrite approved | a toolchain probe before the render; pandoc without smart typography; .docx and .pdf produced; confirmed facts in the brief; the close in Spanish |
+| `phase2-render-es` | the rewrite approved | a toolchain probe before the render; the .docx produced; confirmed facts in the brief; the close in Spanish |
 
 The phase 2 cases resume a scripted conversation (`history.jsonl`). Edit the
 turns in `make_histories.py`, never the transcripts, and regenerate them:
@@ -39,9 +39,11 @@ claude plugin eval . --ablation none --judge-model sonnet --case 'phase1-*' --ma
   AppArmor also has to let `bwrap` create user namespaces, or every command
   fails with `bwrap: loopback: Failed RTM_NEWADDR`. A profile for
   `/usr/bin/bwrap` with `userns,` in `/etc/apparmor.d/` does it.
-- Rendering also needs pandoc and LibreOffice, as in
-  `tests/test_reference_docx.py`, where the sandbox can see them: a pandoc
-  installed under `/home/linuxbrew` was not found from inside it.
+- Inside the runner's sandbox LibreOffice converts nothing, even with a
+  writable profile, and a pandoc installed under `/home/linuxbrew` was not
+  found. So the render case checks the .docx, and the pandoc flags and the
+  PDF are checked by `tests/test_reference_docx.py`, which runs phase 2's
+  render block as written.
 - The first run asks you to trust the plugin directory.
 - Results land in `evals/results/`, which is not committed.
 - A phase 2 run writes the continued session next to its `history.jsonl`,

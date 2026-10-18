@@ -2,9 +2,11 @@ schema_version: "1.1"
 name: phase2-render-es
 description: >
   The applicant approved the rewritten master CV (history.jsonl). Rendering
-  must probe the toolchain first, call pandoc without smart typography, produce
-  the .docx and the .pdf, write the confirmed facts into the brief, and close
-  in Spanish.
+  must probe the toolchain first, produce the .docx, write the confirmed facts
+  into the brief, and close in Spanish. The pandoc flags and the PDF are
+  checked by tests/test_reference_docx.py instead: inside the runner's sandbox
+  LibreOffice converts nothing, and a pandoc under /home/linuxbrew was not
+  found.
 tags: [phase2]
 runs: 3
 context:
@@ -30,18 +32,10 @@ graders:
     after:
       tool: Bash
       input_match: 'pandoc.*\s(-o|--output)[ =]|--convert-to'
-  - type: tool_used
-    name: pandoc-without-smart-typography
-    tool: Bash
-    input_match: 'pandoc.*(-f|--from)[ =]?markdown-smart'
-    min: 1
   # file_exists only sees files this run created in its working directory.
   - type: file_exists
     name: docx-produced
     path: '**/*.docx'
-  - type: file_exists
-    name: pdf-produced
-    path: '**/*.pdf'
   - type: regex
     name: confirmed-facts-in-brief
     target: trace

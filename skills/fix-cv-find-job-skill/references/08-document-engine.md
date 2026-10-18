@@ -83,16 +83,12 @@ relevant to this role. Build the cover letter as its own Markdown from the
 letter paragraphs. Nothing is invented: every line comes from the master CV or
 from what the applicant confirmed.
 
-**Render, by surface, exactly as phase 2 does.**
-
-- **Claude Code** — the same commands as phase 2, with the per-application
-  Markdown as input: `pandoc` with `--reference-doc=assets/reference.docx`, then
-  `libreoffice --headless --convert-to pdf`. Do this for the CV and for the
-  letter.
-- **A browser surface with code execution** — the same producer phase 2 uses on
-  that surface, given the same content.
-- **No code execution** — the assembled Markdown, in chat, as phase 2 hands it
-  over. Say once that files need the setting on.
+**Render exactly as phase 2 does.** Phase 2's "Producing the three files" in
+`references/02-master-cv.md` owns the capability probe, the three branches, the
+skill-folder asset path and where outputs go; do not restate them here. Run the
+same probe once for the session and use the same branch, with the per-application
+Markdown as input, for the CV and for the letter. With no code execution, hand
+over the assembled Markdown in chat, and say once that files need code execution.
 
 Name the files as phase 4 specifies. There is no other layout source: no HTML,
 no browser print step, no builder kept in the brief.
@@ -132,5 +128,5 @@ Nothing about the structure changes; only the output does.
 - Assemble each tailored CV and letter as Markdown and hand it over in chat.
 - Keep length under control by what you can control — a fixed section order and
   the fixed evidence count — since there is no file to measure.
-- Tell the applicant once that this surface delivers text rather than files, and
-  that turning on code execution changes that.
+- Tell the applicant once that this environment delivers text rather than files, and
+  that code execution, where it can be turned on, changes that.

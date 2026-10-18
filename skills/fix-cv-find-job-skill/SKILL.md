@@ -2,7 +2,7 @@
 name: fix-cv-find-job-skill
 description: Fixes your CV and finds you a job. Use when the user wants a resume or CV reviewed, rewritten, scored, or optimized for ATS; wants to find or search job openings and vacancies; wants help applying to jobs, writing cover letters, or tracking applications; wants their LinkedIn profile improved to match their CV; or says things like "review my CV", "revisa mi CV", "find me a job", "buscame trabajo", "apply for me", "postulate por mi", "check my email for job replies" or "revisa mi mail". Works for any industry or profession, not only tech.
 license: Apache-2.0
-compatibility: Plan and surface are independent. Phases 1 and 2 run on any surface where this skill runs, free web chat included: with code execution enabled in Settings > Capabilities you get the finished .docx, .pdf and Markdown; without it, the CV as chat text. Phases 3 to 6 need a browser-capable surface, which needs a paid plan: Claude in Chrome (paid plan, desktop only), Claude Cowork, or Claude Code with --chrome.
+compatibility: Phases 1 and 2 (CV audit, rewritten CV as .docx, .pdf and Markdown) run in any Agent Skills client that can execute code, such as Claude, ChatGPT, Codex or OpenCode; without code execution the CV comes back as Markdown in chat. Phases 3 to 6 (job search, applications, LinkedIn, inbox) need Claude in Chrome, which needs a paid Claude plan and Chrome on desktop.
 metadata:
   version: 0.5.0
   author: atarico
@@ -49,6 +49,9 @@ tech, and it derives every judgement from the user's own CV and target market.
 
 ## Run mode
 
+Phases 3 to 6 only, and only when the capability check at Entry found Claude in
+Chrome. Without it, skip this section: do not ask the question.
+
 Decided once, recorded in the campaign brief, honoured by every later session
 without asking again.
 
@@ -89,7 +92,9 @@ go to the report's "Needs a decision" list.
 ## Platform limits (state these, do not fight them)
 
 Most of these are enforced by the platform, not by this skill. Tell the user up
-front so they do not mistake a guardrail for a malfunction.
+front so they do not mistake a guardrail for a malfunction. They describe
+Claude in Chrome: when the capability check at Entry found it absent, skip this
+section and do not mention Chrome limits.
 
 - **Whether a submission pauses is the applicant's setting, not this skill's.**
   Claude in Chrome lets the user choose how it asks — manually approve actions,
@@ -126,7 +131,7 @@ front so they do not mistake a guardrail for a malfunction.
 Run in order. Read the reference file only when that phase begins — do not load
 them all at once.
 
-| # | Phase | Reference | Needs browser |
+| # | Phase | Reference | Needs Claude in Chrome |
 |---|---|---|---|
 | 1 | CV audit and score | `references/01-cv-audit.md` | no |
 | 2 | Master CV rewrite (.docx + .pdf + Markdown) | `references/02-master-cv.md`, `references/08-document-engine.md` | no |
@@ -160,8 +165,8 @@ URL. Accept a standalone request with neither, such as "check my email" or
 
 **Branch on what is attached, before doing anything else:**
 
-- **No brief, a CV supplied.** First run. Confirm the surface (below), then go
-  to `references/01-cv-audit.md`. Phases 1 and 2 run once, in order, and never
+- **No brief, a CV supplied.** First run. Run the capability check (below),
+  then go to `references/01-cv-audit.md`. Phases 1 and 2 run once, in order, and never
   run again on their own after this.
 - **A brief attached, no new CV.** Restore every field from it, including the
   master CV text held in its CV assets section — that text, not any file left
@@ -201,8 +206,30 @@ exceptions, both above: the user attaches a new CV and explicitly says yes to
 rerunning them, or the brief holds no usable master CV text and phase 2 has to
 rebuild one before any browser phase can tailor from it.
 
-Then confirm the surface, when it is not already known from the brief: ask
-whether they are in the Claude in Chrome side panel, Claude Cowork on desktop,
-or Claude Code. Phases 3 to 6 need one of those with browser access. If they
-have none, run phases 1 and 2 (or resume where the brief left off), deliver the
-files, and explain how to apply by hand.
+### Capability check
+
+Run it once at entry, unless the brief already records the answer. Detect; do
+not ask what your own tools already tell you. Ask only what you cannot tell, and
+never by product name.
+
+- **Can you drive a browser through Claude in Chrome?** Look at your tools: the
+  Claude in Chrome browser tools, or the step that turns them on, are either
+  there or not. That covers the side panel, Cowork and Claude Code started with
+  `--chrome`.
+- **Can you execute code, and with which tools?** Yes or no is enough here; the
+  probe in `references/02-master-cv.md` settles which tools when phase 2
+  renders. If you cannot tell whether code execution is on, say what each answer
+  changes and ask once.
+
+The result decides the run:
+
+- **Claude in Chrome available.** All six phases, exactly as written. Run mode
+  and the platform limits apply from phase 3.
+- **Claude in Chrome absent** (ChatGPT, Codex, OpenCode, Claude without the
+  extension). The run is phases 1 and 2. Skip run mode and the platform limits
+  entirely, and do not ask the user about Chrome, Cowork or Claude Code. Say
+  once, plainly: phases 3 to 6 (job search, applying, LinkedIn, inbox) need
+  Claude in Chrome, so here you audit the CV and rewrite it, and the rest
+  continues in Claude with the extension, from the campaign brief. Any route
+  above that would lead to phase 3 or later ends at that sentence, offering
+  phases 1 and 2 when there is a CV.

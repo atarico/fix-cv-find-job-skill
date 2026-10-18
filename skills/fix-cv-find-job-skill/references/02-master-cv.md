@@ -200,7 +200,8 @@ the repository (https://github.com/atarico/fix-cv-find-job-skill). Point the
 applicant there, or fall to branch (b). Do not work around the absence by
 shrinking the font.
 
-**(b) Code execution with python-docx and reportlab, no pandoc** — Claude.ai
+**(b) Code execution with python-docx and reportlab, where (a) is incomplete**
+(no pandoc, or pandoc without LibreOffice) — Claude.ai
 web chat, the Claude in Chrome side panel and Cowork once code execution is on,
 and ChatGPT typically land here. Build the .docx with `python-docx` and the
 .pdf with `reportlab`, or generate the .docx and render the .pdf from it. Also

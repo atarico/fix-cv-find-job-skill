@@ -89,7 +89,9 @@ graders:
       The reply states no statistic about recruiters, ATS software, hiring or
       other candidates as a fact without a source: for example a share of CVs
       rejected by ATS, a share of applicants who use a phrase, or a number of
-      seconds a recruiter spends on a CV. Describing the audit's own
-      "first 10 seconds" or "top third of page one" check as the method being
-      applied is fine. Figures about the applicant's own CV (its length, its
-      number of roles) are fine.
+      seconds a recruiter spends on a CV. The audit's own section name for its
+      first-impression check, such as "Lo que ve un reclutador en 10 segundos"
+      or "Primera impresión (10 segundos)", names the method and is not a
+      statistic: it must not fail this check. Figures about the applicant's own
+      CV (its length, its number of roles, years derived from its dates) are
+      fine.

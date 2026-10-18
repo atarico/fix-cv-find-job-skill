@@ -23,12 +23,17 @@ Every run is a full Claude Code session on your own account, and each case runs
 three times. Cap the spend:
 
 ```bash
-claude plugin eval . --ablation none --allow-tools Bash Write Edit --max-cost-usd 8
-claude plugin eval . --ablation none --case 'phase1-*' --max-cost-usd 2   # phase 1 only
+claude plugin eval . --ablation none --judge-model sonnet --allow-tools Bash Write Edit --max-cost-usd 8
+claude plugin eval . --ablation none --judge-model sonnet --case 'phase1-*' --max-cost-usd 2   # phase 1 only
 ```
 
 - `--ablation none` skips the no-plugin baseline, which would double the runs.
   These checks are absolute, not a comparison.
+- `--judge-model sonnet`: the default judge, Haiku, failed an all-Spanish
+  audit on language and read the audit's "10 seconds" section name as a
+  statistic in the first runs. The judge's cost is small next to the runs'.
+- On a Claude subscription the runs use the plan's usage; the dollar figure
+  is the runner's API-price equivalent, which `--max-cost-usd` caps.
 - The phase 2 cases need Bash, which the runner only grants inside its sandbox:
   on Linux that needs `bubblewrap` and `socat`. Rendering also needs pandoc and
   LibreOffice, as in `tests/test_reference_docx.py`.

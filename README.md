@@ -103,7 +103,7 @@ to relearn these rules one lost application at a time.
 |---|---|---|
 | 1. CV audit | 20 roles you are the best candidate for, the ATS keywords to carry, what a screener sees in 10 seconds, and a score out of 10 with the path to raising it | no |
 | 2. Master CV | Your CV rebuilt on the XYZ formula, ATS-ready, two pages, with swappable summary variants — delivered as `.docx`, `.pdf` and Markdown | no |
-| 3. Job search | Every matching opening across your platforms, read in full, ranked, with a match score, the keywords each one wants and whether it can be completed here | yes |
+| 3. Job search | Every matching opening across your platforms, read in full, ranked, with a match score, the keywords each one wants and whether it can be completed here | no: without one, it runs as chat mode |
 | 4. Apply | A tailored CV and cover letter per opening, forms filled, applications tracked, full report | yes |
 | 5. LinkedIn | Your profile aligned with the rewritten CV | yes |
 | 6. Inbox and messages | Replies, new openings, acknowledgements and recruiter messages on your professional network sorted — triggered any time with "check my email" | yes |
@@ -121,9 +121,13 @@ evidence; borderline ones are listed for you to decide.
 ## Where it runs
 
 Claude gives the full experience: all six phases, with Claude in Chrome for
-phases 3 to 6. ChatGPT, Codex and OpenCode run phases 1 and 2 — the CV audit
-and the rewritten CV — and stop there. Support outside Claude is by design of
-the Agent Skills format; it has not been tested on those agents.
+phases 3 to 6. Without a browser it drives (ChatGPT, Codex, OpenCode, or Claude
+without the extension), the skill runs phases 1 and 2, then phase 3 as **chat
+mode**. It finds openings through web search, or takes the postings you paste,
+reads each one in full and ranks them. Then it prepares a tailored CV and cover
+letter for the best ones, and you send the applications yourself. Support
+outside Claude is by design of the Agent Skills format; it has not been tested
+on those agents. Chat mode was measured in Claude Code without the extension.
 
 ## Requirements
 
@@ -134,18 +138,20 @@ Two independent things decide what you can run: your **plan**, and the
 free plan, in ordinary web chat, either way: turn on **Code execution and
 file creation** under **Settings → Capabilities** and you get the finished
 `.docx`, `.pdf` and Markdown; leave it off and you get the rewritten CV as
-text in the chat. Phases 3 to 6 need a browser-capable surface, and every one
-of those surfaces needs a paid plan.
+text in the chat. Chat mode needs no browser: it runs wherever the agent can
+search the web, or with the postings you paste. Phases 4 to 6 need a
+browser-capable surface, and every one of those surfaces needs a paid plan.
 
-**Surface**, for phases 3 to 6, needs one of:
+**Surface**, for phases 4 to 6 and the browser version of phase 3, needs one of:
 
 - **Claude in Chrome** side panel — any paid plan, Chrome on desktop only
 - **Claude Cowork** on desktop
 - **Claude Code** started with `claude --chrome`
 
-If you have none of those — including if you are on the free plan — the skill
-stops after phase 2 and hands you the files with instructions for applying by
-hand. **That is a complete outcome, not a failure.**
+If you have none of those — including if you are on the free plan — phase 3
+runs as chat mode after phase 2: openings from web search or from you, a
+tailored CV for the best ones, and you apply by hand. **That is a complete
+outcome, not a failure.**
 
 ## Install
 
@@ -193,7 +199,8 @@ ln -s "$PWD/fix-cv-find-job-skill/skills/fix-cv-find-job-skill" ~/.claude/skills
 
 ### On ChatGPT, Codex or OpenCode
 
-Phases 1 and 2 only. Install the skill folder for your agent:
+Phases 1 and 2, then phase 3 as chat mode. Install the skill folder for your
+agent:
 
 - **OpenCode** — put `fix-cv-find-job-skill/` in `~/.config/opencode/skills/`
   (it also reads `~/.claude/skills/` and `~/.agents/skills/`)
@@ -212,13 +219,14 @@ falls back to Markdown in the chat if it cannot render.
 
 - Your CV in any format — PDF, Word, or pasted as plain text. If you do not have
   one, a link to your professional profile works to begin with.
-- **A browser Claude can drive**, for phases 3 to 6. The usual route is the
+- **A browser Claude can drive**, for phases 4 to 6 and the browser version of
+  phase 3. The usual route is the
   [Claude extension for Chrome](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn) — install it and sign in before you
   start. Claude Cowork and `claude --chrome` do the same job; see
   [Requirements](#requirements) for all three, and what happens if you have
   none of them.
-- For the job search phases: be **logged in** on the job boards you want to
-  search, in the same browser. This skill never creates accounts and never
+- For the job search in the browser: be **logged in** on the job boards you
+  want to search, in the same browser. This skill never creates accounts and never
   enters passwords.
 
 ### Starting

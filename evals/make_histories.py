@@ -42,7 +42,7 @@ def opening_prompt():
 AUDIT = """\
 Leo tu CV como el de una supervisora de depósito con perfil operativo, que apunta a roles de supervisión y coordinación en logística y almacenes en Córdoba. Corregime si apuntás a otro mercado.
 
-Antes de empezar, una aclaración: acá puedo auditar tu CV y reescribirlo. La búsqueda de ofertas, las postulaciones, LinkedIn y el mail (fases 3 a 6) necesitan Claude in Chrome, así que siguen en Claude con la extensión, a partir del brief de campaña.
+Antes de empezar, una aclaración: acá puedo auditar tu CV, reescribirlo, buscar ofertas en la web y prepararte un CV adaptado para las mejores. Enviar las postulaciones, LinkedIn y el mail (fases 4 a 6) necesitan Claude in Chrome, así que siguen en Claude con la extensión, a partir del brief de campaña.
 
 ## 1. Roles donde sos la mejor candidata
 **Directos:** Supervisora de Depósito, Jefa de Turno de Almacén, Encargada de Depósito, Supervisora de Logística, Coordinadora de Almacén.
@@ -298,6 +298,13 @@ sentence decides.
 | Date | Company | Role | Platform | Match | Salary given | Status | Notes |
 |---|---|---|---|---|---|---|---|
 | 2026-10-02 | Andreani | Supervisora de Depósito | Computrabajo | | negociable | Sent | The applicant applied herself |
+
+---
+
+## 5b. Handed over
+
+| Date | Company | Role | Link | Match | Files | Sent |
+|---|---|---|---|---|---|---|
 
 ---
 

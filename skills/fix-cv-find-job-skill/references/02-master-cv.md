@@ -401,28 +401,33 @@ is Markdown and needs no file creation, so the branch that produced no files
 still produces this one. Tell the applicant to keep it and attach it next time —
 without it, nothing from this run survives the session.
 
-**Without Claude in Chrome** (capability check at Entry), finish here: the CV
-files and the campaign brief, and nothing else. No browser handoff question,
-and do not read `references/03-job-search.md`. Say once, plainly: phases 3 to 6
-— searching openings, applying, LinkedIn, inbox — continue in Claude with
-Claude in Chrome, re-using this brief. Do not offer to start phase 3 in this
-session: it cannot run here. Add a short guide on swapping the summary
-and skills per opening, and the naming convention when files exist. Then stop
-cleanly. This is a complete outcome, not a failure.
+Both outcomes above end with this handoff, worded by what the capability check
+at Entry found.
 
-**With Claude in Chrome**, both outcomes above also get this handoff:
+**With Claude in Chrome:**
 
 > From here I can search openings and apply for you in your browser. Want to
 > keep going now? If you would rather not, we stop here — you have what this
 > run produced and I will show you how to adapt it per opening.
+
+**Without it:**
+
+> From here I can search the web for openings and prepare a tailored CV for the
+> best ones; you send the applications yourself. Want to keep going now? If you
+> would rather not, we stop here — you have what this run produced and I will
+> show you how to adapt it per opening.
+
+Say once, too, that sending the applications, LinkedIn and the inbox (phases 4
+to 6) continue in Claude with Claude in Chrome, re-using this brief.
 
 If the user declines, hand over whatever this run produced — the files, or the
 Markdown already shown in chat — together with the brief, a short guide on
 swapping the summary and skills per opening, and the naming convention when
 files exist. Then stop cleanly. This is a complete outcome, not a failure.
 
-If the user says to keep going, go to `references/03-job-search.md`. Do not
-ask whether they have a browser surface: the capability check already answered.
+If the user says to keep going, go to `references/03-job-search.md`, in chat
+mode when Claude in Chrome is absent. Do not ask whether they have a browser
+surface: the capability check already answered.
 
 ---
 

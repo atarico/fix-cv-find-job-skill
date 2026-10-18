@@ -194,6 +194,13 @@ Supervisora de depósito con experiencia en recepción, almacenamiento y despach
 
 ---
 
+## 5b. Handed over
+
+| Date | Company | Role | Link | Match | Files | Sent |
+|---|---|---|---|---|---|---|
+
+---
+
 ## 6. Discarded
 
 | Date | Company | Role | Platform | Reason | Posting's own wording (evidence) |

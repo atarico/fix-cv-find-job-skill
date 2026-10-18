@@ -6,6 +6,13 @@ on:
   pull_request:
 
 jobs:
+  skill-spec:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: SKILL.md conforms to the Agent Skills spec
+        run: python3 tests/test_skill_spec.py
+
   reference-docx:
     runs-on: ubuntu-latest
     env:

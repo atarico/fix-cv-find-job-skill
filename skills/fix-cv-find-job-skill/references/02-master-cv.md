@@ -376,7 +376,8 @@ without it, nothing from this run survives the session.
 files and the campaign brief, and nothing else. No browser handoff question,
 and do not read `references/03-job-search.md`. Say once, plainly: phases 3 to 6
 — searching openings, applying, LinkedIn, inbox — continue in Claude with
-Claude in Chrome, re-using this brief. Add a short guide on swapping the summary
+Claude in Chrome, re-using this brief. Do not offer to start phase 3 in this
+session: it cannot run here. Add a short guide on swapping the summary
 and skills per opening, and the naming convention when files exist. Then stop
 cleanly. This is a complete outcome, not a failure.
 

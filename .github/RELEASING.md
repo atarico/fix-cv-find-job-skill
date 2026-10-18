@@ -12,8 +12,11 @@ and what was verified.
    `skills/fix-cv-find-job-skill/SKILL.md` (`metadata.version`), and the badge
    in `README.md` and `README.es.md`.
    `rg -n --hidden -g '!.git' '<old version>'` must return nothing afterwards.
-3. Run the suites: `python3 tests/test_skill_spec.py` and
-   `python3 tests/test_reference_docx.py`.
+3. Run the suites: `python3 tests/test_skill_spec.py`,
+   `python3 tests/test_skill_consistency.py`, `python3 tests/test_evals.py` and
+   `python3 tests/test_reference_docx.py`. When the release changes phase 1 or
+   2, also run the paid eval suite (`evals/README.md`) and record its result in
+   the notes.
 4. Commit `chore: release <version>` on `main` and push.
 5. Tag it: `git tag -a v<version> -m "v<version> - <title>"`, then push the tag.
 6. Build the zip: `./scripts/package.sh`. Open it and check the version.

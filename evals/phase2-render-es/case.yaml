@@ -1,0 +1,55 @@
+schema_version: "1.1"
+name: phase2-render-es
+description: >
+  The applicant approved the rewritten master CV (history.jsonl). Rendering
+  must probe the toolchain first, call pandoc without smart typography, produce
+  the three files and the brief, record the confirmed facts in the brief, and
+  close in Spanish.
+tags: [phase2]
+runs: 3
+context:
+  history_file: history.jsonl
+execution:
+  max_turns: 40
+  timeout_seconds: 900
+  model: sonnet
+  allowed_tools: [Skill, Read, Glob, Grep, Bash, Write, Edit]
+  prompt: |
+    Aprobado, generá los archivos.
+graders:
+  - type: tool_used
+    name: skill-fired
+    tool: Skill
+    input_match: 'fix-cv-find-job-skill'
+    min: 1
+  - type: tool_order
+    name: probe-before-render
+    before:
+      tool: Bash
+      input_match: 'command -v|which |--version|import docx'
+    after:
+      tool: Bash
+      input_match: 'pandoc.*\s-o\s|--convert-to'
+  - type: tool_used
+    name: pandoc-without-smart-typography
+    tool: Bash
+    input_match: 'pandoc.*(-f|--from)[ =]?markdown-smart'
+    min: 1
+  - type: file_exists
+    name: docx-produced
+    path: '**/*.docx'
+  - type: file_exists
+    name: pdf-produced
+    path: '**/*.pdf'
+  - type: regex
+    name: confirmed-facts-in-brief
+    target: trace
+    pattern: 'Confirmed facts[^#]{0,1500}6 (personas|people)[^#]{0,1500}120'
+    flags: i
+  - type: llm
+    name: closing-language
+    criteria: >
+      The applicant writes in Spanish. The final message, which names the files
+      produced and closes the phase, is entirely in Spanish: no English
+      sentence, including the line that announces the files are ready. File
+      names may stay as they are.

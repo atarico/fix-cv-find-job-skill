@@ -4,3 +4,4 @@ odd/
 node_modules/
 .astro/
 __pycache__/
+evals/results/

@@ -1,0 +1,69 @@
+schema_version: "1.1"
+name: phase2-rewrite-es
+description: >
+  The audit is done (history.jsonl) and the applicant answers its questions.
+  The rewrite must be shown for approval before any file is rendered, in
+  Spanish, with plain-hyphen date ranges and no figure the applicant did not
+  give.
+tags: [phase2]
+runs: 3
+context:
+  history_file: history.jsonl
+execution:
+  max_turns: 25
+  timeout_seconds: 600
+  model: sonnet
+  allowed_tools: [Skill, Read, Glob, Grep, Bash, Write, Edit]
+  prompt: |
+    Dale, avanzá. Te respondo: en el turno noche coordinaba a 6 personas y despachábamos unos 120 pedidos por noche. Lo del sistema de etiquetado no lo medí. El CV lo quiero solo en español.
+graders:
+  - type: tool_used
+    name: skill-fired
+    tool: Skill
+    input_match: 'fix-cv-find-job-skill'
+    min: 1
+  # The trace holds only this run's events, not the resumed history, whose CV
+  # still carries the en-dash date ranges dates-plain-hyphen looks for. This
+  # grader proves that assumption on every run: if it fails, so will the date
+  # check, for the harness's reason rather than the agent's.
+  - type: regex
+    name: harness-trace-excludes-history
+    target: trace
+    pattern: 'Quiero conseguir algo mejor en log'
+    match: not_contains
+  - type: llm
+    name: approval-requested
+    criteria: >
+      The final message presents the rewritten CV (in full, or says exactly
+      where it is) and asks the applicant to approve it or ask for changes
+      before the .docx and .pdf are produced. Fail if it says the files are
+      already produced or ready, or if it asks nothing about the rewritten CV.
+  - type: tool_used
+    name: no-render-before-approval
+    tool: Bash
+    input_match: 'pandoc.*\s(-o|--output)[ =]|--convert-to|reportlab|\.save\('
+    min: 0
+    max: 0
+  - type: regex
+    name: dates-plain-hyphen
+    target: trace
+    pattern: '\d{2}/\d{4}\s*[–—]'
+    match: not_contains
+  - type: llm
+    name: reply-language
+    criteria: >
+      The applicant writes in Spanish. Every sentence the assistant writes to
+      the applicant in this final message is in Spanish. Tool names, file
+      names, ATS keywords and phrases quoted from the applicant's original CV
+      (such as "responsible for") may stay in English.
+  - type: llm
+    name: no-invented-metrics
+    criteria: >
+      The applicant confirmed exactly two figures: a night-shift team of 6
+      people and about 120 orders dispatched per night. They said the labelling
+      system was never measured. Fail if the message attributes to the
+      applicant any other achievement figure (a percentage, an amount, a
+      reduction, an increase, a count of SKUs or errors), or gives the
+      labelling system a measured result. Dates, the phone number, the year
+      2015 and durations derived from the CV's dates (such as "más de 12
+      años") are not achievement figures and must not fail this check.

@@ -81,8 +81,10 @@ Look for:
 - Length wrong for the market's convention.
 
 Be blunt and specific. "The summary is vague" helps nobody. "The first line says
-*results-oriented professional*, which is a phrase 40% of this pile also uses —
-it buys you nothing and costs you your best line" is a finding.
+*results-oriented professional*, a phrase any applicant can write and nothing in
+this CV proves — it buys you nothing and costs you your best line" is a finding.
+Never state a statistic about recruiters, ATS software or other applicants that
+you cannot source; describe what this CV shows instead.
 
 ## Deliverable 4 — score out of 10, and the path to 10
 

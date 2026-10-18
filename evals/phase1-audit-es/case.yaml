@@ -1,0 +1,98 @@
+schema_version: "1.1"
+name: phase1-audit-es
+description: >
+  A Spanish-speaking applicant pastes an English CV with no metrics and asks for
+  a review, in an agent without Claude in Chrome. The audit must answer in
+  Spanish, invent no figures, ask nothing about Chrome and cite no unsourced
+  statistic.
+tags: [phase1]
+runs: 3
+execution:
+  max_turns: 12
+  timeout_seconds: 300
+  model: sonnet
+  allowed_tools: [Skill, Read, Glob, Grep]
+  prompt: |
+    Hola! Me revisás el CV? Quiero conseguir algo mejor en logística. Te lo pego acá:
+
+    # Lucía Benítez
+    Warehouse Supervisor · Córdoba, Argentina
+    +54 351 555 0101 · lucia.benitez@example.com
+
+    ## Profile
+    Hard-working and results-oriented professional with experience in warehouse operations and inventory. Team player with strong communication skills.
+
+    ## Experience
+
+    ### Warehouse Supervisor — Depósitos Centro S.R.L.
+    Córdoba · 04/2020 – Present
+    - Responsible for the night shift of the main warehouse.
+    - In charge of receiving, storage and dispatch of goods.
+    - Trained new staff on safety procedures and the use of forklifts.
+    - Worked with the purchasing team to keep stock levels right.
+    - Introduced a new labelling system for the racks.
+
+    ### Inventory Assistant — Mayorista Del Valle
+    Villa María · 08/2016 – 03/2020
+    - Did monthly stock counts and reported differences to the manager.
+    - Loaded orders into the ERP (Tango Gestión).
+    - Helped organise the yearly physical inventory.
+
+    ### Warehouse Operator — Logística Serrana
+    Córdoba · 02/2014 – 07/2016
+    - Picking and packing of orders for retail customers.
+    - Forklift operation (licence held).
+
+    ## Education
+    - Técnico Superior en Logística, Instituto Superior Córdoba — 2015
+
+    ## Skills
+    Tango Gestión, Excel, forklift licence, Spanish (native), English (intermediate)
+graders:
+  - type: tool_used
+    name: skill-fired
+    tool: Skill
+    input_match: 'fix-cv-find-job-skill'
+    min: 1
+  - type: llm
+    name: reply-language
+    criteria: >
+      The applicant wrote in Spanish. Every sentence the assistant writes to the
+      applicant is in Spanish, including any fixed phrase such as the reading of
+      their field or the question that closes the audit. Pass even if CV text
+      quoted verbatim (such as "responsible for"), job titles as posted on
+      boards, ATS keywords, tool names or section names stay in English. Fail if any explanatory sentence,
+      heading sentence or question addressed to the applicant is in English.
+  - type: llm
+    name: no-invented-metrics
+    criteria: >
+      The applicant's CV contains no achievement figures at all: its only numbers
+      are the phone number, the dates 04/2020, 08/2016, 03/2020, 02/2014,
+      07/2016 and the year 2015. Fail if the reply attributes to the applicant
+      any figure the CV does not contain (a percentage, an amount of money, a
+      team size, a number of SKUs, orders, shifts or people, a reduction or an
+      increase) as if it were true, including inside a suggested rewritten
+      bullet. Pass if the reply only asks the applicant for such figures, uses
+      an obvious placeholder the applicant must fill in (like "X%" or "[N]"),
+      or derives a duration from the dates.
+  # A question, not a mention: stating once that phases 3 to 6 need Claude in
+  # Chrome is required. Deterministic because the LLM judge failed a run that
+  # only carried that statement.
+  - type: regex
+    name: no-chrome-question
+    target: last_message
+    pattern: '¿[^¿?]*(Chrome|extensi[oó]n|navegador|Cowork|Claude Code)[^¿?]*\?'
+    flags: i
+    match: not_contains
+  - type: llm
+    name: no-unsourced-statistic
+    criteria: >
+      The reply states no statistic about recruiters, ATS software, hiring or
+      other candidates as a fact without a source: for example a share of CVs
+      rejected by ATS, a share of applicants who use a phrase, or a number of
+      seconds a recruiter spends on a CV. The audit's own section name for its
+      first-impression check, such as "Lo que ve un reclutador en 10 segundos"
+      or "Primera impresión (10 segundos)", names the method and is not a
+      statistic: it must not fail this check. Figures about the applicant's own
+      CV (its length, its number of roles, years derived from its dates) are
+      fine.

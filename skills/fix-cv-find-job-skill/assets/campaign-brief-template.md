@@ -68,6 +68,14 @@ provided. Never invent, never infer.
 | Field | Value |
 |---|---|
 
+**Confirmed facts** — every figure, date or outcome the applicant confirmed in
+answer to a question (phase 1's questions, phase 5's checks), and every one they
+said they do not know or never measured. Later sessions may use what is here;
+anything neither here nor in the CV is still unconfirmed.
+
+| Fact | Confirmed in |
+|---|---|
+
 ---
 
 ## 2. Target
@@ -266,7 +274,7 @@ produce replies.
 | Preference | Value |
 |---|---|
 | Run mode | autonomous / stepwise (only what the applicant answered; never inferred) |
-| Conversation and report language | follows the applicant |
+| Conversation and report language | <the language the applicant writes in>; a later session still follows how they write then |
 | Master CV language(s) | every language listed in section 1 |
 | Tailored CV / cover letter language | follows each posting, decided in phase 4 |
 

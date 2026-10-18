@@ -135,15 +135,20 @@ Mark every swappable block with a comment the user can find and replace.
 - Standard section headings. "Work Experience", not "My Journey".
 - No critical information in headers, footers, images or graphics.
 - Standard fonts. No icons carrying meaning that text does not repeat.
-- Dates in a consistent MM/YYYY format.
+- Dates in a consistent MM/YYYY format, with a plain hyphen between the two
+  ends of a range (`04/2020 - Present`), never an en dash or em dash, even
+  where the source CV uses one.
 - The file itself is real text, never a scan or an exported image.
 
 ## Producing the three files
 
-Write the CV as clean Markdown first and show it to the user in chat before
-converting. Then convert with whatever the environment can actually do. Probe
-once, at the start of rendering, and choose the branch from what the probe
-finds, never from the name of the product you run in:
+Write the CV as clean Markdown first, show it to the applicant in chat with
+what changed and why, and ask them to approve it or ask for changes. This is
+the gate prime directive 4 names: render nothing and start no later phase until
+they approve. A requested change is applied and the CV shown again; it is not an
+approval. Once approved, convert with whatever the environment can actually
+do. Probe once, at the start of rendering, and choose the branch from what the
+probe finds, never from the name of the product you run in:
 
 ```bash
 command -v pandoc soffice libreoffice pdfinfo pdftotext pdffonts
@@ -175,9 +180,16 @@ never overwrites another's:
 
 ```bash
 SKILL_DIR="<absolute path of the skill folder>"
-pandoc "CV_<Language>.md" -o "CV_<Name>_Master_<Language>.docx" --reference-doc="$SKILL_DIR/assets/reference.docx"
-libreoffice --headless --convert-to pdf "CV_<Name>_Master_<Language>.docx" --outdir .
+LO_PROFILE="$(mktemp -d)"
+pandoc -f markdown-smart "CV_<Language>.md" -o "CV_<Name>_Master_<Language>.docx" --reference-doc="$SKILL_DIR/assets/reference.docx"
+libreoffice --headless -env:UserInstallation="file://$LO_PROFILE" --convert-to pdf "CV_<Name>_Master_<Language>.docx" --outdir .
 ```
+
+`-f markdown-smart` keeps pandoc from turning `--` into an en dash and straight
+quotes into curly ones: the .docx carries the characters the Markdown has.
+`-env:UserInstallation` gives LibreOffice a throwaway profile. Its default one
+lives in the home directory, which sandboxed agents keep read-only, and without
+a writable profile LibreOffice exits without writing the PDF.
 
 Use `soffice` in place of `libreoffice` where that is the binary's name. The
 third deliverable needs no extra conversion: `CV_<Language>.md` above is
@@ -202,12 +214,27 @@ shrinking the font.
 
 **(b) Code execution with python-docx and reportlab, where (a) is incomplete**
 (no pandoc, or pandoc without LibreOffice) — the probe
-finds those packages but not the full toolchain of (a). Build the .docx with `python-docx` and the
-.pdf with `reportlab`, or generate the .docx and render the .pdf from it. Also
-write the clean Markdown already produced above to a file, named
-`CV_<Name>_Master_<Language>.md`. If a package is missing, try installing it
-once (`pip install python-docx reportlab`); with no network, fall to branch (c)
-and tell the applicant why.
+finds those packages but not the full toolchain of (a). Build the .docx with
+`python-docx` on top of the shipped template, so it keeps the margins, fonts
+and heading sizes of (a): open `assets/reference.docx` by its absolute path,
+remove its sample body, and write the CV with the template's own styles —
+`Heading 1` for the name, `Heading 2` for each section, `Heading 3` for each
+role, `Body Text` for prose, and `Compact` for bullets, each starting with "• ".
+
+```python
+from docx import Document
+doc = Document(f"{SKILL_DIR}/assets/reference.docx")
+body = doc.element.body
+for child in list(body)[:-1]:   # keep the final sectPr: page size and margins
+    body.remove(child)
+```
+
+Render the .pdf from that .docx where LibreOffice exists, with the same command
+and throwaway profile as (a), or build it with `reportlab`. Also write the clean Markdown already produced above to a file,
+named `CV_<Name>_Master_<Language>.md`. The verification gate below applies to
+this branch exactly as to (a): two pages or fewer, real text. If a package is
+missing, try installing it once (`pip install python-docx reportlab`); with no
+network, fall to branch (c) and tell the applicant why.
 
 **(c) Neither** — hand the applicant the clean Markdown already produced above,
 directly in the chat, as the deliverable. Say plainly why there are no files:
@@ -359,7 +386,10 @@ Generate the campaign brief from `assets/campaign-brief-template.md` (resolved
 against the skill's own folder) either way, before anything else in the close.
 Fill Section 3's master CV text field with
 the clean Markdown already produced above, one fenced block per language,
-following that field's own fencing rule. Phase 4 always tailors from that text,
+following that field's own fencing rule. Fill Section 1's confirmed facts with
+every figure, date or outcome the applicant confirmed in this session, such as
+the answers to phase 1's questions, including the ones they said they never
+measured. Phase 4 always tailors from that text,
 never from a file left in this session, and an applicant who stops here may
 come back in a later session — the brief is the only thing that carries this
 run forward, so it is written whether or not this session continues.

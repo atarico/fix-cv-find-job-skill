@@ -100,7 +100,7 @@ def _assert_structure(report: dict, label: str) -> None:
 def _render(md: pathlib.Path, workdir: pathlib.Path, reference: pathlib.Path | None) -> dict:
     """markdown -> docx -> pdf, exactly as the skill instructs; return what the gate reads."""
     docx = workdir / ("with-ref.docx" if reference else "stock.docx")
-    cmd = ["pandoc", str(md), "-o", str(docx)]
+    cmd = ["pandoc", "-f", "markdown-smart", str(md), "-o", str(docx)]
     if reference:
         cmd += ["--reference-doc=%s" % reference]
     subprocess.run(cmd, check=True)
@@ -310,6 +310,64 @@ def test_fixture_renders_on_two_pages_with_shipped_reference():
             assert needle in r["text"], "%r did not survive into the PDF text" % needle
         assert r["left_margin_pt"] is not None and r["left_margin_pt"] < HALF_INCH_PT + 4, \
             "left margin measured at %.1fpt; expected ~%.0fpt (half an inch)" % (r["left_margin_pt"], HALF_INCH_PT)
+
+
+def test_documented_pandoc_command_keeps_plain_typography():
+    """Phase 2's pandoc command must leave ``--`` and straight quotes alone.
+
+    pandoc's default ``markdown`` reader turns ``--`` into an en dash and
+    straight quotes into curly ones; ``-f markdown-smart`` leaves both as typed.
+    The command is taken from ``references/02-master-cv.md`` itself and run on
+    a date range and a quote.
+    """
+    _need("pandoc")
+    lines = [line for line in (SKILL / "references" / "02-master-cv.md").read_text(encoding="utf-8").splitlines()
+             if line.startswith("pandoc ")]
+    assert lines, "no pandoc command found in references/02-master-cv.md"
+    for line in lines:
+        args = line.split()
+        assert "-f" in args and args[args.index("-f") + 1] == "markdown-smart", \
+            "the pandoc command must read with -f markdown-smart: %s" % line
+    with tempfile.TemporaryDirectory() as tmp:
+        md, docx = pathlib.Path(tmp, "cv.md"), pathlib.Path(tmp, "cv.docx")
+        md.write_text('*Rosario · 06/2018 -- 02/2021* and "quoted"\n', encoding="utf-8")
+        subprocess.run(["pandoc", "-f", "markdown-smart", str(md), "-o", str(docx),
+                        "--reference-doc=%s" % SHIPPED], check=True)
+        with zipfile.ZipFile(docx) as z:
+            xml = z.read("word/document.xml").decode("utf-8")
+        assert "06/2018 -- 02/2021" in xml, "the date range lost its plain hyphens"
+        assert not set(xml) & {"–", "—", "“", "”"}, "smart typography leaked into the .docx"
+
+
+def test_documented_render_block_works_with_a_read_only_home():
+    """Branch (a)'s block, run as written, must produce the PDF in a sandbox.
+
+    Sandboxed agents (Codex's workspace-write mode, Claude Code's sandbox)
+    leave the home directory read-only. LibreOffice's default profile lives
+    there, so the stock conversion dies without writing a PDF.
+    """
+    _need("pandoc", "libreoffice")
+    text = (SKILL / "references" / "02-master-cv.md").read_text(encoding="utf-8")
+    block = re.search(r'```bash\n(SKILL_DIR="<absolute path of the skill folder>"\n.*?)```', text, re.S)
+    assert block, "branch (a)'s render block not found in references/02-master-cv.md"
+    script = (block.group(1)
+              .replace("<absolute path of the skill folder>", str(SKILL))
+              .replace("<Language>", "English").replace("<Name>", "Fixture"))
+    with tempfile.TemporaryDirectory() as tmp:
+        work, home = pathlib.Path(tmp, "work"), pathlib.Path(tmp, "home")
+        work.mkdir()
+        home.mkdir()
+        shutil.copy(FIXTURE, work / "CV_English.md")
+        home.chmod(0o555)
+        env = dict(os.environ, HOME=str(home), XDG_CONFIG_HOME=str(home / ".config"))
+        try:
+            subprocess.run(["bash", "-e", "-c", script], cwd=work, env=env, timeout=240,
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        finally:
+            home.chmod(0o755)
+        pdf = work / "CV_Fixture_Master_English.pdf"
+        assert pdf.exists() and pdf.stat().st_size > 0, \
+            "the documented render block wrote no PDF with a read-only home"
 
 
 def test_shipped_reference_renders_black_and_white():

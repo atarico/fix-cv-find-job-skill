@@ -1,0 +1,50 @@
+schema_version: "1.1"
+name: phase2-render-es
+description: >
+  The applicant approved the rewritten master CV (history.jsonl). Rendering
+  must probe the toolchain first, produce the .docx, write the confirmed facts
+  into the brief, and close in Spanish. The pandoc flags and the PDF are
+  checked by tests/test_reference_docx.py instead: inside the runner's sandbox
+  LibreOffice converts nothing, and a pandoc under /home/linuxbrew was not
+  found.
+tags: [phase2]
+runs: 3
+context:
+  history_file: history.jsonl
+execution:
+  max_turns: 40
+  timeout_seconds: 900
+  model: sonnet
+  allowed_tools: [Skill, Read, Glob, Grep, Bash, Write, Edit]
+  prompt: |
+    Aprobado, generá los archivos.
+graders:
+  - type: tool_used
+    name: skill-fired
+    tool: Skill
+    input_match: 'fix-cv-find-job-skill'
+    min: 1
+  - type: tool_order
+    name: probe-before-render
+    before:
+      tool: Bash
+      input_match: 'command -v|which |--version|import docx'
+    after:
+      tool: Bash
+      input_match: 'pandoc.*\s(-o|--output)[ =]|--convert-to'
+  # file_exists only sees files this run created in its working directory.
+  - type: file_exists
+    name: docx-produced
+    path: '**/*.docx'
+  - type: regex
+    name: confirmed-facts-in-brief
+    target: trace
+    pattern: 'Confirmed facts[^#]{0,1500}6 (personas|people)[^#]{0,1500}120'
+    flags: i
+  - type: llm
+    name: closing-language
+    criteria: >
+      The applicant writes in Spanish. The final message, which names the files
+      produced and closes the phase, is entirely in Spanish: no English
+      sentence, including the line that announces the files are ready. File
+      names may stay as they are.

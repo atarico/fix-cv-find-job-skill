@@ -202,12 +202,27 @@ shrinking the font.
 
 **(b) Code execution with python-docx and reportlab, where (a) is incomplete**
 (no pandoc, or pandoc without LibreOffice) — the probe
-finds those packages but not the full toolchain of (a). Build the .docx with `python-docx` and the
-.pdf with `reportlab`, or generate the .docx and render the .pdf from it. Also
-write the clean Markdown already produced above to a file, named
-`CV_<Name>_Master_<Language>.md`. If a package is missing, try installing it
-once (`pip install python-docx reportlab`); with no network, fall to branch (c)
-and tell the applicant why.
+finds those packages but not the full toolchain of (a). Build the .docx with
+`python-docx` on top of the shipped template, so it keeps the margins, fonts
+and heading sizes of (a): open `assets/reference.docx` by its absolute path,
+remove its sample body, and write the CV with the template's own styles —
+`Heading 1` for the name, `Heading 2` for each section, `Heading 3` for each
+role, `Body Text` for prose, and `Compact` for bullets, each starting with "• ".
+
+```python
+from docx import Document
+doc = Document(f"{SKILL_DIR}/assets/reference.docx")
+body = doc.element.body
+for child in list(body)[:-1]:   # keep the final sectPr: page size and margins
+    body.remove(child)
+```
+
+Render the .pdf from that .docx where a converter exists, or build it with
+`reportlab`. Also write the clean Markdown already produced above to a file,
+named `CV_<Name>_Master_<Language>.md`. The verification gate below applies to
+this branch exactly as to (a): two pages or fewer, real text. If a package is
+missing, try installing it once (`pip install python-docx reportlab`); with no
+network, fall to branch (c) and tell the applicant why.
 
 **(c) Neither** — hand the applicant the clean Markdown already produced above,
 directly in the chat, as the deliverable. Say plainly why there are no files:

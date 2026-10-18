@@ -53,8 +53,9 @@ graders:
     name: reply-language
     criteria: >
       The applicant writes in Spanish. Every sentence the assistant writes to
-      the applicant in this final message is in Spanish. Tool names, file names
-      and ATS keywords may stay in English.
+      the applicant in this final message is in Spanish. Tool names, file
+      names, ATS keywords and phrases quoted from the applicant's original CV
+      (such as "responsible for") may stay in English.
   - type: llm
     name: no-invented-metrics
     criteria: >

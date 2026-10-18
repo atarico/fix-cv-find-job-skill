@@ -60,8 +60,8 @@ graders:
       The applicant wrote in Spanish. Every sentence the assistant writes to the
       applicant is in Spanish, including any fixed phrase such as the reading of
       their field or the question that closes the audit. Pass even if CV text
-      quoted verbatim, job titles as posted on boards, ATS keywords, tool names
-      or section names stay in English. Fail if any explanatory sentence,
+      quoted verbatim (such as "responsible for"), job titles as posted on
+      boards, ATS keywords, tool names or section names stay in English. Fail if any explanatory sentence,
       heading sentence or question addressed to the applicant is in English.
   - type: llm
     name: no-invented-metrics
@@ -75,14 +75,15 @@ graders:
       bullet. Pass if the reply only asks the applicant for such figures, uses
       an obvious placeholder the applicant must fill in (like "X%" or "[N]"),
       or derives a duration from the dates.
-  - type: llm
+  # A question, not a mention: stating once that phases 3 to 6 need Claude in
+  # Chrome is required. Deterministic because the LLM judge failed a run that
+  # only carried that statement.
+  - type: regex
     name: no-chrome-question
-    criteria: >
-      The reply asks the applicant nothing about Claude in Chrome, a browser
-      extension, the Chrome side panel, Cowork or Claude Code, and does not ask
-      which surface or product they are using. Stating once that later phases
-      (job search, applying, LinkedIn, inbox) need Claude in Chrome is fine and
-      must not fail this check.
+    target: last_message
+    pattern: '¿[^¿?]*(Chrome|extensi[oó]n|navegador|Cowork|Claude Code|superficie)[^¿?]*\?'
+    flags: i
+    match: not_contains
   - type: llm
     name: no-unsourced-statistic
     criteria: >

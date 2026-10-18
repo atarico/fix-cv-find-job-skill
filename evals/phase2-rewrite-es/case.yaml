@@ -22,6 +22,10 @@ graders:
     tool: Skill
     input_match: 'fix-cv-find-job-skill'
     min: 1
+  # The trace holds only this run's events, not the resumed history, whose CV
+  # still carries the en-dash date ranges dates-plain-hyphen looks for. This
+  # grader proves that assumption on every run: if it fails, so will the date
+  # check, for the harness's reason rather than the agent's.
   - type: regex
     name: harness-trace-excludes-history
     target: trace
@@ -37,7 +41,7 @@ graders:
   - type: tool_used
     name: no-render-before-approval
     tool: Bash
-    input_match: 'pandoc.*\s-o\s|--convert-to|reportlab|\.save\('
+    input_match: 'pandoc.*\s(-o|--output)[ =]|--convert-to|reportlab|\.save\('
     min: 0
     max: 0
   - type: regex

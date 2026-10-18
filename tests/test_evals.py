@@ -30,6 +30,8 @@ import traceback
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 EVALS = ROOT / "evals"
+# The types the runner's grader loader accepts, as its own error message lists
+# them in Claude Code 2.1.302. Update when the runner adds one.
 GRADER_TYPES = {"regex", "tool_order", "tool_used", "file_exists", "llm", "baseline"}
 
 
@@ -71,18 +73,25 @@ def test_histories_are_resumable_transcripts():
             assert {"sessionId", "timestamp"} <= r.keys(), path
 
 
+def _prompt(case_name):
+    """The ``execution.prompt`` block scalar of a case, dedented."""
+    lines = (EVALS / case_name / "case.yaml").read_text(encoding="utf-8").splitlines()
+    start = lines.index("  prompt: |") + 1
+    block = []
+    for line in lines[start:]:
+        if line.strip() and not line.startswith("    "):
+            break
+        block.append(line[4:])
+    return "\n".join(block).strip() + "\n"
+
+
 def test_phase1_prompt_carries_the_fixture_cv():
-    case = (EVALS / "phase1-audit-es" / "case.yaml").read_text(encoding="utf-8")
-    missing = [
-        line for line in _builder().cv_text().splitlines()
-        if line.strip() and ("    " + line) not in case.splitlines()
-    ]
-    assert not missing, "phase1 prompt drifted from the fixture: %s" % missing[:3]
+    assert _builder().cv_text() in _prompt("phase1-audit-es"), \
+        "phase1 prompt drifted from evals/fixtures/cv-sparse-en.md"
 
 
 def test_rewrite_prompt_is_the_answer_turn():
-    case = (EVALS / "phase2-rewrite-es" / "case.yaml").read_text(encoding="utf-8")
-    assert "    " + _builder().ANSWERS + "\n" in case
+    assert _prompt("phase2-rewrite-es") == _builder().ANSWERS + "\n"
 
 
 def test_cases_are_well_formed():
@@ -102,6 +111,10 @@ def test_cases_are_well_formed():
         history = re.search(r"^  history_file: (\S+)$", text, re.M)
         if history:
             assert (case_dir / history.group(1)).is_file(), case_dir.name
+        # The runner compiles these as JavaScript RegExps; the patterns here
+        # stay inside the syntax Python's re shares with it.
+        for quoted in re.findall(r"^\s+(?:pattern|input_match): '((?:[^']|'')*)'$", text, re.M):
+            re.compile(quoted.replace("''", "'"))
 
 
 # --------------------------------------------------------------------------- #

@@ -142,6 +142,8 @@ CASES = {
 
 
 def record(index, role, text, parent):
+    # The resume loader needs type, uuid, the parentUuid chain, sessionId and an
+    # ISO timestamp; cwd, version, model and usage are metadata it carries along.
     uid = str(uuid.uuid5(uuid.UUID(SESSION), str(index)))
     base = {
         "type": role,

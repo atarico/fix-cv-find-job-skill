@@ -3,8 +3,8 @@ name: phase2-render-es
 description: >
   The applicant approved the rewritten master CV (history.jsonl). Rendering
   must probe the toolchain first, call pandoc without smart typography, produce
-  the three files and the brief, record the confirmed facts in the brief, and
-  close in Spanish.
+  the .docx and the .pdf, write the confirmed facts into the brief, and close
+  in Spanish.
 tags: [phase2]
 runs: 3
 context:
@@ -29,12 +29,13 @@ graders:
       input_match: 'command -v|which |--version|import docx'
     after:
       tool: Bash
-      input_match: 'pandoc.*\s-o\s|--convert-to'
+      input_match: 'pandoc.*\s(-o|--output)[ =]|--convert-to'
   - type: tool_used
     name: pandoc-without-smart-typography
     tool: Bash
     input_match: 'pandoc.*(-f|--from)[ =]?markdown-smart'
     min: 1
+  # file_exists only sees files this run created in its working directory.
   - type: file_exists
     name: docx-produced
     path: '**/*.docx'

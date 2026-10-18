@@ -54,11 +54,13 @@ SCORE   6/10 — ATS compatibility and quantification are dragging the average
 
 - [Por qué existe](#por-qué-existe)
 - [Seis fases, con paradas donde la decisión es tuya](#seis-fases-con-paradas-donde-la-decisión-es-tuya)
+- [Dónde corre](#dónde-corre)
 - [Requisitos](#requisitos)
 - [Instalación](#instalación)
   - [Desde la interfaz — sin descargar nada, sin terminal](#desde-la-interfaz--sin-descargar-nada-sin-terminal)
   - [Subir el zip](#subir-el-zip)
   - [Desde la terminal](#desde-la-terminal)
+  - [En ChatGPT, Codex u OpenCode](#en-chatgpt-codex-u-opencode)
 - [Cómo se usa realmente](#cómo-se-usa-realmente)
   - [Antes de empezar](#antes-de-empezar)
   - [Cómo se arranca](#cómo-se-arranca)
@@ -117,6 +119,13 @@ tu primera instrucción vale solo para esa corrida y no se guarda. Una vacante
 que rompe claramente alguno de tus propios filtros se descarta con la frase
 textual del aviso como evidencia; las dudosas quedan en una lista para que
 decidas.
+
+## Dónde corre
+
+Claude da la experiencia completa: las seis fases, con Claude en Chrome para
+las fases 3 a 6. ChatGPT, Codex y OpenCode corren las fases 1 y 2 — la
+auditoría del CV y el CV reescrito — y ahí se detienen. El soporte fuera de
+Claude viene del formato Agent Skills; no se probó en esos agentes.
 
 ## Requisitos
 
@@ -187,6 +196,23 @@ O en Claude Code, directo desde un clon:
 git clone https://github.com/atarico/fix-cv-find-job-skill.git
 ln -s "$PWD/fix-cv-find-job-skill/skills/fix-cv-find-job-skill" ~/.claude/skills/   # symlink para que ~/.claude/skills la detecte
 ```
+
+### En ChatGPT, Codex u OpenCode
+
+Solo fases 1 y 2. Instalá la carpeta de la skill según tu agente:
+
+- **OpenCode** — poné `fix-cv-find-job-skill/` en `~/.config/opencode/skills/`
+  (también lee `~/.claude/skills/` y `~/.agents/skills/`)
+- **Codex** — ponela en `~/.agents/skills/`, o en `.agents/skills/` de un
+  proyecto
+- **ChatGPT** — **Plugins → Skills → Create → Upload from your computer**, con
+  el zip del release. La disponibilidad depende de tu plan y de la configuración
+  del workspace; mirá el
+  [artículo de ayuda de OpenAI](https://help.openai.com/en/articles/20001066-skills-in-chatgpt)
+
+En una terminal local, el `.docx` y el `.pdf` necesitan pandoc, LibreOffice,
+poppler-utils y la fuente Carlito. En superficies web la skill revisa qué tiene
+el sandbox y, si no puede generar los archivos, cae a Markdown en el chat.
 
 ## Cómo se usa realmente
 

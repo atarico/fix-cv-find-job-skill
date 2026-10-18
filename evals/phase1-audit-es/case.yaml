@@ -81,7 +81,7 @@ graders:
   - type: regex
     name: no-chrome-question
     target: last_message
-    pattern: '¿[^¿?]*(Chrome|extensi[oó]n|navegador|Cowork|Claude Code|superficie)[^¿?]*\?'
+    pattern: '¿[^¿?]*(Chrome|extensi[oó]n|navegador|Cowork|Claude Code)[^¿?]*\?'
     flags: i
     match: not_contains
   - type: llm

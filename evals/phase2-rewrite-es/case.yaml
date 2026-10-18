@@ -63,5 +63,6 @@ graders:
       system was never measured. Fail if the message attributes to the
       applicant any other achievement figure (a percentage, an amount, a
       reduction, an increase, a count of SKUs or errors), or gives the
-      labelling system a measured result. Dates, the phone number and the year
-      2015 are not achievement figures.
+      labelling system a measured result. Dates, the phone number, the year
+      2015 and durations derived from the CV's dates (such as "más de 12
+      años") are not achievement figures and must not fail this check.

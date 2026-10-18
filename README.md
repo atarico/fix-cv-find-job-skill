@@ -261,6 +261,9 @@ before anything is filled in. Each tailored CV and letter goes through the same
 pipeline and page-count, text and font checks as the master CV, and the letter
 names the one real gap in your fit before the reader finds it. It does not ask
 whether to batch or go one at a time: your run-mode answer already covered that.
+Each cycle ends with an **applications log** next to your brief: a
+cumulative list of what was actually sent (date, company, role, salary asked,
+platform), newest first, so you can find the posting when a company calls back.
 
 **6. LinkedIn and inbox, if you want them.** Profile aligned with the new CV;
 inbox and your professional-network messages sorted into real replies, new
@@ -292,6 +295,9 @@ it, and attach it next time. It restores your profile, your targets, everything
 you have applied to, and everything still blocked — and it resumes exactly
 where the brief says the last session stopped, so the CV audit and the master
 CV rewrite never run again once the brief shows them done.
+
+Next to it comes an **applications log** (`Applications_<Name>_<date>.md`),
+rebuilt each cycle from everything you have applied to. Keep only the latest.
 
 Attach a new CV alongside an existing brief and it asks once whether to rerun
 the audit and rewrite on it; say no and it keeps the CV already on file and

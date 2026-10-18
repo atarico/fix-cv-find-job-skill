@@ -135,7 +135,9 @@ Mark every swappable block with a comment the user can find and replace.
 - Standard section headings. "Work Experience", not "My Journey".
 - No critical information in headers, footers, images or graphics.
 - Standard fonts. No icons carrying meaning that text does not repeat.
-- Dates in a consistent MM/YYYY format.
+- Dates in a consistent MM/YYYY format, with a plain hyphen between the two
+  ends of a range (`04/2020 - Present`), never an en dash or em dash, even
+  where the source CV uses one.
 - The file itself is real text, never a scan or an exported image.
 
 ## Producing the three files
@@ -175,9 +177,12 @@ never overwrites another's:
 
 ```bash
 SKILL_DIR="<absolute path of the skill folder>"
-pandoc "CV_<Language>.md" -o "CV_<Name>_Master_<Language>.docx" --reference-doc="$SKILL_DIR/assets/reference.docx"
+pandoc -f markdown-smart "CV_<Language>.md" -o "CV_<Name>_Master_<Language>.docx" --reference-doc="$SKILL_DIR/assets/reference.docx"
 libreoffice --headless --convert-to pdf "CV_<Name>_Master_<Language>.docx" --outdir .
 ```
+
+`-f markdown-smart` keeps pandoc from turning `--` into an en dash and straight
+quotes into curly ones: the .docx carries the characters the Markdown has.
 
 Use `soffice` in place of `libreoffice` where that is the binary's name. The
 third deliverable needs no extra conversion: `CV_<Language>.md` above is

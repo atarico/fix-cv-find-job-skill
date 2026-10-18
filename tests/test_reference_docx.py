@@ -100,7 +100,7 @@ def _assert_structure(report: dict, label: str) -> None:
 def _render(md: pathlib.Path, workdir: pathlib.Path, reference: pathlib.Path | None) -> dict:
     """markdown -> docx -> pdf, exactly as the skill instructs; return what the gate reads."""
     docx = workdir / ("with-ref.docx" if reference else "stock.docx")
-    cmd = ["pandoc", str(md), "-o", str(docx)]
+    cmd = ["pandoc", "-f", "markdown-smart", str(md), "-o", str(docx)]
     if reference:
         cmd += ["--reference-doc=%s" % reference]
     subprocess.run(cmd, check=True)
@@ -310,6 +310,33 @@ def test_fixture_renders_on_two_pages_with_shipped_reference():
             assert needle in r["text"], "%r did not survive into the PDF text" % needle
         assert r["left_margin_pt"] is not None and r["left_margin_pt"] < HALF_INCH_PT + 4, \
             "left margin measured at %.1fpt; expected ~%.0fpt (half an inch)" % (r["left_margin_pt"], HALF_INCH_PT)
+
+
+def test_documented_pandoc_command_keeps_plain_typography():
+    """Phase 2's pandoc command must leave ``--`` and straight quotes alone.
+
+    pandoc's default ``markdown`` reader turns ``--`` into an en dash and
+    straight quotes into curly ones; ``-f markdown-smart`` leaves both as typed.
+    The command is taken from ``references/02-master-cv.md`` itself and run on
+    a date range and a quote.
+    """
+    _need("pandoc")
+    lines = [line for line in (SKILL / "references" / "02-master-cv.md").read_text(encoding="utf-8").splitlines()
+             if line.startswith("pandoc ")]
+    assert lines, "no pandoc command found in references/02-master-cv.md"
+    for line in lines:
+        args = line.split()
+        assert "-f" in args and args[args.index("-f") + 1] == "markdown-smart", \
+            "the pandoc command must read with -f markdown-smart: %s" % line
+    with tempfile.TemporaryDirectory() as tmp:
+        md, docx = pathlib.Path(tmp, "cv.md"), pathlib.Path(tmp, "cv.docx")
+        md.write_text('*Rosario · 06/2018 -- 02/2021* and "quoted"\n', encoding="utf-8")
+        subprocess.run(["pandoc", "-f", "markdown-smart", str(md), "-o", str(docx),
+                        "--reference-doc=%s" % SHIPPED], check=True)
+        with zipfile.ZipFile(docx) as z:
+            xml = z.read("word/document.xml").decode("utf-8")
+        assert "06/2018 -- 02/2021" in xml, "the date range lost its plain hyphens"
+        assert not set(xml) & {"–", "—", "“", "”"}, "smart typography leaked into the .docx"
 
 
 def test_shipped_reference_renders_black_and_white():

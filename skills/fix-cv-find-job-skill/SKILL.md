@@ -4,7 +4,7 @@ description: Fixes your CV and finds you a job. Use when the user wants a resume
 license: Apache-2.0
 compatibility: Phases 1 and 2 (CV audit, rewritten CV as .docx, .pdf and Markdown) run in any Agent Skills client that can execute code, such as Claude, ChatGPT, Codex or OpenCode; without code execution the CV comes back as Markdown in chat. Phases 3 to 6 (job search, applications, LinkedIn, inbox) need Claude in Chrome, which needs a paid Claude plan and Chrome on desktop.
 metadata:
-  version: 0.6.0
+  version: 0.6.1
   author: atarico
   repository: https://github.com/atarico/fix-cv-find-job-skill
 ---

@@ -208,8 +208,10 @@ rebuild one before any browser phase can tailor from it.
 
 ### Capability check
 
-Run it once at entry, unless the brief already records the answer. Detect; do
-not ask what your own tools already tell you. Ask only what you cannot tell, and
+Run it at the start of every session, from your own tools. A brief's record of
+the surface is a note about the previous session, never the answer: the same
+brief may have been written on another agent. Detect; do not ask what your own
+tools already tell you. Ask only what you cannot tell, and
 never by product name.
 
 - **Can you drive a browser through Claude in Chrome?** Look at your tools: the

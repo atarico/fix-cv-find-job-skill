@@ -417,10 +417,10 @@ at Entry found.
 > would rather not, we stop here — you have what this run produced and I will
 > show you how to adapt it per opening.
 
-Where the capability check found no web search, offer to read the postings the
-applicant pastes instead of searching. In this branch only, say once, too, that
-sending the applications, LinkedIn and the inbox (phases 4 to 6) continue in
-Claude with Claude in Chrome, re-using this brief.
+Where the capability check found no web search, word the same offer around
+reading the postings the applicant pastes instead of searching. Without Claude
+in Chrome, say once, too, that sending the applications, LinkedIn and the inbox
+(phases 4 to 6) continue in Claude with Claude in Chrome, re-using this brief.
 
 If the user declines, hand over whatever this run produced — the files, or the
 Markdown already shown in chat — together with the brief, a short guide on

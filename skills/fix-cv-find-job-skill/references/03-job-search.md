@@ -246,21 +246,24 @@ as `08` describes.
 - The table above, every column kept, with "Status" saying whether the
   documents are ready. The Link column is how the applicant applies, so it is
   never dropped, not even for openings they gave you.
-- **Ready to apply.** One entry per prepared opening, headed by its company,
-  its role and its link written out in full, even when the applicant pasted it:
-  the report is what they apply from. Under it, its files and what to check
-  before sending. That means the screening questions
-  the posting names, the salary figure from brief section 2 for the posting's
-  seniority and market, and anything the posting asks for that the CV cannot
-  show.
+- **Ready to apply.** For each prepared opening, what to check before sending:
+  the screening questions the posting names, the salary figure from brief
+  section 2 for the posting's seniority and market, and anything the posting
+  asks for that the CV cannot show.
 - **Not read**, **Discarded**, **Needs a decision** and **Patterns worth
   knowing**, as above.
 
-Then say it plainly:
+Then say it plainly, with one line per prepared opening, its link written out
+in full even when the applicant pasted it, because this is what they apply
+from:
 
-> Nothing has been sent. Each opening has its link and its files are ready, so
-> the application is yours to send. Tell me in the next session which ones you
-> sent and I will add them to your applications.
+> Nothing has been sent. The applications are yours to send, each through its
+> link:
+>
+> - <Company>, <role>: <link>. Files: <CV file>, <cover letter file>.
+>
+> Tell me in the next session which ones you sent and I will add them to your
+> applications.
 
 Update the campaign brief:
 

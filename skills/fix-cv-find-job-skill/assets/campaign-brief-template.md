@@ -209,6 +209,18 @@ only applications actually submitted.
 
 ---
 
+## 5b. Handed over
+
+Openings with tailored documents ready that this skill did not submit: chat
+mode's top openings, and phase 4's openings that start at account creation. A
+new session asks once which of them the applicant sent, moves those to section
+5, and keeps the rest here.
+
+| Date | Company | Role | Link | Match | Files |
+|---|---|---|---|---|---|
+
+---
+
 ## 6. Discarded
 
 Postings that hit a hard disqualifier or the seniority floor. The posting's own
@@ -277,6 +289,7 @@ produce replies.
 | Conversation and report language | <the language the applicant writes in>; a later session still follows how they write then |
 | Master CV language(s) | every language listed in section 1 |
 | Tailored CV / cover letter language | follows each posting, decided in phase 4 |
+| Tailored CVs per search | chat mode only: <N>, five unless the applicant chose otherwise |
 
 ---
 

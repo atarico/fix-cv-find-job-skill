@@ -4,15 +4,18 @@
 ``claude plugin eval`` has no dry run: a malformed case only shows up once a
 paid run starts. This catches the mistakes that need no model:
 
-1. every committed ``history.jsonl`` matches what ``evals/make_histories.py``
-   generates, so the CV and the scripted turns exist in one place;
+1. every committed ``history.jsonl`` and campaign brief matches what
+   ``evals/make_histories.py`` generates, so the CV and the scripted turns
+   exist in one place;
 2. every history is a transcript ``claude --resume`` can rebuild: one JSON
    object per line, unique ids, a ``parentUuid`` chain that starts at null,
    turns alternating from the applicant and ending on the assistant;
 3. the phase 1 prompt carries the fixture CV verbatim, and the phase 2
    rewrite prompt is the answer turn the render history continues from;
-4. every ``case.yaml`` names its own directory, uses schema 1.1 and only
-   grader types the runner knows.
+4. the phase 3 brief holds the approved master CV and every numbered section
+   of the brief template;
+5. every ``case.yaml`` names its own directory, uses schema 1.1 and only
+   grader types the runner knows, and the files it names exist.
 
 Standard library only (no YAML parser), so the case checks read lines.
 
@@ -46,10 +49,12 @@ def _cases():
     return sorted(p.parent for p in EVALS.glob("*/case.yaml"))
 
 
-def test_histories_are_up_to_date():
+def test_generated_files_are_up_to_date():
+    builder = _builder()
+    generated = {**builder.histories(), **builder.briefs()}
     stale = [
         str(path.relative_to(ROOT))
-        for path, text in _builder().histories().items()
+        for path, text in generated.items()
         if not path.exists() or path.read_text(encoding="utf-8") != text
     ]
     assert not stale, "run python3 evals/make_histories.py: stale %s" % stale
@@ -94,6 +99,20 @@ def test_rewrite_prompt_is_the_answer_turn():
     assert _prompt("phase2-rewrite-es") == _builder().ANSWERS + "\n"
 
 
+def test_phase3_briefs_hold_the_master_cv_and_the_template_sections():
+    builder = _builder()
+    briefs = builder.briefs()
+    assert {p.parent.name for p in briefs} == {"phase3-chat-es", "phase3-paste-es"}
+    template = (ROOT / "skills" / "fix-cv-find-job-skill" / "assets" /
+                "campaign-brief-template.md").read_text(encoding="utf-8")
+    headings = re.findall(r"^## \d+b?\. .+$", template, re.M)
+    for path, brief in briefs.items():
+        assert "````\n" + builder.master_cv() + "````" in brief, \
+            "%s: the master CV is not the one phase 2 approved" % path.parent.name
+        missing = [h for h in headings if h not in brief.splitlines()]
+        assert not missing, "%s lacks template sections %s" % (path.parent.name, missing)
+
+
 def test_cases_are_well_formed():
     cases = _cases()
     assert cases, "no eval cases found"
@@ -108,9 +127,10 @@ def test_cases_are_well_formed():
         names = re.findall(r"^    name: (\S+)$", text, re.M)
         assert len(names) == len(types), "%s: every grader needs one name" % case_dir.name
         assert len(set(names)) == len(names), "%s repeats a grader name" % case_dir.name
-        history = re.search(r"^  history_file: (\S+)$", text, re.M)
-        if history:
-            assert (case_dir / history.group(1)).is_file(), case_dir.name
+        for key in ("history_file", "scaffold_script"):
+            named = re.search(r"^  %s: (\S+)$" % key, text, re.M)
+            if named:
+                assert (case_dir / named.group(1)).is_file(), (case_dir.name, key)
         # The runner compiles these as JavaScript RegExps; the patterns here
         # stay inside the syntax Python's re shares with it.
         for quoted in re.findall(r"^\s+(?:pattern|input_match): '((?:[^']|'')*)'$", text, re.M):

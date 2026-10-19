@@ -116,8 +116,8 @@ account or enter a password.
 **6. Record it.** Company, role, date, platform, match score, salary figure
 given, files sent, status, and anything left blocked. Only an application that
 was actually submitted goes into brief section 5. A handed-over opening was not
-sent by this skill: it joins section 5, and so the applications log, once the
-applicant confirms they submitted it.
+sent by this skill: it waits in section 5b, and joins section 5, and so the
+applications log, once the applicant confirms they submitted it.
 
 ## Absolute limits
 

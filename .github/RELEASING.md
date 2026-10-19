@@ -14,8 +14,8 @@ and what was verified.
    `rg -n --hidden -g '!.git' '<old version>'` must return nothing afterwards.
 3. Run the suites: `python3 tests/test_skill_spec.py`,
    `python3 tests/test_skill_consistency.py`, `python3 tests/test_evals.py` and
-   `python3 tests/test_reference_docx.py`. When the release changes phase 1 or
-   2, also run the paid eval suite (`evals/README.md`) and record its result in
+   `python3 tests/test_reference_docx.py`. When the release changes phases 1
+   to 3, also run the paid eval suite (`evals/README.md`) and record its result in
    the notes.
 4. Commit `chore: release <version>` on `main` and push.
 5. Tag it: `git tag -a v<version> -m "v<version> - <title>"`, then push the tag.
@@ -89,7 +89,7 @@ v<previous>.
 
 See [Install](https://github.com/atarico/fix-cv-find-job-skill#install): the
 Claude plugin, the zip upload, or the skill folder for ChatGPT, Codex and
-OpenCode (phases 1 and 2).
+OpenCode (phases 1 and 2, and phase 3 in chat mode).
 
 **Full changelog**: https://github.com/atarico/fix-cv-find-job-skill/compare/v<previous>...v<version>
 ````

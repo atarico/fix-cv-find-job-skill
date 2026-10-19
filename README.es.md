@@ -104,7 +104,7 @@ reaprender estas reglas de a una postulación perdida por vez.
 |---|---|---|
 | 1. Auditoría del CV | Los 20 puestos para los que sos mejor candidato, las palabras clave ATS que deberías incluir, qué se ve en 10 segundos y un puntaje del 1 al 10 con el camino para subirlo | no |
 | 2. CV maestro | Tu CV reconstruido con la fórmula XYZ, listo para ATS, dos páginas, con variantes de resumen intercambiables — entregado en `.docx`, `.pdf` y Markdown | no |
-| 3. Búsqueda | Todas las vacantes que encajan en tus plataformas, rankeadas, leídas completas, con puntaje de compatibilidad, las palabras clave que pide cada una y si se puede completar desde acá | sí |
+| 3. Búsqueda | Todas las vacantes que encajan en tus plataformas, rankeadas, leídas completas, con puntaje de compatibilidad, las palabras clave que pide cada una y si se puede completar desde acá | no: sin navegador corre en modo chat |
 | 4. Postulación | CV y carta a medida por vacante, formularios completados, postulaciones registradas, reporte final | sí |
 | 5. LinkedIn | Tu perfil alineado con el CV reescrito | sí |
 | 6. Correo y mensajes | Respuestas, vacantes nuevas, acuses automáticos y mensajes de reclutadores en tu red profesional clasificados — se dispara cuando quieras con "revisá mi mail" | sí |
@@ -123,9 +123,13 @@ decidas.
 ## Dónde corre
 
 Claude da la experiencia completa: las seis fases, con Claude en Chrome para
-las fases 3 a 6. ChatGPT, Codex y OpenCode corren las fases 1 y 2 — la
-auditoría del CV y el CV reescrito — y ahí se detienen. El soporte fuera de
-Claude viene del formato Agent Skills; no se probó en esos agentes.
+las fases 3 a 6. Sin un navegador que pueda manejar (ChatGPT, Codex, OpenCode,
+o Claude sin la extensión), la skill corre las fases 1 y 2 y después la fase 3
+en **modo chat**. Busca vacantes en la web, o toma las que pegues, lee cada una
+completa y las rankea. Después prepara un CV adaptado y una carta para las
+mejores, y las postulaciones las enviás vos. El soporte fuera de Claude viene
+del formato Agent Skills; no se probó en esos agentes. El modo chat se midió en
+Claude Code sin la extensión.
 
 ## Requisitos
 
@@ -136,20 +140,22 @@ Dos cosas independientes deciden qué podés correr: tu **plan** y la
 maestro — corren con el plan gratuito, en el chat común, actives o no
 **Code execution and file creation** en **Configuración → Capacidades**: si
 la activás, obtenés el `.docx`, el `.pdf` y el Markdown terminados; si la
-dejás apagada, obtenés el CV reescrito como texto en el chat. Las fases 3 a 6
-necesitan una superficie con navegador, y cada una de esas superficies
-necesita un plan pago.
+dejás apagada, obtenés el CV reescrito como texto en el chat. El modo chat no
+necesita navegador: corre donde el agente pueda buscar en la web, o con las
+vacantes que pegues. Las fases 4 a 6 necesitan una superficie con navegador, y
+cada una de esas superficies necesita un plan pago.
 
-**Superficie**, para las fases 3 a 6, necesita alguna de estas:
+**Superficie**, para las fases 4 a 6 y la fase 3 con navegador, necesita alguna de estas:
 
 - **Claude en Chrome** (panel lateral) — cualquier plan pago, solo Chrome de
   escritorio
 - **Claude Cowork** en la aplicación de escritorio
 - **Claude Code** iniciado con `claude --chrome`
 
-Si no tenés ninguna — incluido si estás en el plan gratuito — la skill se
-detiene después de la fase 2 y te entrega los archivos con instrucciones para
-postular a mano. **Eso es un resultado completo, no una falla.**
+Si no tenés ninguna — incluido si estás en el plan gratuito — después de la
+fase 2 la fase 3 corre en modo chat: vacantes de la web o tuyas, un CV adaptado
+para las mejores, y postulás a mano. **Eso es un resultado completo, no una
+falla.**
 
 ## Instalación
 
@@ -199,7 +205,8 @@ ln -s "$PWD/fix-cv-find-job-skill/skills/fix-cv-find-job-skill" ~/.claude/skills
 
 ### En ChatGPT, Codex u OpenCode
 
-Solo fases 1 y 2. Instalá la carpeta de la skill según tu agente:
+Fases 1 y 2, y después la fase 3 en modo chat. Instalá la carpeta de la skill
+según tu agente:
 
 - **OpenCode** — poné `fix-cv-find-job-skill/` en `~/.config/opencode/skills/`
   (también lee `~/.claude/skills/` y `~/.agents/skills/`)
@@ -220,13 +227,14 @@ el sandbox y, si no puede generar los archivos, cae a Markdown en el chat.
 
 - Tu CV en cualquier formato — PDF, Word o pegado como texto. Si no tenés uno,
   un enlace a tu perfil profesional sirve para arrancar.
-- **Un navegador que Claude pueda manejar**, para las fases 3 a 6. El camino
+- **Un navegador que Claude pueda manejar**, para las fases 4 a 6 y la fase 3
+  con navegador. El camino
   habitual es la [extensión de Claude para Chrome](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn) — instalala e iniciá
   sesión antes de arrancar. Claude Cowork y `claude --chrome` hacen lo mismo;
   mirá [Requisitos](#requisitos) para las tres y para qué pasa si no tenés
   ninguna.
-- Para las fases de búsqueda: tené la **sesión iniciada** en los portales de
-  empleo donde quieras buscar, en el mismo navegador. Esta skill nunca crea
+- Para la búsqueda con navegador: tené la **sesión iniciada** en los portales
+  de empleo donde quieras buscar, en el mismo navegador. Esta skill nunca crea
   cuentas ni ingresa contraseñas.
 
 ### Cómo se arranca

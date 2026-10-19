@@ -2,7 +2,7 @@
 name: fix-cv-find-job-skill
 description: Fixes your CV and finds you a job. Use when the user wants a resume or CV reviewed, rewritten, scored, or optimized for ATS; wants to find or search job openings and vacancies; wants help applying to jobs, writing cover letters, or tracking applications; wants their LinkedIn profile improved to match their CV; or says things like "review my CV", "revisa mi CV", "find me a job", "buscame trabajo", "apply for me", "postulate por mi", "check my email for job replies" or "revisa mi mail". Works for any industry or profession, not only tech.
 license: Apache-2.0
-compatibility: Phases 1 and 2 (CV audit, rewritten CV as .docx, .pdf and Markdown) run in any Agent Skills client that can execute code, such as Claude, ChatGPT, Codex or OpenCode; without code execution the CV comes back as Markdown in chat. Phases 3 to 6 (job search, applications, LinkedIn, inbox) need Claude in Chrome, which needs a paid Claude plan and Chrome on desktop.
+compatibility: Phases 1 and 2 (CV audit, rewritten CV as .docx, .pdf and Markdown) run in any Agent Skills client that can execute code, such as Claude, ChatGPT, Codex or OpenCode; without code execution the CV comes back as Markdown in chat. Phase 3 runs there too, in chat mode: openings found by web search and tailored CVs for the best, sent by the applicant. Applying, LinkedIn and inbox (phases 4 to 6) need Claude in Chrome, which needs a paid Claude plan and Chrome on desktop.
 metadata:
   version: 0.7.0
   author: atarico
@@ -54,7 +54,8 @@ tech, and it derives every judgement from the user's own CV and target market.
 ## Run mode
 
 Phases 3 to 6 only, and only when the capability check at Entry found Claude in
-Chrome. Without it, skip this section: do not ask the question.
+Chrome. Without it, skip this section, chat mode included: it sends nothing, so
+there is nothing to authorise. Do not ask the question.
 
 Decided once, recorded in the campaign brief, honoured by every later session
 without asking again.
@@ -139,7 +140,7 @@ them all at once.
 |---|---|---|---|
 | 1 | CV audit and score | `references/01-cv-audit.md` | no |
 | 2 | Master CV rewrite (.docx + .pdf + Markdown) | `references/02-master-cv.md`, `references/08-document-engine.md` | no |
-| 3 | Job search and match table | `references/03-job-search.md`, `references/07-sweep-mechanics.md` | yes |
+| 3 | Job search and match table | `references/03-job-search.md`, `references/07-sweep-mechanics.md` | no: without it, chat mode |
 | 4 | Auto-apply | `references/04-auto-apply.md`, `references/08-document-engine.md` | yes |
 | 5 | LinkedIn alignment | `references/05-linkedin.md` | yes |
 | 6 | Inbox and messages triage | `references/06-inbox-triage.md` | yes |
@@ -155,7 +156,7 @@ loading with the phase that uses them:
 - **`references/08-document-engine.md`** — how the master CV is kept as structure
   (named variants, slugged evidence items, a fixed count) so phase 4 tailors by
   choosing, then renders through phase 2's pipeline and verification gate. Load
-  it with phase 2 and again with phase 4.
+  it with phase 2, and again with phase 4 or chat mode.
 
 Phase 6 is also a standalone entry point. If the user opens with "check my
 email" or "revisa mi mail", go straight to `references/06-inbox-triage.md`.
@@ -180,17 +181,19 @@ URL. Accept a standalone request with neither, such as "check my email" or
   written before the field existed, truncated, hand-edited, or with its fenced
   block broken on re-upload. There is nothing to tailor from then, so say so
   plainly, ask for the CV as a file, pasted text or a profile URL, and run
-  `references/02-master-cv.md` to rebuild the master before any browser phase.
+  `references/02-master-cv.md` to rebuild the master before any later phase.
   Never improvise a master from the brief's remaining fields, and never
   reconstruct one from memory of an earlier session.
-  Resume exactly where the brief says the last session stopped: the next
+  If its section 5b lists openings handed over, ask once which of them the
+  applicant sent, and move those to section 5 before anything else. Then resume
+  exactly where the brief says the last session stopped: the next
   unswept platform, the next queued application, a blocked item, or whatever
   its status and "next step" fields name.
 - **A brief attached and a new CV supplied.** Restore the brief, then ask once,
   before anything else: "You attached a new CV — want the audit and rewrite run
   on it, or keep the master CV already on file?" Yes routes to
   `references/01-cv-audit.md`. No keeps the existing master CV untouched and
-  routes straight to whichever browser phase the brief's status calls for.
+  routes straight to whichever later phase the brief's status calls for.
 - **A standalone request, no CV.** "Check my email", "find me openings," or an
   equivalent — the two do not need the same things to start.
   - **Inbox triage** ("check my email", "revisa mi mail") needs no CV, no
@@ -208,7 +211,7 @@ URL. Accept a standalone request with neither, such as "check my email" or
 Phases 1 and 2 never re-run on an existing brief on their own. There are two
 exceptions, both above: the user attaches a new CV and explicitly says yes to
 rerunning them, or the brief holds no usable master CV text and phase 2 has to
-rebuild one before any browser phase can tailor from it.
+rebuild one before any later phase can tailor from it.
 
 ### Capability check
 
@@ -222,6 +225,10 @@ never by product name.
   Claude in Chrome browser tools, or the step that turns them on, are either
   there or not. That covers the side panel, Cowork and Claude Code started with
   `--chrome`.
+- **Can you search the web, and read a page from its link?** Look at your
+  tools: one that runs a web search, one that fetches or opens a URL. Either
+  can be missing; chat mode (`references/03-job-search.md`) says what each
+  absence changes.
 - **Can you execute code, and with which tools?** Yes or no is enough here; the
   probe in `references/02-master-cv.md` settles which tools when phase 2
   renders. If you cannot tell whether code execution is on, say what each answer
@@ -232,10 +239,15 @@ The result decides the run:
 - **Claude in Chrome available.** All six phases, exactly as written. Run mode
   and the platform limits apply from phase 3.
 - **Claude in Chrome absent** (ChatGPT, Codex, OpenCode, Claude without the
-  extension). The run is phases 1 and 2. Skip run mode and the platform limits
-  entirely, and do not ask the user about Chrome, Cowork or Claude Code. Say
-  once, plainly: phases 3 to 6 (job search, applying, LinkedIn, inbox) need
-  Claude in Chrome, so here you audit the CV and rewrite it, and the rest
-  continues in Claude with the extension, from the campaign brief. Any route
-  above that would lead to phase 3 or later ends at that sentence, offering
-  phases 1 and 2 when there is a CV.
+  extension). The run is phases 1 and 2, then phase 3 in chat mode
+  (`references/03-job-search.md`, "Chat mode"): openings found by web search or
+  given by the applicant, tailored CVs for the best of them, and a ranked
+  report. Nothing is sent: the applicant applies through each link. Skip run
+  mode and the platform limits entirely, and do not ask the user about Chrome,
+  Cowork or Claude Code. Say once, plainly: here you audit and rewrite the CV,
+  find openings and prepare a tailored CV for the best ones; sending the
+  applications, LinkedIn and the inbox (phases 4 to 6) need Claude in Chrome
+  and continue in Claude with the extension, from the campaign brief. Any route
+  above that would lead to phase 4 or later ends at that sentence, offering what
+  runs here: phases 1 and 2 when there is a CV, chat mode when there is a
+  master CV.

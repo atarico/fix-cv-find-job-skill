@@ -99,16 +99,18 @@ def test_rewrite_prompt_is_the_answer_turn():
     assert _prompt("phase2-rewrite-es") == _builder().ANSWERS + "\n"
 
 
-def test_phase3_brief_holds_the_master_cv_and_the_template_sections():
+def test_phase3_briefs_hold_the_master_cv_and_the_template_sections():
     builder = _builder()
-    (brief,) = builder.briefs().values()
-    assert "````\n" + builder.master_cv() + "````" in brief, \
-        "the brief's master CV is not the one phase 2 approved"
+    briefs = builder.briefs()
+    assert {p.parent.name for p in briefs} == {"phase3-chat-es", "phase3-paste-es"}
     template = (ROOT / "skills" / "fix-cv-find-job-skill" / "assets" /
                 "campaign-brief-template.md").read_text(encoding="utf-8")
     headings = re.findall(r"^## \d+b?\. .+$", template, re.M)
-    missing = [h for h in headings if h not in brief.splitlines()]
-    assert not missing, "the phase 3 brief lacks template sections %s" % missing
+    for path, brief in briefs.items():
+        assert "````\n" + builder.master_cv() + "````" in brief, \
+            "%s: the master CV is not the one phase 2 approved" % path.parent.name
+        missing = [h for h in headings if h not in brief.splitlines()]
+        assert not missing, "%s lacks template sections %s" % (path.parent.name, missing)
 
 
 def test_cases_are_well_formed():

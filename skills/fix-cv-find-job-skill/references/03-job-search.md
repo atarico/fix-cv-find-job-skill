@@ -210,9 +210,17 @@ applies through each link.
 - **No web search.** Ask the applicant to paste the postings: the links when
   you can read a page, the text otherwise.
 
-A posting you could not read in full is listed as not read, with its link, and
-never scored from the snippet. That includes a login wall, a page that loads
-its text with scripts, and a refused request. Say how many there were.
+Many boards cannot be read this way: a login wall, a page that loads its text
+with scripts, an anti-bot check, a refused request. Before giving up on such a
+posting, look for the same one where its text can be read, such as the
+company's own careers page, the professional network's public job page, or
+another board. It is the same posting only when the company, the title and the
+location all match; a similar role at another company is a different opening.
+
+A posting you still could not read in full is listed as not read, with its
+link, and never scored from the snippet. Say how many there were, and offer the
+shortest way through: the applicant opens those links in their own browser and
+pastes the text of the ones they want scored.
 
 **Only what this session saw.** Every opening and every link in the report
 comes from a search result or a page opened in this session, or from the

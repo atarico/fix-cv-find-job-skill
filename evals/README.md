@@ -8,11 +8,12 @@ in `tests/` check the files; these check what an agent actually does with them.
 | `phase1-audit-es` | a Spanish request with an English CV pasted in | the skill fires; the audit is in Spanish; no invented figures; no question about Chrome; no unsourced statistic |
 | `phase2-rewrite-es` | the audit done, the applicant's answers | the rewrite is shown for approval before anything renders; plain-hyphen date ranges; Spanish; only the figures the applicant gave |
 | `phase2-render-es` | the rewrite approved | a toolchain probe before the render; the .docx produced; confirmed facts in the brief; the close in Spanish |
-| `phase3-chat-es` | a later session without Claude in Chrome, the campaign brief attached | chat mode: a web search, postings read in full, tailored CVs for the top ones, none for a company already applied to, only links this run opened, nothing sent, a ranked report in Spanish |
+| `phase3-chat-es` | a later session without Claude in Chrome, the campaign brief attached | chat mode on the real web: a search, attempts to read the postings, no score or tailored CV for a posting it could not read, none for a company already applied to, only links this run opened, nothing sent, Spanish |
+| `phase3-paste-es` | the same brief, four postings pasted, no web search | chat mode's output: tailored CVs for the two best, none for the company already applied to or past a hard disqualifier, the discard in the posting's words, only the links given, a ranked report, nothing sent |
 
 The phase 2 cases resume a scripted conversation (`history.jsonl`); the phase 3
-case starts from the campaign brief phase 2 hands over (`brief.md`), which its
-`scaffold.sh` copies into the run's directory. Edit the turns and the brief in
+cases start from the campaign brief phase 2 hands over (`brief.md`), which each
+case's `scaffold.sh` copies into the run's directory. Edit the turns and the brief in
 `make_histories.py`, never the generated files, and regenerate them:
 
 ```bash
@@ -47,10 +48,12 @@ claude plugin eval . --ablation none --judge-model sonnet --case 'phase1-*' --ma
   found. So the render case checks the .docx, and the pandoc flags and the
   PDF are checked by `tests/test_reference_docx.py`, which runs phase 2's
   render block as written.
-- `--scaffold` lets the runner run `phase3-chat-es/scaffold.sh`, as you; it
-  only copies the brief. Without it that case runs with no brief.
-- The phase 3 case searches the real web, so its openings differ on every run.
-  Its checks are about behaviour, not about which postings come back.
+- `--scaffold` lets the runner run the phase 3 cases' `scaffold.sh`, as you;
+  it only copies the brief. Without it those cases run with no brief.
+- `phase3-chat-es` searches the real web, so its openings differ on every run.
+  Most Argentine boards cannot be read without a browser (pages built by
+  scripts, anti-bot checks), so it grades honesty, and `phase3-paste-es`
+  grades the ranking and the tailored CVs on fixed postings.
 - The first run asks you to trust the plugin directory.
 - Results land in `evals/results/`, which is not committed.
 - A phase 2 run writes the continued session next to its `history.jsonl`,

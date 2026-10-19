@@ -380,8 +380,9 @@ sentence decides.
 
 
 def briefs():
-    path = EVALS / "phase3-chat-es" / "brief.md"
-    return {path: BRIEF.replace("<<MASTER_CV>>", master_cv())}
+    # Both phase 3 cases start from the same brief; each scaffolds its own copy.
+    text = BRIEF.replace("<<MASTER_CV>>", master_cv())
+    return {EVALS / name / "brief.md": text for name in ("phase3-chat-es", "phase3-paste-es")}
 
 
 # Each case resumes from the turns listed for it; its case.yaml holds the next

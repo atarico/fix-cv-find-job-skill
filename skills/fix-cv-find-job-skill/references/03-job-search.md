@@ -243,7 +243,9 @@ as `08` describes.
 
 **Close the phase.** Run mode does not apply. Report:
 
-- The table above, with "Status" saying whether the documents are ready.
+- The table above, every column kept, with "Status" saying whether the
+  documents are ready. The Link column is how the applicant applies, so it is
+  never dropped, not even for openings they gave you.
 - **Ready to apply.** For each prepared opening: the link to apply through, its
   files, and what to check before sending. That means the screening questions
   the posting names, the salary figure from brief section 2 for the posting's

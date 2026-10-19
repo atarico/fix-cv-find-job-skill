@@ -54,6 +54,10 @@ claude plugin eval . --ablation none --judge-model sonnet --case 'phase1-*' --ma
   Most Argentine boards cannot be read without a browser (pages built by
   scripts, anti-bot checks), so it grades honesty, and `phase3-paste-es`
   grades the ranking and the tailored CVs on fixed postings.
+- The runner keeps only the head and tail of a trace over about 100 KB, and a
+  phase 3 run's searches fall in the elided middle. So the phase 3 judges read
+  the final message, and whether every link came from the session is checked
+  in `phase3-paste-es`, where the links are known.
 - The first run asks you to trust the plugin directory.
 - Results land in `evals/results/`, which is not committed.
 - A phase 2 run writes the continued session next to its `history.jsonl`,

@@ -64,4 +64,14 @@ claude plugin eval . --ablation none --judge-model sonnet --case 'phase1-*' --ma
   named after the session id; git ignores it.
 
 The suite is not in CI: it costs money on every run and needs a credential.
-Run it before a release that changes phases 1 or 2.
+Run it before a release that changes phases 1 to 3.
+
+## Known gaps
+
+- `phase3-paste-es`, `link-for-the-best-match` and `link-for-the-second-match`:
+  2/3 in v0.8.0. In one run in three the report tells the applicant to apply
+  "through each link" but lists none, because they were pasted. Every other
+  grader passes 3/3. The CVs, the letters and the discards are right; only
+  the links are missing from the report. Not yet tried: a narrower chat mode
+  table that keeps the Link column. The agent writes tables of five or six
+  columns, and phase 3's has ten, so it drops some, the link among them.

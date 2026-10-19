@@ -184,7 +184,9 @@ URL. Accept a standalone request with neither, such as "check my email" or
   `references/02-master-cv.md` to rebuild the master before any later phase.
   Never improvise a master from the brief's remaining fields, and never
   reconstruct one from memory of an earlier session.
-  Resume exactly where the brief says the last session stopped: the next
+  If its section 5b lists openings handed over, ask once which of them the
+  applicant sent, and move those to section 5 before anything else. Then resume
+  exactly where the brief says the last session stopped: the next
   unswept platform, the next queued application, a blocked item, or whatever
   its status and "next step" fields name.
 - **A brief attached and a new CV supplied.** Restore the brief, then ask once,

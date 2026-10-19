@@ -216,8 +216,8 @@ mode's top openings, and phase 4's openings that start at account creation. A
 new session asks once which of them the applicant sent, moves those to section
 5, and keeps the rest here.
 
-| Date | Company | Role | Link | Match | Files | Sent |
-|---|---|---|---|---|---|---|
+| Date | Company | Role | Link | Match | Files |
+|---|---|---|---|---|---|
 
 ---
 

@@ -303,8 +303,8 @@ sentence decides.
 
 ## 5b. Handed over
 
-| Date | Company | Role | Link | Match | Files | Sent |
-|---|---|---|---|---|---|---|
+| Date | Company | Role | Link | Match | Files |
+|---|---|---|---|---|---|
 
 ---
 

@@ -225,7 +225,8 @@ table instead of guessing one.
 **Tailored CVs for the top openings.** Take the top openings, as many as
 section 12 says, that pass every filter and were read in full. Skip any that
 section 5 or 5b already holds. For each, follow phase 4's path for an opening
-it hands over (`references/04-auto-apply.md`, steps 2 to 3b, with
+it hands over (`references/04-auto-apply.md`, "Tailor the CV", "Write the
+cover letter" and "Verify the documents", with
 `references/08-document-engine.md`): tailor the CV from the master in the
 posting's language, write the cover letter, verify both, and name the files as
 phase 4 does. There is no duplicate check on a platform and no form, because
@@ -237,7 +238,7 @@ as `08` describes.
 - The table above, with "Status" saying whether the documents are ready.
 - **Ready to apply.** For each prepared opening: the link to apply through, its
   files, and what to check before sending. That means the screening questions
-  the posting names, the salary figure from their table for the posting's
+  the posting names, the salary figure from brief section 2 for the posting's
   seniority and market, and anything the posting asks for that the CV cannot
   show.
 - **Not read**, **Discarded**, **Needs a decision** and **Patterns worth

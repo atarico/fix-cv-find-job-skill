@@ -6,8 +6,8 @@ description: >
   sent to Andreani, advanced English as a hard disqualifier) is attached, and
   four fictional postings come in the prompt. Two tailored CVs must come out,
   none for Andreani or for the posting that requires advanced English, which is
-  discarded in its own words. The report links only the pages given, sends
-  nothing, and is in Spanish. Deterministic where the web case cannot be.
+  discarded in its own words. The report gives each prepared opening its link
+  and no link beyond the pages given, sends nothing, and is in Spanish. Deterministic where the web case cannot be.
 tags: [phase3]
 runs: 3
 context:
@@ -73,6 +73,16 @@ graders:
     target: last_message
     pattern: 'ingl[eé]s avanzado excluyente'
     flags: i
+  # The applicant applies from the report, so each prepared opening carries
+  # its link there even though she pasted it.
+  - type: regex
+    name: link-for-the-best-match
+    target: last_message
+    pattern: 'empleos\.example\.com/logistica-mediterranea/supervisor-deposito-noche'
+  - type: regex
+    name: link-for-the-second-match
+    target: last_message
+    pattern: 'empleos\.example\.com/frigorifico-sierras-chicas/jefe-turno-almacen'
   - type: regex
     name: only-the-links-given
     target: last_message
@@ -89,8 +99,8 @@ graders:
     name: nothing-sent
     criteria: >
       The final message makes clear that nothing was submitted to any employer
-      and that the applicant applies herself, through each opening's link.
-      Fail if it says or implies that an application was sent.
+      and that the applicant applies herself. Fail if it says or implies that
+      an application was sent.
   - type: llm
     name: reply-language
     criteria: >

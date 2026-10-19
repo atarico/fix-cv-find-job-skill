@@ -246,8 +246,10 @@ as `08` describes.
 - The table above, every column kept, with "Status" saying whether the
   documents are ready. The Link column is how the applicant applies, so it is
   never dropped, not even for openings they gave you.
-- **Ready to apply.** For each prepared opening: the link to apply through, its
-  files, and what to check before sending. That means the screening questions
+- **Ready to apply.** One entry per prepared opening, headed by its company,
+  its role and its link written out in full, even when the applicant pasted it:
+  the report is what they apply from. Under it, its files and what to check
+  before sending. That means the screening questions
   the posting names, the salary figure from brief section 2 for the posting's
   seniority and market, and anything the posting asks for that the CV cannot
   show.

@@ -485,6 +485,9 @@ def test_documented_reportlab_render_keeps_the_template_layout():
             assert (got.fontSize, got.spaceBefore, got.spaceAfter) == (size_hp / 2, before / 20, after / 20), \
                 "%s: reportlab draws %.1fpt, %.1fpt before, %.1fpt after; the template says %.1fpt, %.1fpt, %.1fpt" % (
                     name, got.fontSize, got.spaceBefore, got.spaceAfter, size_hp / 2, before / 20, after / 20)
+            keep = bool(getattr(got, "keepWithNext", False))
+            assert keep == name.startswith("Heading"), \
+                "%s: keepWithNext is %r; a heading must stay with what follows it, as in (a)" % (name, keep)
 
         r = _measure(pdf)
         assert r["pages"] <= MAX_PAGES, "reportlab rendered the fixture on %d pages (gate: <= %d)" % (r["pages"], MAX_PAGES)

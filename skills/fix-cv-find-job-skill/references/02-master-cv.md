@@ -260,13 +260,16 @@ def style_of(name):  # the template's own values
     return ParagraphStyle(name, fontName="CV-Bold" if s.font.bold else "CV",
                           fontSize=size, leading=size * 1.22,  # Calibri's single spacing
                           spaceBefore=pt(s.paragraph_format.space_before),
-                          spaceAfter=pt(s.paragraph_format.space_after))
+                          spaceAfter=pt(s.paragraph_format.space_after),
+                          keepWithNext=bool(s.paragraph_format.keep_with_next))  # no heading alone at a page's foot
 
 styles = {n: style_of(n) for n in ("Heading 1", "Heading 2", "Heading 3", "Body Text", "Compact")}
 
 def markup(paragraph):  # keeps bold runs, line breaks, and the text of links
     parts = []
-    for part in paragraph.iter_inner_content():
+    # python-docx 1.0+ also yields links here; older versions only have runs
+    content = paragraph.iter_inner_content() if hasattr(paragraph, "iter_inner_content") else paragraph.runs
+    for part in content:
         text = escape(part.text).replace("\n", "<br/>")
         parts.append("<b>%s</b>" % text if getattr(part, "bold", False) else text)
     return "".join(parts)

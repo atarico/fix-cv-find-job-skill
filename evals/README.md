@@ -9,7 +9,7 @@ in `tests/` check the files; these check what an agent actually does with them.
 | `phase2-rewrite-es` | the audit done, the applicant's answers | the rewrite is shown for approval before anything renders; plain-hyphen date ranges; Spanish; only the figures the applicant gave |
 | `phase2-render-es` | the rewrite approved | a toolchain probe before the render; the .docx produced; confirmed facts in the brief; the close in Spanish |
 | `phase3-chat-es` | a later session without Claude in Chrome, the campaign brief attached | chat mode on the real web: a search, attempts to read the postings, no score or tailored CV for a posting it could not read, none for a company already applied to, only links this run opened, nothing sent, Spanish |
-| `phase3-paste-es` | the same brief, four postings pasted, no web search | chat mode's output: tailored CVs for the two best, none for the company already applied to or past a hard disqualifier, the discard in the posting's words, a link for each prepared opening and none beyond the links given, a ranked report, nothing sent |
+| `phase3-paste-es` | the same brief, five postings pasted, no web search | chat mode's output: tailored CVs for the two best, none for the company already applied to, past a hard disqualifier or past its application deadline, the discards in the posting's words and as expired, a link for each prepared opening and none beyond the links given, a ranked report headed with the date the postings were checked, nothing sent |
 
 The phase 2 cases resume a scripted conversation (`history.jsonl`); the phase 3
 cases start from the campaign brief phase 2 hands over (`brief.md`), which each

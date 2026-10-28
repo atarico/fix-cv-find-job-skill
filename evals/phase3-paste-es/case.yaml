@@ -53,7 +53,7 @@ execution:
 
     --- Aviso 5 ---
     Distribuidora Río Primero S.A. — Supervisor/a de Depósito
-    Córdoba Capital · Presencial · Publicado el 22/09 · Postulaciones hasta el 10/10
+    Córdoba Capital · Presencial · Publicado el 22/09/2026 · Postulaciones hasta el 10/10/2026
     Coordinará la operación diaria del depósito central: recepción, almacenamiento, preparación de pedidos y despacho, con un equipo de 12 operarios.
     Requisitos: 3 años o más supervisando depósitos; manejo de Tango Gestión o SAP; Excel intermedio.
     Ofrecemos: relación de dependencia, obra social, sueldo a convenir.
@@ -79,8 +79,9 @@ graders:
     name: no-cv-past-a-hard-disqualifier
     path: '**/*Nortech*'
     exists: false
-  # Aviso 5 is the strongest match on paper, but its deadline (10/10) passed
-  # before any run and the page shows no closed notice: it is expired.
+  # Aviso 5 is the strongest match on paper, but its deadline (10/10/2026)
+  # passed before any run and the page shows no closed notice: it is expired.
+  # The year is spelled out so the case does not depend on when it runs.
   - type: file_exists
     name: no-cv-past-its-deadline
     path: '**/*Primero*'
@@ -89,7 +90,7 @@ graders:
     name: expired-discarded
     criteria: >
       The final message lists Distribuidora Río Primero as discarded, giving
-      as the reason that its application deadline (10/10) has passed. Fail if
+      as the reason that its application deadline (10/10/2026) has passed. Fail if
       it appears among the openings to apply to, if it is offered a tailored
       CV, or if the final message does not mention it at all.
   - type: llm

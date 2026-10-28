@@ -4,10 +4,13 @@ description: >
   Chat mode with postings the applicant pastes, in an agent with no browser and
   no web search: the brief (two tailored CVs per search, an application already
   sent to Andreani, advanced English as a hard disqualifier) is attached, and
-  four fictional postings come in the prompt. Two tailored CVs must come out,
-  none for Andreani or for the posting that requires advanced English, which is
-  discarded in its own words. The report gives each prepared opening its link
-  and no link beyond the pages given, sends nothing, and is in Spanish. Deterministic where the web case cannot be.
+  five fictional postings come in the prompt. Two tailored CVs must come out,
+  none for Andreani, for the posting that requires advanced English, which is
+  discarded in its own words, or for the strong match whose application
+  deadline has passed with no closed notice, which is discarded as expired.
+  The report gives each prepared opening its link and no link beyond the pages
+  given, says on which date the postings were checked, sends nothing, and is in
+  Spanish. Deterministic where the web case cannot be.
 tags: [phase3]
 runs: 3
 context:
@@ -18,7 +21,7 @@ execution:
   model: sonnet
   allowed_tools: [Skill, Read, Glob, Grep, Bash, Write, Edit]
   prompt: |
-    Hola! Sigo con la búsqueda. El brief de la vez pasada está en esta carpeta: Campaign_Brief_Lucia_Benitez.md. Esta vez no busques vos: te pego cuatro avisos que encontré. Preparame lo que haga falta.
+    Hola! Sigo con la búsqueda. El brief de la vez pasada está en esta carpeta: Campaign_Brief_Lucia_Benitez.md. Esta vez no busques vos: te pego cinco avisos que encontré. Preparame lo que haga falta.
 
     --- Aviso 1 ---
     Logística Mediterránea S.A. — Supervisor/a de Depósito (turno noche)
@@ -47,6 +50,14 @@ execution:
     Supervisión de inventario y despachos de componentes electrónicos.
     Requisitos: experiencia en supervisión logística; SAP; inglés avanzado excluyente (reuniones diarias con la casa matriz).
     Postulación: https://empleos.example.com/nortech/supervisor-logistica
+
+    --- Aviso 5 ---
+    Distribuidora Río Primero S.A. — Supervisor/a de Depósito
+    Córdoba Capital · Presencial · Publicado el 22/09/2026 · Postulaciones hasta el 10/10/2026
+    Coordinará la operación diaria del depósito central: recepción, almacenamiento, preparación de pedidos y despacho, con un equipo de 12 operarios.
+    Requisitos: 3 años o más supervisando depósitos; manejo de Tango Gestión o SAP; Excel intermedio.
+    Ofrecemos: relación de dependencia, obra social, sueldo a convenir.
+    Postulación: https://empleos.example.com/distribuidora-rio-primero/supervisor-deposito
 graders:
   - type: tool_used
     name: skill-fired
@@ -68,6 +79,26 @@ graders:
     name: no-cv-past-a-hard-disqualifier
     path: '**/*Nortech*'
     exists: false
+  # Aviso 5 is the strongest match on paper, but its deadline (10/10/2026)
+  # passed before any run and the page shows no closed notice: it is expired.
+  # The year is spelled out so the case does not depend on when it runs.
+  - type: file_exists
+    name: no-cv-past-its-deadline
+    path: '**/*Primero*'
+    exists: false
+  - type: llm
+    name: expired-discarded
+    criteria: >
+      The final message lists Distribuidora Río Primero as discarded, giving
+      as the reason that its application deadline (10/10/2026) has passed. Fail if
+      it appears among the openings to apply to, if it is offered a tailored
+      CV, or if the final message does not mention it at all.
+  - type: llm
+    name: checked-date
+    criteria: >
+      The final message states the calendar date on which the postings' status
+      was checked, and presents it as the date of the check, not as a posting
+      date. Fail if no check date is stated.
   - type: regex
     name: discarded-in-the-posting-words
     target: last_message

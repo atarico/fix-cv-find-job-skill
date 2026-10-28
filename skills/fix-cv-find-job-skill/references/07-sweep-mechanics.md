@@ -62,13 +62,14 @@ the context window, and the one most often skipped. Never return the full
 description into the conversation. Parse it in the page and return only what a
 score depends on:
 
-- title, company, location, posted date
+- title, company, location, posted date, and the application deadline when
+  the posting gives one
 - the platform's own seniority and employment-type criteria
 - **the sentence** containing each hard-disqualifier keyword from the campaign
   brief — not a boolean, the sentence, because the "Hard filters" section below depends on it
 - the sentence containing a years-of-experience figure
 - the sentence containing a salary figure
-- whether the posting is closed
+- whether the posting is closed, or its application deadline has passed
 - a compact stack or requirements fingerprint: which of the applicant's known
   tools, licences or credentials appear at all
 

@@ -27,6 +27,11 @@ jobs:
         run: |
           sudo apt-get update -q
           sudo apt-get install -y -q --no-install-recommends pandoc libreoffice-writer fonts-crosextra-carlito poppler-utils zip
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install python-docx and reportlab, as phase 2's branch (b) does
+        run: python3 -m pip install python-docx reportlab
       - name: Reference document structure and two-page render
         run: python3 tests/test_reference_docx.py
       - name: Skill zip still builds

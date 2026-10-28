@@ -20,7 +20,10 @@ Two layers:
    the same CV without the reference document must NOT fit, which is the whole
    reason the asset exists. Needs ``pandoc``, ``libreoffice`` and poppler
    (``pdfinfo``, ``pdftotext``, ``pdftoppm``, ``pdffonts``); skipped when they are missing
-   unless ``CI`` is set, in which case missing tools fail the run.
+   unless ``CI`` is set, in which case missing tools fail the run. Branch (b),
+   which draws the PDF with reportlab where LibreOffice is missing, must keep
+   the template's spacing and pass the same gate; its test also needs the
+   ``python-docx`` and ``reportlab`` packages.
 
 Run:  python3 tests/test_reference_docx.py      (or: pytest tests/)
 """
@@ -89,6 +92,24 @@ def _need_font(family: str, package: str) -> None:
     raise unittest.SkipTest(msg)
 
 
+def _need_modules(*names: str) -> None:
+    missing = [n for n in names if importlib.util.find_spec(n) is None]
+    if not missing:
+        return
+    msg = "missing Python packages: %s (pip install python-docx reportlab)" % ", ".join(missing)
+    if os.environ.get("CI"):
+        raise AssertionError(msg)
+    raise unittest.SkipTest(msg)
+
+
+def _font_file(family: str, style: str) -> str:
+    """The file fontconfig picks for a face, refused when it is a fallback."""
+    out = subprocess.run(["fc-match", "-f", "%{family}\n%{file}", "%s:style=%s" % (family, style)],
+                         capture_output=True, text=True, check=True).stdout.splitlines()
+    assert family in out[0], "fc-match fell back to %s for %s %s" % (out[0], family, style)
+    return out[1]
+
+
 def _assert_structure(report: dict, label: str) -> None:
     assert not report["problems"], "%s is not usable:\n  - %s" % (label, "\n  - ".join(report["problems"]))
     assert report["pgSz"] in ({"w": w, "h": h} for w, h in mk.PAGE_SIZES.values()), \
@@ -115,7 +136,11 @@ def _render(md: pathlib.Path, workdir: pathlib.Path, reference: pathlib.Path | N
     )
     pdf = docx.with_suffix(".pdf")
     assert pdf.exists(), "LibreOffice produced no PDF for %s" % docx.name
+    return _measure(pdf)
 
+
+def _measure(pdf: pathlib.Path) -> dict:
+    """What the phase 2 gate reads from a PDF: pages, text, left margin."""
     info = subprocess.run(["pdfinfo", str(pdf)], capture_output=True, text=True, check=True).stdout
     pages = int(re.search(r"^Pages:\s+(\d+)", info, re.M).group(1))
     text = subprocess.run(["pdftotext", str(pdf), "-"], capture_output=True, text=True, check=True).stdout
@@ -421,6 +446,59 @@ def test_stock_pandoc_styling_does_not_fit_control():
         chromatic, _ = _chromatic_pixels(r["pdf"], work)
         assert chromatic > 0, \
             "stock pandoc should paint headings blue; if it no longer does, the black-and-white test proves nothing"
+
+
+def test_documented_reportlab_render_keeps_the_template_layout():
+    """Branch (b)'s reportlab block, run as written, must lay the CV out as (a) does.
+
+    Where LibreOffice is missing, branch (b) draws the PDF with reportlab, whose
+    own defaults (Helvetica, its own spacing) are not the template's: left to
+    improvise, the agent packed paragraphs and entries together (issue #13).
+    The block in ``references/02-master-cv.md`` reads page size, margins, font
+    sizes and spacing from the .docx itself. Run it on the fixture's .docx and
+    check it against the generator's own numbers and the phase 2 gate.
+    """
+    _need("pandoc", "pdfinfo", "pdftotext", "pdffonts", "fc-match")
+    _need_font("Carlito", "fonts-crosextra-carlito")
+    _need_modules("docx", "reportlab")
+    from docx import Document
+
+    text = (SKILL / "references" / "02-master-cv.md").read_text(encoding="utf-8")
+    blocks = [b for b in re.findall(r"```python\n(.*?)```", text, re.S) if "BaseDocTemplate" in b]
+    assert len(blocks) == 1, "expected one reportlab block in references/02-master-cv.md, found %d" % len(blocks)
+    with tempfile.TemporaryDirectory() as tmp:
+        work = pathlib.Path(tmp)
+        docx, pdf = work / "cv.docx", work / "cv.pdf"
+        subprocess.run(["pandoc", "-f", "markdown-smart", str(FIXTURE), "-o", str(docx),
+                        "--reference-doc=%s" % SHIPPED], check=True)
+        code = (blocks[0]
+                .replace("<path of the regular .ttf>", _font_file("Carlito", "Regular"))
+                .replace("<path of the bold .ttf>", _font_file("Carlito", "Bold"))
+                .replace("CV_<Name>_Master_<Language>.pdf", str(pdf)))
+        ns = {"doc": Document(str(docx))}
+        exec(code, ns)
+
+        for style_id, name in (("Heading1", "Heading 1"), ("Heading2", "Heading 2"), ("Heading3", "Heading 3"),
+                               ("BodyText", "Body Text"), ("Compact", "Compact")):
+            size_hp, before, after = next(s[1:] for s in mk.STYLES if s[0] == style_id)
+            got = ns["styles"][name]
+            assert (got.fontSize, got.spaceBefore, got.spaceAfter) == (size_hp / 2, before / 20, after / 20), \
+                "%s: reportlab draws %.1fpt, %.1fpt before, %.1fpt after; the template says %.1fpt, %.1fpt, %.1fpt" % (
+                    name, got.fontSize, got.spaceBefore, got.spaceAfter, size_hp / 2, before / 20, after / 20)
+
+        r = _measure(pdf)
+        assert r["pages"] <= MAX_PAGES, "reportlab rendered the fixture on %d pages (gate: <= %d)" % (r["pages"], MAX_PAGES)
+        assert len(r["text"]) >= MIN_TEXT_CHARS, "PDF yields only %d characters -- is it an image?" % len(r["text"])
+        for needle in MUST_SURVIVE:
+            assert needle in r["text"], "%r did not survive into the PDF text" % needle
+        assert re.search(r"^\+54 11 5555 0000", r["text"], re.M), \
+            "the header's line break was lost: the contact line no longer starts its own line"
+        assert r["left_margin_pt"] is not None and abs(r["left_margin_pt"] - HALF_INCH_PT) < 4, \
+            "left margin measured at %.1fpt; expected ~%.0fpt (half an inch)" % (r["left_margin_pt"], HALF_INCH_PT)
+        out = subprocess.run(["pdffonts", str(pdf)], capture_output=True, text=True, check=True).stdout
+        families = {line.split()[0].split("+")[-1].split("-")[0] for line in out.splitlines()[2:] if line.strip()}
+        assert families and families <= {"Carlito", "Calibri"}, \
+            "PDF embeds %s; expected only Calibri/Carlito" % sorted(families)
 
 
 # --------------------------------------------------------------------------- #

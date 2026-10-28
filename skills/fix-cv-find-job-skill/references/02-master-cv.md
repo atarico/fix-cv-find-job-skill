@@ -230,7 +230,61 @@ for child in list(body)[:-1]:   # keep the final sectPr: page size and margins
 ```
 
 Render the .pdf from that .docx where LibreOffice exists, with the same command
-and throwaway profile as (a), or build it with `reportlab`. Also write the clean Markdown already produced above to a file,
+and throwaway profile as (a). Without LibreOffice, draw it with `reportlab`
+from the same `doc`, once the CV is written into it. Take the layout from the
+template, never from reportlab's defaults, which are another font and other
+spacing: left to improvise, paragraphs and entries end up packed together.
+The block below reads the page size, the margins, and each style's size,
+weight and space before and after from the .docx itself. Register Carlito or
+Calibri from the files the probe's `fc-list` printed. With neither installed,
+use the closest sans-serif face the system has, say which, and let the gate
+below decide.
+
+```python
+from xml.sax.saxutils import escape
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate, Paragraph
+
+pdfmetrics.registerFont(TTFont("CV", "<path of the regular .ttf>"))
+pdfmetrics.registerFont(TTFont("CV-Bold", "<path of the bold .ttf>"))
+pdfmetrics.registerFontFamily("CV", normal="CV", bold="CV-Bold", italic="CV", boldItalic="CV-Bold")
+
+def pt(length):  # a python-docx length; None where the style sets none
+    return length.pt if length is not None else 0
+
+def style_of(name):  # the template's own values
+    s = doc.styles[name]
+    size = pt(s.font.size) or 10
+    return ParagraphStyle(name, fontName="CV-Bold" if s.font.bold else "CV",
+                          fontSize=size, leading=size * 1.22,  # Calibri's single spacing
+                          spaceBefore=pt(s.paragraph_format.space_before),
+                          spaceAfter=pt(s.paragraph_format.space_after))
+
+styles = {n: style_of(n) for n in ("Heading 1", "Heading 2", "Heading 3", "Body Text", "Compact")}
+
+def markup(paragraph):  # keeps bold runs, line breaks, and the text of links
+    parts = []
+    for part in paragraph.iter_inner_content():
+        text = escape(part.text).replace("\n", "<br/>")
+        parts.append("<b>%s</b>" % text if getattr(part, "bold", False) else text)
+    return "".join(parts)
+
+sec = doc.sections[0]
+width, height = pt(sec.page_width), pt(sec.page_height)
+left, right, top, bottom = (pt(m) for m in (sec.left_margin, sec.right_margin, sec.top_margin, sec.bottom_margin))
+# A Frame pads its content by 6pt unless told not to: the margins are the template's alone.
+frame = Frame(left, bottom, width - left - right, height - top - bottom,
+              leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
+pdf = BaseDocTemplate("CV_<Name>_Master_<Language>.pdf", pagesize=(width, height),
+                      initialFontName="CV",  # else every page also embeds Helvetica
+                      pageTemplates=[PageTemplate(frames=[frame])])
+pdf.build([Paragraph(markup(p), styles.get(p.style.name, styles["Body Text"]))
+           for p in doc.paragraphs if p.text.strip()])
+```
+
+Also write the clean Markdown already produced above to a file,
 named `CV_<Name>_Master_<Language>.md`. The verification gate below applies to
 this branch exactly as to (a): two pages or fewer, real text. If a package is
 missing, try installing it once (`pip install python-docx reportlab`); with no
